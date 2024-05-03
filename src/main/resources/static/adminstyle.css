@@ -1,0 +1,65 @@
+/* Basic styling for the page */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;  
+    align-items: center;   
+    background-color: lightgray; /* Using a predefined color name */
+    font-family: Arial; 
+}
+
+/* Styling for the form */
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* Styling for horizontal alignment of labels and text fields */
+.form-group {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Styling for labels */
+label {
+    width: 100px;
+    margin-right: 10px;
+}
+
+/* Styling for input fields */
+input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid gray; /* Using a predefined color name */
+}
+
+/* Styling for the buttons */
+.buttons {
+    text-align: right;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-back {
+    background-color: lightgray; /* Using a predefined color name */
+    color: black; /* Using a predefined color name */
+}
+
+.btn-login {
+    background-color: green;
+    color: white;
+}

@@ -2,35 +2,22 @@
 <html lang="en">
 <head>
     <title>Login Page</title>
-    <style>
-        /* Simple styling for buttons */
-        .btn {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .btn-admin {
-            background-color: #4CAF50; /* Green */
-            color: white;
-        }
-        .btn-manager {
-            background-color: #2196F3; /* Blue */
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="Home.css"> <!-- Link to external CSS -->
 </head>
 <body>
-    <h1>Welcome to the Employee Management System</h1>
-    <p>Choose your login option:</p>
+    <!-- Outer container for content -->
+    <div class="content-container">
+        <!-- Images for admin and manager -->
+        <div class="images">
+            <img src="admin.jpg" alt="Admin" title="Admin"> <!-- Image for admin -->
+            <img src="manager.jpg" alt="Manager" title="Manager"> <!-- Image for manager -->
+        </div>
 
-    <!-- Button leading to adminlogin.html -->
-    <a href="AdminLogin.html" class="btn btn-admin">Admin Login</a>
-
-    <!-- Button leading to managerlogin.html -->
-    <a href="managerlogin.html" class="btn btn-manager">Manager Login</a>
-
+        <!-- Buttons for admin and manager -->
+        <div class="button-container">
+            <a href="AdminLogin.html" class="btn btn-admin">Admin Login</a>
+            <a href="managerlogin.html" class="btn btn-manager">Manager Login</a>
+        </div>
+    </div>
 </body>
 </html>

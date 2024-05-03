@@ -1,0 +1,58 @@
+/* Basic styling for centering content */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-family: Arial, sans-serif; 
+}
+
+/* Styling for the container holding images and buttons */
+.content-container {
+    display: flex;
+    flex-direction: column; /* Arrange content vertically */
+    justify-content: center;
+    align-items: center; /* Center the content horizontally */
+}
+
+/* Styling for the images */
+.images {
+    display: flex; /* Display images side by side */
+    justify-content: center;
+    margin-bottom: 20px; /* Space below images */
+}
+
+.images img {
+    width: 100px; /* Set a fixed width for images */
+    height: 100px; /* Set a fixed height for images */
+    margin: 10px; /* Space between images */
+    border-radius: 50%; /* Make images circular */
+    object-fit: cover; /* Ensure the images cover the whole area */
+}
+
+/* Styling for the buttons */
+.button-container {
+    display: flex;
+    justify-content: center; /* Align buttons horizontally */
+}
+
+.btn {
+    padding: 10px 20px; /* Adds padding around the button */
+    margin: 10px; /* Adds space between buttons */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-admin {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.btn-manager {
+    background-color: #2196F3; /* Blue */
+    color: white;
+}

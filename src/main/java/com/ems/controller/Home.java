@@ -12,19 +12,15 @@ import com.ems.service.AdminImpl;
 @Controller
 @RequestMapping("/ems")
 public class Home {
-	
 	private AdminImpl adminImpl;
-	
 	public Home(AdminImpl adminImpl) {
 		super();
 		this.adminImpl = adminImpl;
 	}
-
 	@GetMapping("/home")
 	public String home() {
 		return "redirect:/Home.html";
 	}
-	
 	@PostMapping("/adminlogin")
 	public String adminAuthenticate(@RequestParam("name") String name,
 			@RequestParam("password") String password) {
