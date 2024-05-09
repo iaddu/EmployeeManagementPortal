@@ -8,27 +8,32 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "adminlogin")
-public class Admin {
-	@Id    
-	@GeneratedValue(strategy = GenerationType.AUTO)  // Auto-generate the ID
+@Table(name="Employee")
+public class Employee {
+	@Id
+	@GeneratedValue(strategy =GenerationType.AUTO )
 	@Column(name="id")
-	private int id;
+	public int id;
 	@Column(name="name")
-	private String name;
+	public String name;
+	@Column(name="email")
+	public String email;
 	@Column(name="password")
-	private String password;
+	public String password;
 	
-	public Admin() {
+	
+	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Admin(int id, String name, String password) {
+	
+	public Employee(String name, String email, String password) {
 		super();
-		this.id = id;
 		this.name = name;
+		this.email = email;
 		this.password = password;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -41,18 +46,19 @@ public class Admin {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Override
-	public String toString() {
-		return "AdminLogin [id=" + id + ", name=" + name + ", password=" + password + "]";
-	}
 	
 	
 	
-
 }
