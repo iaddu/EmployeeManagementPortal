@@ -17,13 +17,14 @@ public class SecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 	@Autowired
 	public MyUserDetailService myUserDetailService;
 	   @Bean
 	    public CustomAuthenticationSuccessHandler authenticationSuccessHandler() {
 	        return new CustomAuthenticationSuccessHandler(); // Return an instance of the custom success handler
-	    }
-	   /*
+	  }
+	   
 	@Bean
 	public AuthenticationProvider authenticationprovider() {
 		DaoAuthenticationProvider provider =new DaoAuthenticationProvider();
@@ -31,20 +32,22 @@ public class SecurityConfig {
 		provider.setPasswordEncoder(passwordEncoder());
 		return provider;
 	}
-	*/
+	
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return myUserDetailService;
 	}
+	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 	    return httpSecurity
 	        .csrf(csrf->csrf.disable())
 	        .authorizeHttpRequests(auth -> auth
-	        		 .requestMatchers("/ems/**","/home/home.html").permitAll()
-	 	            .requestMatchers("/admin/**").hasRole("ADMIN")
-	               .requestMatchers("/manager/**").hasRole("MANAGER")
-	 	           .requestMatchers("/emp/**").hasRole("EMPLOYEE")
+	      //.requestMatchers("/ems/**","/home/**").permitAll()
+	         .requestMatchers("/homefiles/**","/adminfiles/**").permitAll()
+	 	        .requestMatchers("/admin/**").hasRole("ADMIN")
+	            .requestMatchers("/manager/**","/managerfiles/**").hasRole("MANAGER")
+	 	         .requestMatchers("/emp/**","/employeefiles/**").hasRole("EMPLOYEE")
 	            .anyRequest().authenticated())
 	        .formLogin(form -> form
 	                .successHandler(authenticationSuccessHandler()) // Use the custom success handler

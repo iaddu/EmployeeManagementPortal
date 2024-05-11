@@ -16,13 +16,18 @@ public class Home {
 	PasswordEncoder passwordEncoder;
     @Autowired
  	UserService userService; 
-    
-	@GetMapping("/happy")
+    //This was created to add Admin 
+     //And also at that time /ems/happy is permitted to all in SecurityConfig
+	/*@GetMapping("/happy")
     public String unhappy() {
 		User user=new User("adi@123","123","ADMIN");
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.createUser(user);
 		System.out.println("hello");
-		return "redirect:/home/home.html";
-  }
+		return "redirect:/homefiles/home.html";
+  }*/
+    
+   
+    
+    
 }

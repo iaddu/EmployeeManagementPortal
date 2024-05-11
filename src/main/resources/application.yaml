@@ -9,3 +9,4 @@ spring:
     hibernate:
       ddl_auto: update
 
+

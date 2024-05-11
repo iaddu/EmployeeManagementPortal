@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
+	
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
@@ -29,6 +29,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_MANAGER"))) {
             response.sendRedirect("/manager/home");
         } else {
+        	System.out.println("helelo");
             response.sendRedirect("/bad-credentials");
         }
     }
