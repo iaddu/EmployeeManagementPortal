@@ -2,162 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Employee Registration</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .form-container {
-            width: 40%;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .form-group {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        label {
-            text-align: left;
-            font-weight: bold;
-            padding-right: 10px;
-            width: 30%;
-        }
-
-        input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            flex: 1;
-        }
-
-        .horizontal-radio-group {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .vertical-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 20px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            gap: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            flex: 1;
-        }
-
-        .button:hover {
-            background-color: #45a049;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
 </head>
 <body>
-    <div class="form-container">
-        <h2 style="color: black; font-weight: bold;">REGISTRATION</h2>
-        <form action="/admin/registerEmp" method="post">
-            <div class="form-group">
-                <label for="first-name">First Name:</label>
-                <input type="text" id="first-name" name="firstName" required>
-            </div>
-
-            <div class="form-group">
-                <label for="last-name">Last Name:</label>
-                <input type="text" id="last-name" name="lastName" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address">
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="text" id="password" name="password">
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone No:</label>
-                <input type="text" id="phone" name="phone">
-            </div>
-
-            <div class="vertical-group">
-                <div class="horizontal-radio-group">
-                    <label>Gender:</label>
-                    <label><input type="radio" name="gender" value="male" required> Male</label>
-                    <label><input type="radio" name="gender" value="female" required> Female</label>
-                </div>
-
-                <div class="horizontal-radio-group">
-                    <label>Role:</label>
-                    <label><input type="radio" name="role" value="MANAGER" required> MANAGER</label>
-                    <label><input type="radio" name="role" value="EMPLOYEE" required> EMPLOYEE</label>
-                </div>
-            </div>
-
-            <div class="form-group checkbox-group">
-                <label for="skills">Skills:</label>
-                <label><input type="checkbox" name="skills" value="C"> C</label>
-                <label><input type="checkbox" name="skills" value="JAVA"> JAVA</label>
-                <label><input type="checkbox" name="skills" value="ML"> ML</label>
-                <label><input type="checkbox" name="skills" value="AI"> AI</label>
-                <label><input type="checkbox" name="skills" value="Spring"> Spring</label>
-                <label><input type="checkbox" name="skills" value="MERN"> MERN</label>
-                <label><input type="checkbox" name="skills" value="BlockChain"> BlockChain</label>
-                <label><input type="checkbox" name="skills" value="Servlet"> Servlet</label>
-                <label><input type="checkbox" name="skills" value="Server Design"> Server Design</label>
-                <label><input type="checkbox" name="skills" value="Web Developer"> Web Developer</label>
-                <label><input type="checkbox" name="skills" value="App Developer"> App Developer</label>
-            </div>
-
-            <div class="button-group"> 
-                <button type="submit" class="button">Register</button>
-                <a href="/adminfiles/adminhome.html" class="button">Back</a>
-            </div>
-        </form>
+    <h1>Welcome Admin!</h1>
+    <div>
+        <h2>Options:</h2>
+        <button onclick="window.location.href='addEmp.html'">Add Employee</button>
+        <button>View Employees</button>
+        <button>Add Manager</button>
+        <button>View Managers</button>
+        <button>Add Project</button>
+        <button>View Projects</button>
+        <button>Assign Project to Employee</button>
+        <button>Remove Project from Employee</button>
+        <button>Logout</button>
     </div>
 </body>
 </html>

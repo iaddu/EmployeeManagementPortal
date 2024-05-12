@@ -16,7 +16,7 @@
         }
 
         .form-container {
-            width: 50%;
+            width: 40%;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
@@ -26,26 +26,49 @@
 
         .form-group {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         label {
-            width: 30%;
             text-align: left;
             font-weight: bold;
+            padding-right: 10px;
+            width: 30%;
         }
 
-        input, select {
-            width: 65%;
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        .horizontal-radio-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vertical-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 10px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
         .button {
-            width: 100%;
             padding: 10px;
             background-color: #4CAF50;
             color: white;
@@ -53,18 +76,24 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            flex: 1;
         }
 
         .button:hover {
             background-color: #45a049;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
         }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h2 style="color: black; font-weight: bold;">REGISTRATION</h2>
-        
-        <form action="/admin/addEmp" method="post">
+        <form action="/admin/registerEmp" method="post">
             <div class="form-group">
                 <label for="first-name">First Name:</label>
                 <input type="text" id="first-name" name="firstName" required>
@@ -84,52 +113,51 @@
                 <label for="address">Address:</label>
                 <input type="text" id="address" name="address">
             </div>
-
+            <!--   
             <div class="form-group">
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob">
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password">
             </div>
-
-            <div class="form-group">
-                <label for="skills">Skills:</label>
-                <select id="skills" name="skills" multiple>
-                    <option value="C">C</option>
-                    <option value="JAVA">JAVA</option>
-                    <option value="ML">ML</option>
-                    <option value="AI">AI</option>
-                    <option value="Spring">Spring</option>
-                    <option value="MERN">MERN</option>
-                    <option value="BlockChain">BlockChain</option>
-                    <option value="Servlet">Servlet</option>
-                    <option value="Server Design">Server Design</option>
-                    <option value="Web Developer">Web Developer</option>
-                    <option value="App Developer">App Developer</option>
-                </select>
-            </div>
+            -->
 
             <div class="form-group">
                 <label for="phone">Phone No:</label>
                 <input type="text" id="phone" name="phone">
             </div>
 
-            <div class="form-group">
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
+            <div class="vertical-group">
+                <div class="horizontal-radio-group">
+                    <label>Gender:</label>
+                    <label><input type="radio" name="gender" value="male" required> Male</label>
+                    <label><input type="radio" name="gender" value="female" required> Female</label>
+                </div>
+
+                <div class="horizontal-radio-group">
+                    <label>Role:</label>
+                    <label><input type="radio" name="role" value="MANAGER" required> MANAGER</label>
+                    <label><input type="radio" name="role" value="EMPLOYEE" required> EMPLOYEE</label>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="role">Role:</label>
-                <select id="role" name="role">
-                    <option value="MANAGER">MANAGER</option>
-                    <option value="EMPLOYEE">EMPLOYEE</option>
-                </select>
+            <div class="form-group checkbox-group">
+                <label for="skills">Skills:</label>
+                <label><input type="checkbox" name="skills" value="C"> C</label>
+                <label><input type="checkbox" name="skills" value="JAVA"> JAVA</label>
+                <label><input type="checkbox" name="skills" value="ML"> ML</label>
+                <label><input type="checkbox" name="skills" value="AI"> AI</label>
+                <label><input type="checkbox" name="skills" value="Spring"> Spring</label>
+                <label><input type="checkbox" name="skills" value="MERN"> MERN</label>
+                <label><input type="checkbox" name="skills" value="BlockChain"> BlockChain</label>
+                <label><input type="checkbox" name="skills" value="Servlet"> Servlet</label>
+                <label><input type="checkbox" name="skills" value="Server Design"> Server Design</label>
+                <label><input type="checkbox" name="skills" value="Web Developer"> Web Developer</label>
+                <label><input type="checkbox" name="skills" value="App Developer"> App Developer</label>
             </div>
 
-            <button type="submit" class="button">Register</button>
-            <a href="/adminfiles/adminhome.html" class="button">Back</a>
+            <div class="button-group"> 
+                <button type="submit" class="button">Register</button>
+                <a href="/adminfiles/adminhome.html" class="button">Back</a>
+            </div>
         </form>
     </div>
 </body>

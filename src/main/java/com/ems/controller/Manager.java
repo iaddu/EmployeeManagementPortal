@@ -12,5 +12,4 @@ public class Manager {
 	public String managerHome() {
 		return "redirect:/managerfiles/managerHome.html";
 	}
-
 }
