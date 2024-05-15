@@ -17,10 +17,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                                         Authentication authentication) throws IOException {
         // Get user details from authentication
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        
         // Get authorities (roles) of the user
         Collection<? extends SimpleGrantedAuthority> authorities = (Collection<? extends SimpleGrantedAuthority>) userDetails.getAuthorities();
-
         // Redirect based on the role
         if (authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             response.sendRedirect("/admin/home");

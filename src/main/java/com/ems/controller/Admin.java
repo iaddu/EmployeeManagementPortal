@@ -1,6 +1,7 @@
 package com.ems.controller;
 
 import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -8,10 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.ems.model.Employee;
 import com.ems.model.Skill;
 import com.ems.service.EmailService;
 import com.ems.service.EmpService;
+import com.ems.service.ProjectService;
 import com.ems.service.SkillService;
 import com.ems.service.UserService;
 
@@ -20,16 +23,20 @@ import com.ems.service.UserService;
 public class Admin {
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
    
 	@Autowired
- 	UserService userService; 
+ 	private UserService userService; 
     
     @Autowired
- 	EmpService empService;  
+ 	private EmpService empService;  
     
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
+    
+    @Autowired
+    private ProjectService projectService;
+   
 	
     @GetMapping("/home")
 	public String adminHome() {
@@ -73,6 +80,14 @@ public class Admin {
 		 	empService.deleteEmp(email);
 	        return "redirect:/adminfiles/adminhome.html"; // Redirect to the admin home page
 	 }
+	 
+
+	 @PostMapping("/addProject")
+		 public String addProject(@RequestParam("proName") String proName) {
+			 	projectService.createService(proName);
+		        return "redirect:/adminfiles/adminhome.html"; // Redirect to the admin home page
+		 }
+		 
 	 
 	 }
 	    
