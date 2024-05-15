@@ -1,53 +1,64 @@
 package com.ems.model;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-// DTO class to represent the data from the registration form
 @Entity
 @Table(name="Employee")
 public class Employee {
 	@Id
 	@GeneratedValue(strategy =GenerationType.AUTO )
-	@Column(name="id")
-	private int Id;
+	@Column(name="empId")
+	private int empId;
 	
 	@Column(name="firstName")
     private String firstName;
+	
 	@Column(name="lastName")
     private String lastName;
-	@Column(name="email")
+	
+	
+	@Column(name="email",unique=true)
     private String email;
+	
 	@Column(name="address")
     private String address;
+	
 	@Column(name="phone")
     private String phone;
 	
 	@Column(name="gender")
     private String gender;
+	
 	@Column(name="role")
     private String role;
 	
 	@Column(name="password")
     private String password;
 	
-	/*@Column(name="skills")
-    private List<String> skills; // Capturing multiple skills as a list
-*/
-    // Default constructor
+	@Column(name="dob")
+	private String dob;
 	
-    public Employee() {
+	
+	@ManyToMany()
+	@JoinTable(name="emp_skill",
+			joinColumns=@JoinColumn(name="empId"),
+			inverseJoinColumns=@JoinColumn(name="skillId"))
+	private Set<Skill> haveSkills;
+	
+	public Employee() {
     }
-    
-
     public Employee(String firstName, String lastName, String email, String address, String phone,
-			String gender, String role,String password) {
+			String gender, String role,String password,String dob,Set<Skill> skillSet) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -57,10 +68,22 @@ public class Employee {
 		this.gender = gender;
 		this.role = role;
 		this.password=password;
+		this.dob=dob;
+		this.haveSkills=skillSet;
+	}
+	// Getters and Setters for each field
+    
+// Default constructor
+	
+    public Set<Skill> getHaveSkills() {
+		return haveSkills;
 	}
 
 
-	// Getters and Setters for each field
+	public void setHaveSkills(Set<Skill> haveSkills) {
+		this.haveSkills = haveSkills;
+	}
+	
     public String getFirstName() {
         return firstName;
     }
@@ -117,6 +140,14 @@ public class Employee {
 
     public void setRole(String role) {
         this.role = role;
+    }
+    
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
     
     public String getPassword() {
