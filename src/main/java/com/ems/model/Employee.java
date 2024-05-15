@@ -2,6 +2,7 @@ package com.ems.model;
 
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,7 +50,7 @@ public class Employee {
 	private String dob;
 	
 	
-	@ManyToMany()
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="emp_skill",
 			joinColumns=@JoinColumn(name="empId"),
 			inverseJoinColumns=@JoinColumn(name="skillId"))
@@ -134,7 +135,13 @@ public class Employee {
         this.gender = gender;
     }
 
-    public String getRole() {
+    public int getEmpId() {
+		return empId;
+	}
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+	public String getRole() {
         return role;
     }
 

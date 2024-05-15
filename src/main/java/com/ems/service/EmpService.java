@@ -53,4 +53,12 @@ public class EmpService {
 	    empDao.save(emp);
 	}
 	
+	@Transactional
+	public void deleteEmp(String email) {
+		
+		Employee emp=empDao.getByEmail(email);
+		empDao.deleteEmpSkillsByEmployeeId(emp.getEmpId());
+		empDao.delete(emp);
+		System.out.println("deleted success");
+	}
 }

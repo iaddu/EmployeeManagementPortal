@@ -68,5 +68,11 @@ public class Admin {
 	        return "redirect:/adminfiles/adminhome.html"; // Redirect to the admin home page
 	    }
 	 
+	 @PostMapping("/deleteEmp")
+	 public String deleteEmp(@RequestParam("email") String email) {
+		 	empService.deleteEmp(email);
+	        return "redirect:/adminfiles/adminhome.html"; // Redirect to the admin home page
+	 }
+	 
+	 }
 	    
-}
