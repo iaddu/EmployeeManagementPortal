@@ -2,6 +2,8 @@ package com.ems.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -54,7 +58,23 @@ public class Employee {
 	@JoinTable(name="emp_skill",
 			joinColumns=@JoinColumn(name="empId"),
 			inverseJoinColumns=@JoinColumn(name="skillId"))
+	@JsonIgnore
 	private Set<Skill> haveSkills;
+	
+	//many employees can work for one projet
+	
+	@ManyToOne
+	@JoinColumn(name = "proId")
+	@JsonIgnore
+	private Project assignedProject;
+	
+	
+
+	//
+	@OneToMany(mappedBy="haveManager")
+	private Set<Project> haveProject;
+	
+	
 	
 	public Employee() {
     }
@@ -102,7 +122,7 @@ public class Employee {
     }
 
     public String getEmail() {
-    	System.out.println("email found");
+    	//System.out.println("email found");
         return email;
     }
 
@@ -158,7 +178,7 @@ public class Employee {
     }
     
     public String getPassword() {
-    	System.out.println("password found");
+    	//System.out.println("password found");
         return password;
     }
 
@@ -166,6 +186,25 @@ public class Employee {
         this.password= password;
     }
     
+    public Project getAssignedProject() {
+		return assignedProject;
+	}
+	public void setAssignedProject(Project assignedProject) {
+		this.assignedProject = assignedProject;
+	}
+	public Set<Project> getHaveProject() {
+		return haveProject;
+	}
+	public void setHaveProject(Set<Project> haveProject) {
+		this.haveProject = haveProject;
+	}
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", address=" + address + ", phone=" + phone + ", gender=" + gender + ", role=" + role + ", password="
+				+ password + ", dob=" + dob + ", haveSkills=" + haveSkills + ", assignedProject=" + assignedProject
+				+ ", haveProject=" + haveProject + "]";
+	}
 
 /*
     public List<String> getSkills() {

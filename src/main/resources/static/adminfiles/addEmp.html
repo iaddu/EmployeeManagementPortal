@@ -93,7 +93,7 @@
 <body>
     <div class="form-container">
         <h2 style="color: black; font-weight: bold;">REGISTRATION</h2>
-        <form action="/admin/registerEmp" method="post">
+        <form id="registrationForm">
             <div class="form-group">
                 <label for="first-name">First Name:</label>
                 <input type="text" id="first-name" name="firstName" required>
@@ -119,12 +119,6 @@
                 <label for="address">Address:</label>
                 <input type="text" id="address" name="address">
             </div>
-            <!--   
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="text" id="password" name="password">
-            </div>
-            -->
 
             <div class="form-group">
                 <label for="phone">Phone No:</label>
@@ -166,5 +160,34 @@
             </div>
         </form>
     </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            const formData = new FormData(this); // Get form data
+            
+            // Send form data to server using fetch
+            fetch('/admin/registerEmp', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert(data); // Show success message
+                // Optionally, redirect to another page
+                window.location.href = '/adminfiles/adminhome.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            });
+        });
+    </script>
 </body>
 </html>

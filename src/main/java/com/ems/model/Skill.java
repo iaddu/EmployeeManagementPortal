@@ -23,17 +23,16 @@ public class Skill {
 	
 	
 	@ManyToMany(mappedBy="haveSkills")
-	
 	private Set<Employee> employee;
-	
-	
 	
 	public Set<Employee> getEmployee() {
 		return employee;
 	}
+	
 	public void setEmployee(Set<Employee> employee) {
 		this.employee = employee;
 	}
+	
 	public Skill() {
 		super();
 		// TODO Auto-generated constructor stub

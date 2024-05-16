@@ -1,5 +1,6 @@
 package com.ems.service;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -61,4 +62,14 @@ public class EmpService {
 		empDao.delete(emp);
 		System.out.println("deleted success");
 	}
+	
+	
+	public List<Employee> getUnassignedEmplyee(){
+		List<Employee> allEmployee=empDao.findAll();
+		for(Employee emp:allEmployee) {
+			if(emp.getAssignedProject()!=null)allEmployee.remove(emp);
+		}
+		return allEmployee;
+	}
+	
 }
