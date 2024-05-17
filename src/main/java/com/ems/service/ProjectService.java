@@ -2,6 +2,7 @@
 package com.ems.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,4 +27,11 @@ public class ProjectService {
 		return projectDao.findAll();
 	}
 	
+	public Project getProject(String proId) {
+		List<Project> projects=projectDao.findAll();
+		for(Project project:projects) {
+			if(project.getProId()==Integer.parseInt(proId))return project;
+		}
+		return null;
+	}
 }

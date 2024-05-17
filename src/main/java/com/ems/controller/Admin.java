@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
+import com.ems.model.ProjectDTO;
 import com.ems.model.Skill;
 import com.ems.service.EmailService;
 import com.ems.service.EmpService;
@@ -105,19 +108,22 @@ public class Admin {
 	 
 	 @GetMapping("/getAllProject")
 	 public List<Project> getAllProject(){
-		 System.out.println("all project ham");
 		List<Project> allProjectList= projectService.getAllProject();
 		return allProjectList;
 	 } 
 	 
-	 /*
-	 @GetMapping("/getEmployee")
-	 public Employee getEmployee(){
-		Employee employee= empService.getEmployee(email);
+	 
+	 @PostMapping("/viewEmployee")
+	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){
+		Employee employee= empService.getEmployee(emailDTO.getEmail());
 		return employee;
 	 } 
-	 */
+	
 	 
-
+	 @PostMapping("/viewProject")
+	 public Project getProject(@RequestBody ProjectDTO projectDTO){
+		Project project= projectService.getProject(projectDTO.getProId());
+		return project;
+	 } 
 }
 	    
