@@ -1,0 +1,21 @@
+<html>
+<head>
+
+</head>
+<body>
+<div id="listProject"></div>
+<script>
+let promise=fetch("/emp/getAllProject")
+promise.then(response=>response.json()) //response converting to object
+.then(data=>{ 
+	const parentDiv=document.getElementById("listProject");
+	data.forEach(project=>{
+		const projectDiv=document.createElement("div")
+		projectDiv.innerHTML=`
+            <p>Project Name: ${project.proName}</p>`;
+        parentDiv.appendChild(projectDiv);
+	});
+}).catch(error => console.error('Error fetching unassigned employees:', error));
+</script>
+</body>
+</html>

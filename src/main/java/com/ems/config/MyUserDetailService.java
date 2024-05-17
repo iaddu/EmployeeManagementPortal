@@ -44,7 +44,6 @@ public class MyUserDetailService implements UserDetailsService {
                     .roles(employeeObj.getRole())
                     .build();
         } 
-        
         else {
             throw new UsernameNotFoundException("no such user exists");
         }
