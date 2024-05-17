@@ -72,4 +72,12 @@ public class EmpService {
 		return allEmployee;
 	}
 	
+	public List<Employee> getAllEmployee(){
+		List<Employee> allEmployee=empDao.findAll();
+		return allEmployee;
+	}
+	
+	public Employee getEmployee(String email) {
+		return empDao.getByEmail(email);
+	}
 }

@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/manager")
-public class Manager {
+public class ManagerHome {
 	
 	@GetMapping("/home")
 	public String managerHome() {
 		return "redirect:/managerfiles/managerHome.html";
 	}
+	
 }

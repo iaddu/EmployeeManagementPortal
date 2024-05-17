@@ -1,6 +1,5 @@
 package com.ems.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ems.model.Employee;
+import com.ems.model.Project;
 import com.ems.model.Skill;
 import com.ems.service.EmailService;
 import com.ems.service.EmpService;
@@ -66,7 +66,8 @@ public class Admin {
 	 {
 		 String password=empService.createPassword();
 	     Set<Skill> st=skillService.getSkillSet(skills);
-         Employee emp=new Employee(firstName,lastName,email,address,phone,gender,role,password,dob,st);
+        
+	     Employee emp=new Employee(firstName,lastName,email,address,phone,gender,role,password,dob,st);
  		 String text="Congratulations you are successfully registered\nUsername: "+email
  				+"Password: "+password+
  				"\n";
@@ -74,8 +75,6 @@ public class Admin {
 			emailService.sendMail("iadityapatel1729@gmail.com","adityapatel91221@gmail.com",text);
  			System.out.println("email sended successfully");
 	        emp.setPassword(passwordEncoder.encode(password));
-	        
-	        
 	        empService.createEmp(emp);
 	        return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
 	    }
@@ -94,10 +93,31 @@ public class Admin {
 		 
 	 @GetMapping("/getUnassignedEmployee")
 	 public List<Employee> getUnassignedEmployee(){
-		 System.out.println("HII");
 		List<Employee> unassignedEmployeeList= empService.getUnassignedEmplyee();
 		return unassignedEmployeeList;
 	 } 
 	 
-	 }
+	 @GetMapping("/getAllEmployee")
+	 public List<Employee> getAllEmployee(){
+		List<Employee> allEmployeeList= empService.getAllEmployee();
+		return allEmployeeList;
+	 } 
+	 
+	 @GetMapping("/getAllProject")
+	 public List<Project> getAllProject(){
+		 System.out.println("all project ham");
+		List<Project> allProjectList= projectService.getAllProject();
+		return allProjectList;
+	 } 
+	 
+	 /*
+	 @GetMapping("/getEmployee")
+	 public Employee getEmployee(){
+		Employee employee= empService.getEmployee(email);
+		return employee;
+	 } 
+	 */
+	 
+
+}
 	    

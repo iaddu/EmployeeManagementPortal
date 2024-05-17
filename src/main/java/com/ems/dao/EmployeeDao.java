@@ -14,6 +14,7 @@ public interface EmployeeDao  extends JpaRepository<Employee, Integer>{
 	Optional<Employee> findEmployeeByEmail(String email);
     public void deleteByEmail(String email);
     public Employee getByEmail(String email);
+    
     @Modifying
     /*The @Modifying annotation in Spring Data JPA is used to indicate
      *  that a method modifies the database state. By default, 
