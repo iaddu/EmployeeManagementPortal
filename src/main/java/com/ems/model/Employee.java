@@ -3,6 +3,7 @@ package com.ems.model;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -58,7 +59,7 @@ public class Employee {
 	@JoinTable(name="emp_skill",
 			joinColumns=@JoinColumn(name="empId"),
 			inverseJoinColumns=@JoinColumn(name="skillId"))
-	@JsonIgnore
+	@JsonManagedReference
 	private Set<Skill> haveSkills;
 	
 	//many employees can work for one projet
@@ -96,14 +97,8 @@ public class Employee {
     
 // Default constructor
 	
-    public Set<Skill> getHaveSkills() {
-		return haveSkills;
-	}
+   
 
-
-	public void setHaveSkills(Set<Skill> haveSkills) {
-		this.haveSkills = haveSkills;
-	}
 	
     public String getFirstName() {
         return firstName;
@@ -146,7 +141,6 @@ public class Employee {
         this.phone = phone;
     }
 
-    
     public String getGender() {
         return gender;
     }
@@ -192,12 +186,24 @@ public class Employee {
 	public void setAssignedProject(Project assignedProject) {
 		this.assignedProject = assignedProject;
 	}
+	
 	public Set<Project> getHaveProject() {
 		return haveProject;
 	}
 	public void setHaveProject(Set<Project> haveProject) {
 		this.haveProject = haveProject;
 	}
+	
+	
+
+	public void setHaveSkills(Set<Skill> haveSkills) {
+		this.haveSkills = haveSkills;
+	}
+	
+	 public Set<Skill> getHaveSkills() {
+			return haveSkills;
+		}
+	 
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email

@@ -15,7 +15,6 @@ form {
             border-radius: 5px;
         }
 </style>
-
 </head>
 <body>
 <div>
@@ -44,6 +43,17 @@ function showEmp(){
 	.then(data=>{ 
 		const parentDiv=document.getElementById("employee");
 		const employee=data;
+		let skills = "";
+		if (employee.haveSkills && employee.haveSkills.length > 0) {
+	    employee.haveSkills.forEach(skill => {
+	        skills += skill.skillName + ", ";
+	    });
+	    // Remove the trailing comma and space
+	    skills = skills.slice(0, -2);
+		}
+		else {
+	    skills = "No skills available";
+		}
 		parentDiv.innerHTML = `
             <h2>${employee.firstName} ${employee.lastName}</h2>
             <p>Email: ${employee.email}</p>
@@ -52,6 +62,7 @@ function showEmp(){
             <p>Gender: ${employee.gender}</p>
             <p>Role: ${employee.role}</p>
             <p>Date of Birth: ${employee.dob}</p>
+            <p>Skills:${skills}</p>
         `;
 	}).catch(error => console.error('Error fetching unassigned employees:', error));
 };

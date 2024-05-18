@@ -103,15 +103,20 @@ public class Admin {
 	 @GetMapping("/getAllEmployee")
 	 public List<Employee> getAllEmployee(){
 		List<Employee> allEmployeeList= empService.getAllEmployee();
+		for(Employee emp:allEmployeeList) {
+			System.out.println(emp);
+			System.out.println(emp.getHaveSkills());
+			System.out.println();
+		}
 		return allEmployeeList;
 	 } 
 	 
 	 @GetMapping("/getAllProject")
 	 public List<Project> getAllProject(){
 		List<Project> allProjectList= projectService.getAllProject();
+		
 		return allProjectList;
 	 } 
-	 
 	 
 	 @PostMapping("/viewEmployee")
 	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){

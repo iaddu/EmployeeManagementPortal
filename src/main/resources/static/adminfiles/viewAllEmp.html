@@ -11,6 +11,18 @@ promise.then(response => response.json())
     // Iterate over each employee and create HTML elements to display their information
     data.forEach(employee => {
         const employeeDiv = document.createElement('div');
+    // Iterate over the skills and create a comma-separated string
+    let skills = "";
+	if (employee.haveSkills && employee.haveSkills.length > 0) {
+    employee.haveSkills.forEach(skill => {
+        skills += skill.skillName + ", ";
+    });
+    // Remove the trailing comma and space
+    skills = skills.slice(0, -2);
+	}
+	else {
+    skills = "No skills available";
+	}
         employeeDiv.innerHTML = `
             <h2>${employee.firstName} ${employee.lastName}</h2>
             <p>Email: ${employee.email}</p>
@@ -19,6 +31,7 @@ promise.then(response => response.json())
             <p>Gender: ${employee.gender}</p>
             <p>Role: ${employee.role}</p>
             <p>Date of Birth: ${employee.dob}</p>
+            <p>Skills:${skills}</p>
         `;
         employeeListDiv.appendChild(employeeDiv);
 });  

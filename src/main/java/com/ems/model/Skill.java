@@ -2,6 +2,8 @@ package com.ems.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ public class Skill {
 	
 	
 	@ManyToMany(mappedBy="haveSkills")
+	@JsonBackReference
 	private Set<Employee> employee;
 	
 	public Set<Employee> getEmployee() {
@@ -55,4 +58,10 @@ public class Skill {
 		this.skillName = skillName;
 	}
 
+	@Override
+	public String toString() {
+		return "Skill [skillName=" + skillName + "]";
+	}
+
+	
 }
