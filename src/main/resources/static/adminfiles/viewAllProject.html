@@ -12,6 +12,7 @@ promise.then(response=>response.json()) //response converting to object
 	data.forEach(project=>{
 		const projectDiv=document.createElement("div")
 		projectDiv.innerHTML=`
+			<p>Project Id:${project.proId}</p>
             <p>Project Name: ${project.proName}</p>`;
         parentDiv.appendChild(projectDiv);
 	});

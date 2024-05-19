@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ems.model.Employee;
 @Repository
 public interface EmployeeDao  extends JpaRepository<Employee, Integer>{
-	Optional<Employee> findEmployeeByEmail(String email);
+	public Optional<Employee> findEmployeeByEmail(String email);
     public void deleteByEmail(String email);
     public Employee getByEmail(String email);
+    public Optional<Employee> findEmployeeByempId(int empId);
     
     @Modifying
     /*The @Modifying annotation in Spring Data JPA is used to indicate

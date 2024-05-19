@@ -1,6 +1,7 @@
 package com.ems.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
@@ -9,17 +10,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ems.dao.EmployeeDao;
+import com.ems.dao.ProjectDao;
 import com.ems.dao.SkillDao;
 import com.ems.model.Employee;
+import com.ems.model.Project;
 import com.ems.model.Skill;
 
 @Service
 public class EmpService {
 	@Autowired
-	EmployeeDao empDao;
+	private EmployeeDao empDao;
 	
 	@Autowired
-	SkillDao skillDao;
+	private SkillDao skillDao;
+	
+	@Autowired
+	private ProjectDao projectDao;
 	
 	
 	@Transactional
@@ -80,4 +86,21 @@ public class EmpService {
 	public Employee getEmployee(String email) {
 		return empDao.getByEmail(email);
 	}
+	
+	@Transactional
+	public void assignManager(String managerId,String projectId) {
+		int empId=Integer.parseInt(managerId);
+		int proId=Integer.parseInt(projectId);
+		Optional<Employee> optionalEmployee = empDao.findEmployeeByempId(empId);
+		Optional<Project> optionalProject=projectDao.findProjectByproId(proId);
+        if (optionalEmployee.isPresent() && optionalProject.isPresent()) {
+            Employee employee = optionalEmployee.get();
+            Project project=optionalProject.get();
+            project.setHaveManager(employee);
+            projectDao.save(project);
+        } else {
+            throw new RuntimeException("either employee not found or project not found" );
+        }
+	}
+	
 }

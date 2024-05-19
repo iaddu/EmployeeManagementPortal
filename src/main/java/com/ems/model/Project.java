@@ -2,6 +2,9 @@ package com.ems.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,27 +27,23 @@ public class Project {
 	@Column(name="proName")
 	private String proName;
 	
-	
-	
+	//w.r.t employee
 	@OneToMany(mappedBy="assignedProject")
+	@JsonIgnore
 	private Set<Employee> haveEmployee;
 	
 	//many project can have one common manager
+	//w.r.t manager
 	@ManyToOne
 	@JoinColumn(name = "managerId")
+	@JsonBackReference
 	private Employee haveManager;
-	
-	
 	
 	public Project() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "Project [proId=" + proId + ", proName=" + proName + ", haveEmployee=" + haveEmployee + ", haveManager="
-				+ haveManager + "]";
-	}
+	
 	public Set<Employee> getHaveEmployee() {
 		return haveEmployee;
 	}
@@ -72,6 +71,11 @@ public class Project {
 	}
 	public void setProName(String proName) {
 		this.proName = proName;
+	}
+	
+	@Override
+	public String toString() {
+		return "Project [proId=" + proId + ", proName=" + proName + "]";
 	}
 	
 }

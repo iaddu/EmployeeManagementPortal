@@ -2,6 +2,7 @@ package com.ems.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -62,17 +63,16 @@ public class Employee {
 	@JsonManagedReference
 	private Set<Skill> haveSkills;
 	
-	//many employees can work for one projet
-	
+	//many employees can work for one project
+	//w.r.t employee
 	@ManyToOne
 	@JoinColumn(name = "proId")
-	@JsonIgnore
+	//@JsonBackReference
 	private Project assignedProject;
 	
-	
-
-	//
+	//w.r.t manager
 	@OneToMany(mappedBy="haveManager")
+	@JsonManagedReference
 	private Set<Project> haveProject;
 	
 	

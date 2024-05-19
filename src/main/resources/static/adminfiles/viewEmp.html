@@ -54,6 +54,11 @@ function showEmp(){
 		else {
 	    skills = "No skills available";
 		}
+		
+		let projects="No Project Assigned";
+		if(employee.assignedProject!=null){
+			projects=employee.assignedProject.proName;
+		}	
 		parentDiv.innerHTML = `
             <h2>${employee.firstName} ${employee.lastName}</h2>
             <p>Email: ${employee.email}</p>
@@ -63,6 +68,7 @@ function showEmp(){
             <p>Role: ${employee.role}</p>
             <p>Date of Birth: ${employee.dob}</p>
             <p>Skills:${skills}</p>
+            <p>Projects:${projects}</p>
         `;
 	}).catch(error => console.error('Error fetching unassigned employees:', error));
 };

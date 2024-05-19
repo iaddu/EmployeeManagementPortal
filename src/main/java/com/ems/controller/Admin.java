@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -103,32 +104,32 @@ public class Admin {
 	 @GetMapping("/getAllEmployee")
 	 public List<Employee> getAllEmployee(){
 		List<Employee> allEmployeeList= empService.getAllEmployee();
-		for(Employee emp:allEmployeeList) {
-			System.out.println(emp);
-			System.out.println(emp.getHaveSkills());
-			System.out.println();
-		}
 		return allEmployeeList;
 	 } 
 	 
 	 @GetMapping("/getAllProject")
 	 public List<Project> getAllProject(){
 		List<Project> allProjectList= projectService.getAllProject();
-		
 		return allProjectList;
 	 } 
 	 
 	 @PostMapping("/viewEmployee")
 	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){
 		Employee employee= empService.getEmployee(emailDTO.getEmail());
+		
 		return employee;
 	 } 
 	
-	 
 	 @PostMapping("/viewProject")
 	 public Project getProject(@RequestBody ProjectDTO projectDTO){
 		Project project= projectService.getProject(projectDTO.getProId());
 		return project;
 	 } 
+	 
+	 @PostMapping("/assignManager")
+	 public void assignManager(@RequestBody AssignManagerRequest assignManagerRequest) {
+empService.assignManager(assignManagerRequest.getManagerId(), assignManagerRequest.getProId());
+	 }
+	 
 }
 	    
