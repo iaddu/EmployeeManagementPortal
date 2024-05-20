@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        th, td {
+            min-width: 80px; /* Set a minimum width for columns */
+        }
+    </style>
+</head>
+<body>
+	Enter Skill<input type="text" placeholder="Search" id="myInput">
+	<br><br>
+    <div>
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                	<th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Role</th>
+                    <th>Date of Birth</th>
+                    <th>Skills</th>
+                    <th>Projects</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                <!-- Dynamic content will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+       <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script type="text/javascript">
+   $(document).ready(function(){
+	   $("#myInput").on("keyup",function(){
+		   //alert("hii");
+		    var value=$(this).val().toLowerCase();
+		    $("#myTable tr").filter(function(){
+              var skillsColumn = $(this).find('td:nth-child(9)').text().toLowerCase();
+              $(this).toggle(skillsColumn.indexOf(value) > -1);
+		    });
+	   });
+   });
+   </script>
+   
+    <script>
+        fetch("/manager/getAllEmployee")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Log the entire response to verify structure
+
+          const employeeTableBody = document.querySelector('#employeeTable tbody');
+            
+            data.forEach(employee => {
+                // Iterate over the skills and create a comma-separated string
+                let skills = "";
+                if (employee.haveSkills && employee.haveSkills.length > 0) {
+                    employee.haveSkills.forEach(skill => {
+                        skills += skill.skillName + ", ";
+                    });
+                    // Remove the trailing comma and space
+                    skills = skills.slice(0, -2);
+                } else {
+                    skills = "No skills available";
+                }
+                
+                let projects="";
+        		if(employee.assignedProject!=null){
+        			projects=employee.assignedProject.proName;
+        		}
+        		if(employee.haveProject && employee.haveProject.length>0){
+        			 employee.haveProject.forEach(project=>{
+        				 projects+=project.proName+", ";
+        			 })
+        			 projects=projects.slice(0,-2);
+        		}
+        		if(projects==""){
+        			projects="No Project Assigned";
+        		}
+                // Create a new row and cells for each employee
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                	<td>${employee.empId}</td>
+                    <td>${employee.firstName} ${employee.lastName}</td>
+                    <td>${employee.email}</td>
+                    <td>${employee.address}</td>
+                    <td>${employee.phone}</td>
+                    <td>${employee.gender}</td>
+                    <td>${employee.role}</td>
+                    <td>${employee.dob}</td>
+                    <td>${skills}</td>
+                    <td>${projects}</td>
+                `;
+                employeeTableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching unassigned employees:', error));
+
+    </script>
+</body>
+</html>

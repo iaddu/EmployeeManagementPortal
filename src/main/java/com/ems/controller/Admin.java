@@ -128,7 +128,7 @@ public class Admin {
 	 
 	 @PostMapping("/assignManager")
 	 public void assignManager(@RequestBody AssignManagerRequest assignManagerRequest) {
-empService.assignManager(assignManagerRequest.getManagerId(), assignManagerRequest.getProId());
+		 empService.assignManager(assignManagerRequest.getManagerId(), assignManagerRequest.getProId());
 	 }
 	 
 }
