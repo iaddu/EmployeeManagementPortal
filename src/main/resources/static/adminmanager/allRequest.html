@@ -40,8 +40,8 @@
             <th style="width: 40px;">Project ID</th>
             <th style="width: 80px;">Request Status</th>
             <th style="width: 80px;">To Status</th>
-            <th class="button-column">Assign</th>
-            <th class="button-column">UnAssign</th>
+            <th class="button-column">Accept</th>
+            <th class="button-column">Reject</th>
         </tr>
     </thead>
     <tbody id="requestTableBody">
@@ -63,77 +63,81 @@
                     <td>${request.proId}</td>
                     <td>${request.reqStatus}</td>
                     <td>${request.toStatus}</td>
-<td><button class="button" onclick="accept(${request.managerId},${request.empId},${request.proId}, 'Assign')">Assign</button></td>
-                    <td><button class="button" onclick="accept(${request.reqId}, 'Unassign')">Unassign</button></td>
+                    <td><button class="button" onclick="handleAccept(${request.reqId},${request.managerId}, ${request.empId}, ${request.proId}, '${request.toStatus}')">Accept</button></td>
+                    <td><button class="button" onclick="handleReject(${request.reqId})">Reject</button></td>
                 `;
                 tableBody.appendChild(row);
             });
         })
         .catch(error => console.error('Error fetching data:', error));
 
-    
-    function accept(managerId,empId,proId, toStatus) {
-        if (toStatus === 'Assign') {
-            // Send POST request to /admin/acceptAssign
-            acceptAssign(proId,managerId, empId);
-        } else if (toStatus === 'Unassign') {
-            // Send POST request to /admin/acceptUnassign
-            acceptUnassign(proId,managerId, empId);
+    function handleAccept(reqId,managerId, empId, proId, toStatus) {
+        if (toStatus === 'assign') {
+            acceptAssign(reqId,proId, managerId, empId);
+        } else if (toStatus === 'unassign') {
+            acceptUnassign(reqId,proId, managerId, empId);
         }
     }
 
-    function reject(reqId) {
-        // Handle reject button click
-        console.log('Reject request with ID:', reqId);
-    }
-    
-    function accept(managerId, empId, proId) {
-    	    const requestData = {
-        	     proId: proId,
-    	        managerId: managerId,
-    	        empId: empId,
-    	    };
-    	    fetch('/admin/assignRequest', {
-    	        method: 'POST',
-    	        headers: {
-    	            'Content-Type': 'application/json'
-    	        },
-    	        body: JSON.stringify(requestData)
-    	    })
-    	    .then(response => {
-    	        if (response.ok) {
-    	            console.log('POST request to /admin/assignRequest successful');
-    	            // Optionally, you can reload the page or update the UI here
-    	        } else {
-    	            console.error('Error in POST request:', response.statusText);
-    	        }
-    	    })
-    	    .catch(error => console.error('Error in POST request:', error));
-    }
-    function acceptUnassign(managerId, empId, proId) {
-	    const requestData = {
-    	     proId: proId,
-	        managerId: managerId,
-	        empId: empId,
-	    };
-	    fetch('/admin/unassignRequest', {
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/json'
-	        },
-	        body: JSON.stringify(requestData)
-	    })
-	    .then(response => {
-	        if (response.ok) {
-	            console.log('POST request to /admin/assignRequest successful');
-	            // Optionally, you can reload the page or update the UI here
-	        } else {
-	            console.error('Error in POST request:', response.statusText);
-	        }
-	    })
-	    .catch(error => console.error('Error in POST request:', error));
-}
+    function handleReject(reqId) {
+        const requestData = { reqId: reqId };
 
+        fetch('/admin/rejectRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('POST request to /admin/rejectRequest successful');
+            } else {
+                console.error('Error in POST request:', response.statusText);
+            }
+        })
+        .catch(error => console.error('Error in POST request:', error));
+    }
+
+    function acceptAssign(reqId,proId, managerId, empId) {
+        const requestData = { reqId:reqId,proId: proId, managerId: managerId, empId: empId };
+
+        fetch('/admin/assignRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('POST request to /admin/assignRequest successful');
+            } else {
+                console.error('Error in POST request:', response.statusText);
+            }
+        })
+        .catch(error => console.error('Error in POST request:', error));
+    }
+
+    function acceptUnassign(reqId,proId, managerId, empId) {
+        const requestData = {reqId:reqId, proId: proId, managerId: managerId, empId: empId };
+
+        fetch('/admin/unassignRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('POST request to /admin/unassignRequest successful');
+            } else {
+                console.error('Error in POST request:', response.statusText);
+            }
+        })
+        .catch(error => console.error('Error in POST request:', error));
+    }
 </script>
 </body>
 </html>

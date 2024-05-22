@@ -137,18 +137,18 @@ public class Admin {
 	 
 	 @GetMapping("/getAllRequest")
 	 public List<Request> getAllRequest(){
-List<Request> allRequestList= requestService.getAllRequest();
+     List<Request> allRequestList= requestService.getAllRequest();
 		return allRequestList;
 	 } 
 		
 	 @PostMapping("/assignRequest")
 	 public void assignRequest(@RequestBody AssignRequest assignRequest) {
-	empService.assignThisRequest(assignRequest.getEmpId(), assignRequest.getManagerId(), assignRequest.getProId());
+	empService.assignThisRequest(assignRequest.getReqId(),assignRequest.getEmpId(), assignRequest.getManagerId(), assignRequest.getProId());
 	 }
 	 
 	 @PostMapping("/unassignRequest")
 	 public void unassignRequest(@RequestBody AssignRequest assignRequest) {
-	empService.unassignThisRequest(assignRequest.getEmpId());
+	empService.unassignThisRequest(assignRequest.getReqId(),assignRequest.getEmpId());
 	 }
 	
 }

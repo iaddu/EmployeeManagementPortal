@@ -1,16 +1,18 @@
 package com.ems.controller;
 
 public class AssignRequest {
+	private String reqId;
 	private String proId;
 	private String managerId;
 	private String empId;
 	
 	
-	public AssignRequest(String proId, String managerId, String empId) {
+	public AssignRequest(String reqId,String proId, String managerId, String empId) {
 		super();
 		this.proId = proId;
 		this.managerId = managerId;
 		this.empId = empId;
+		this.reqId=reqId;
 	}
 
 	public String getProId() {
@@ -32,6 +34,15 @@ public class AssignRequest {
 	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
+
+	public String getReqId() {
+		return reqId;
+	}
+
+	public void setReqId(String reqId) {
+		this.reqId = reqId;
+	}
+	
 	
 
 }

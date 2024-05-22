@@ -6,17 +6,17 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import javax.swing.plaf.basic.ComboPopup;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ems.dao.EmployeeDao;
 import com.ems.dao.ProjectDao;
+import com.ems.dao.RequestDao;
 import com.ems.dao.SkillDao;
 import com.ems.model.Employee;
 import com.ems.model.Project;
+import com.ems.model.Request;
 import com.ems.model.Skill;
 
 @Service
@@ -29,6 +29,9 @@ public class EmpService {
 	
 	@Autowired
 	private ProjectDao projectDao;
+	
+	@Autowired
+	private RequestDao requestDao;
 	
 	
 	
@@ -110,42 +113,47 @@ public class EmpService {
 	}
 	
 	//handling assigning  request by manager for an employee
-	public void assignThisRequest(String employeeId,String manId,String projectId) {
+	
+	public void assignThisRequest(String requestId,String employeeId,String manId,String projectId) {
 		int empId=Integer.parseInt(employeeId);
 		int managerId=Integer.parseInt(manId);
 		int proId=Integer.parseInt(projectId);
+		int reqId=Integer.parseInt(requestId);
 		Optional<Employee> optionalEmployee = empDao.findEmployeeByempId(empId);
 		Optional<Project> optionalProject=projectDao.findProjectByproId(proId);
 		Optional<Employee> optionalManager=empDao.findEmployeeByempId(managerId);
-		System.out.println("for assigning");
-
-		if((optionalEmployee.isEmpty() || optionalManager.isEmpty())|| optionalProject.isEmpty()) {
+		Optional<Request> optionalRequest=requestDao.findRequestByreqId(reqId);
+		if((optionalEmployee.isEmpty() || optionalManager.isEmpty())|| (optionalProject.isEmpty()||optionalRequest.isEmpty())) {
 			throw new NoSuchElementException("element missing");
 		}
 		else {
-			System.out.println("HII");
 			Employee employee=optionalEmployee.get();
 			Project project=optionalProject.get();
 			Employee manager=optionalManager.get();
+			Request request=optionalRequest.get();
 			employee.setManager(managerId);
 			employee.setAssignedProject(project);
+			request.setReqStatus("approved");
+			requestDao.save(request);
 			empDao.save(employee);
 				}
 	}
 	//handling un-assigning  request by manager for an employee
-		public void unassignThisRequest(String employeeId) {
+		public void unassignThisRequest(String requestId,String employeeId) {
 			int empId=Integer.parseInt(employeeId);
+			int reqId=Integer.parseInt(requestId);
 			Optional<Employee> optionalEmployee = empDao.findEmployeeByempId(empId);
-			System.out.println("for unassigning");
-			System.out.println(empId);
-			if(optionalEmployee.isEmpty()) {
+			Optional<Request> optionalRequest=requestDao.findRequestByreqId(reqId);
+			if(optionalEmployee.isEmpty() ||optionalRequest.isEmpty() ) {
 				throw new NoSuchElementException("element missing");
 			}
 			else {
-				System.out.println("HII");
 				Employee employee=optionalEmployee.get();
+				Request request=optionalRequest.get();
 				employee.setManager(null);
 				employee.setAssignedProject(null);
+				request.setReqStatus("approved");
+				requestDao.save(request);
 				empDao.save(employee);
 					}
 		}
