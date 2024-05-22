@@ -150,6 +150,10 @@ public class Admin {
 	 public void unassignRequest(@RequestBody AssignRequest assignRequest) {
 	empService.unassignThisRequest(assignRequest.getReqId(),assignRequest.getEmpId());
 	 }
+	 @PostMapping("/rejectRequest")
+	 public void rejectRequest(@RequestBody AssignRequest assignRequest) {
+	empService.rejectThisRequest(assignRequest.getReqId());
+	 }
 	
 }
 	    

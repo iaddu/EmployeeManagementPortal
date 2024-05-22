@@ -33,14 +33,10 @@ public class EmpService {
 	@Autowired
 	private RequestDao requestDao;
 	
-	
-	
-	
 	@Transactional
 	public void createEmp(Employee emp) {
 		empDao.save(emp);
 	    }
-	
 	
 	public String createPassword() {
 		Random rand=new Random();
@@ -133,11 +129,12 @@ public class EmpService {
 			Request request=optionalRequest.get();
 			employee.setManager(managerId);
 			employee.setAssignedProject(project);
-			request.setReqStatus("approved");
+			request.setReqStatus("Approved");
 			requestDao.save(request);
 			empDao.save(employee);
 				}
 	}
+	
 	//handling un-assigning  request by manager for an employee
 		public void unassignThisRequest(String requestId,String employeeId) {
 			int empId=Integer.parseInt(employeeId);
@@ -152,9 +149,23 @@ public class EmpService {
 				Request request=optionalRequest.get();
 				employee.setManager(null);
 				employee.setAssignedProject(null);
-				request.setReqStatus("approved");
+				request.setReqStatus("Approved");
 				requestDao.save(request);
 				empDao.save(employee);
 					}
+		}
+		
+		//handling to reject request
+		public void rejectThisRequest(String requestId) {
+			int reqId=Integer.parseInt(requestId);
+			Optional<Request> optionalRequest=requestDao.findRequestByreqId(reqId);
+			if(optionalRequest.isEmpty()) {
+				throw new NoSuchElementException("element missing");
+			}
+			else {
+				Request request=optionalRequest.get();
+				request.setReqStatus("Rejected");
+				requestDao.save(request);
+			}
 		}
 }
