@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +17,12 @@ import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
 import com.ems.model.ProjectDTO;
+import com.ems.model.Request;
 import com.ems.model.Skill;
 import com.ems.service.EmailService;
 import com.ems.service.EmpService;
 import com.ems.service.ProjectService;
+import com.ems.service.RequestService;
 import com.ems.service.SkillService;
 import com.ems.service.UserService;
 
@@ -46,7 +47,10 @@ public class Admin {
    
     
 	@Autowired
-	public SkillService skillService;
+	private SkillService skillService;
+	
+	@Autowired
+	private RequestService requestService;
 	
     @GetMapping("/home")
 	public RedirectView adminHome() {
@@ -131,5 +135,21 @@ public class Admin {
 		 empService.assignManager(assignManagerRequest.getManagerId(), assignManagerRequest.getProId());
 	 }
 	 
+	 @GetMapping("/getAllRequest")
+	 public List<Request> getAllRequest(){
+List<Request> allRequestList= requestService.getAllRequest();
+		return allRequestList;
+	 } 
+		
+	 @PostMapping("/assignRequest")
+	 public void assignRequest(@RequestBody AssignRequest assignRequest) {
+	empService.assignThisRequest(assignRequest.getEmpId(), assignRequest.getManagerId(), assignRequest.getProId());
+	 }
+	 
+	 @PostMapping("/unassignRequest")
+	 public void unassignRequest(@RequestBody AssignRequest assignRequest) {
+	empService.unassignThisRequest(assignRequest.getEmpId());
+	 }
+	
 }
 	    

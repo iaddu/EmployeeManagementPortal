@@ -43,12 +43,12 @@ public class SecurityConfig {
 	    return httpSecurity
 	        .csrf(csrf->csrf.disable())
 	        .authorizeHttpRequests(auth -> auth
-	      .requestMatchers("/home","/home/**").permitAll()
-	         .requestMatchers("/homefiles/**","/adminfiles/**").permitAll()
-	 	        .requestMatchers("/admin/**").hasRole("ADMIN")
-	            .requestMatchers("/manager/**","/managerfiles/**").hasRole("MANAGER")
-	 	         .requestMatchers("/emp/**","/employeefiles/**").hasRole("EMPLOYEE")
-	            .anyRequest().authenticated())
+	    .requestMatchers("/home","/home/**").permitAll()
+	      .requestMatchers("/homefiles/**","/adminmanager/**").permitAll()
+	 	   .requestMatchers("/admin/**","/adminfiles/**").hasRole("ADMIN")
+	        .requestMatchers("/manager/**","/managerfiles/**").hasRole("MANAGER")
+	 	  .requestMatchers("/emp/**","/employeefiles/**").hasRole("EMPLOYEE")
+	      .anyRequest().authenticated())
 	        .formLogin(form -> form
 	                .successHandler(authenticationSuccessHandler()) // Use the custom success handler
 	                .permitAll())

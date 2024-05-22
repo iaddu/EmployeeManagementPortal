@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Data</title>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 4px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .button-column {
+        width: 100px;
+    }
+
+    .button {
+        padding: 4px;
+    }
+</style>
+</head>
+<body>
+<h2>Request Data</h2>
+<table id="requestTable">
+    <thead>
+        <tr>
+            <th style="width: 20px;">ID</th>
+            <th style="width: 40px;">Manager ID</th>
+            <th style="width: 40px;">Employee ID</th>
+            <th style="width: 40px;">Project ID</th>
+            <th style="width: 80px;">Request Status</th>
+            <th style="width: 80px;">To Status</th>
+            <th class="button-column">Assign</th>
+            <th class="button-column">UnAssign</th>
+        </tr>
+    </thead>
+    <tbody id="requestTableBody">
+        <!-- Table body content will be filled dynamically -->
+    </tbody>
+</table>
+
+<script>
+    fetch('/admin/getAllRequest')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('requestTableBody');
+            data.forEach(request => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.reqId}</td>
+                    <td>${request.managerId}</td>
+                    <td>${request.empId}</td>
+                    <td>${request.proId}</td>
+                    <td>${request.reqStatus}</td>
+                    <td>${request.toStatus}</td>
+<td><button class="button" onclick="accept(${request.managerId},${request.empId},${request.proId}, 'Assign')">Assign</button></td>
+                    <td><button class="button" onclick="accept(${request.reqId}, 'Unassign')">Unassign</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+    
+    function accept(managerId,empId,proId, toStatus) {
+        if (toStatus === 'Assign') {
+            // Send POST request to /admin/acceptAssign
+            acceptAssign(proId,managerId, empId);
+        } else if (toStatus === 'Unassign') {
+            // Send POST request to /admin/acceptUnassign
+            acceptUnassign(proId,managerId, empId);
+        }
+    }
+
+    function reject(reqId) {
+        // Handle reject button click
+        console.log('Reject request with ID:', reqId);
+    }
+    
+    function accept(managerId, empId, proId) {
+    	    const requestData = {
+        	     proId: proId,
+    	        managerId: managerId,
+    	        empId: empId,
+    	    };
+    	    fetch('/admin/assignRequest', {
+    	        method: 'POST',
+    	        headers: {
+    	            'Content-Type': 'application/json'
+    	        },
+    	        body: JSON.stringify(requestData)
+    	    })
+    	    .then(response => {
+    	        if (response.ok) {
+    	            console.log('POST request to /admin/assignRequest successful');
+    	            // Optionally, you can reload the page or update the UI here
+    	        } else {
+    	            console.error('Error in POST request:', response.statusText);
+    	        }
+    	    })
+    	    .catch(error => console.error('Error in POST request:', error));
+    }
+    function acceptUnassign(managerId, empId, proId) {
+	    const requestData = {
+    	     proId: proId,
+	        managerId: managerId,
+	        empId: empId,
+	    };
+	    fetch('/admin/unassignRequest', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify(requestData)
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            console.log('POST request to /admin/assignRequest successful');
+	            // Optionally, you can reload the page or update the UI here
+	        } else {
+	            console.error('Error in POST request:', response.statusText);
+	        }
+	    })
+	    .catch(error => console.error('Error in POST request:', error));
+}
+
+</script>
+</body>
+</html>

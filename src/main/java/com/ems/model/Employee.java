@@ -2,7 +2,6 @@ package com.ems.model;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -12,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -76,7 +77,12 @@ public class Employee {
 	private Set<Project> haveProject;
 	
 	
-	
+	@Column(name="manager_Id")
+	 private Integer manager;
+	 
+
+	    
+	 
 	public Employee() {
     }
     public Employee(String firstName, String lastName, String email, String address, String phone,
@@ -204,6 +210,15 @@ public class Employee {
 			return haveSkills;
 		}
 	 
+
+ 
+	 
+	public Integer getManager() {
+		return manager;
+	}
+	public void setManager(Integer manager) {
+		this.manager = manager;
+	}
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
@@ -211,7 +226,7 @@ public class Employee {
 				+ password + ", dob=" + dob + ", haveSkills=" + haveSkills + ", assignedProject=" + assignedProject
 				+ ", haveProject=" + haveProject + "]";
 	}
-
+	
 /*
     public List<String> getSkills() {
         return skills;

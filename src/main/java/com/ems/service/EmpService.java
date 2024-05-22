@@ -1,9 +1,12 @@
 package com.ems.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+
+import javax.swing.plaf.basic.ComboPopup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +31,13 @@ public class EmpService {
 	private ProjectDao projectDao;
 	
 	
+	
+	
 	@Transactional
 	public void createEmp(Employee emp) {
 		empDao.save(emp);
-		
-	}
+	    }
+	
 	
 	public String createPassword() {
 		Random rand=new Random();
@@ -87,6 +92,7 @@ public class EmpService {
 		return empDao.getByEmail(email);
 	}
 	
+	//assigning a manager to project
 	@Transactional
 	public void assignManager(String managerId,String projectId) {
 		int empId=Integer.parseInt(managerId);
@@ -103,4 +109,44 @@ public class EmpService {
         }
 	}
 	
+	//handling assigning  request by manager for an employee
+	public void assignThisRequest(String employeeId,String manId,String projectId) {
+		int empId=Integer.parseInt(employeeId);
+		int managerId=Integer.parseInt(manId);
+		int proId=Integer.parseInt(projectId);
+		Optional<Employee> optionalEmployee = empDao.findEmployeeByempId(empId);
+		Optional<Project> optionalProject=projectDao.findProjectByproId(proId);
+		Optional<Employee> optionalManager=empDao.findEmployeeByempId(managerId);
+		System.out.println("for assigning");
+
+		if((optionalEmployee.isEmpty() || optionalManager.isEmpty())|| optionalProject.isEmpty()) {
+			throw new NoSuchElementException("element missing");
+		}
+		else {
+			System.out.println("HII");
+			Employee employee=optionalEmployee.get();
+			Project project=optionalProject.get();
+			Employee manager=optionalManager.get();
+			employee.setManager(managerId);
+			employee.setAssignedProject(project);
+			empDao.save(employee);
+				}
+	}
+	//handling un-assigning  request by manager for an employee
+		public void unassignThisRequest(String employeeId) {
+			int empId=Integer.parseInt(employeeId);
+			Optional<Employee> optionalEmployee = empDao.findEmployeeByempId(empId);
+			System.out.println("for unassigning");
+			System.out.println(empId);
+			if(optionalEmployee.isEmpty()) {
+				throw new NoSuchElementException("element missing");
+			}
+			else {
+				System.out.println("HII");
+				Employee employee=optionalEmployee.get();
+				employee.setManager(null);
+				employee.setAssignedProject(null);
+				empDao.save(employee);
+					}
+		}
 }
