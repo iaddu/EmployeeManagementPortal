@@ -34,7 +34,6 @@ public class Employee {
 	@Column(name="lastName")
     private String lastName;
 	
-	
 	@Column(name="email",unique=true)
     private String email;
 	
@@ -46,7 +45,7 @@ public class Employee {
 	
 	@Column(name="gender")
     private String gender;
-	
+		
 	@Column(name="role")
     private String role;
 	
@@ -55,8 +54,7 @@ public class Employee {
 	
 	@Column(name="dob")
 	private String dob;
-	
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="emp_skill",
 			joinColumns=@JoinColumn(name="empId"),
@@ -77,12 +75,9 @@ public class Employee {
 	private Set<Project> haveProject;
 	
 	
-	@Column(name="manager_Id")
+	 @Column(name="manager_Id")
 	 private Integer manager;
-	 
-
-	    
-	 
+	
 	public Employee() {
     }
     public Employee(String firstName, String lastName, String email, String address, String phone,
@@ -101,11 +96,6 @@ public class Employee {
 	}
 	// Getters and Setters for each field
     
-// Default constructor
-	
-   
-
-	
     public String getFirstName() {
         return firstName;
     }
@@ -123,7 +113,6 @@ public class Employee {
     }
 
     public String getEmail() {
-    	//System.out.println("email found");
         return email;
     }
 
@@ -208,17 +197,16 @@ public class Employee {
 	
 	 public Set<Skill> getHaveSkills() {
 			return haveSkills;
-		}
-	 
+	}
 
- 
-	 
 	public Integer getManager() {
 		return manager;
 	}
+	
 	public void setManager(Integer manager) {
 		this.manager = manager;
 	}
+	
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email

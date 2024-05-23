@@ -118,7 +118,6 @@ public class Admin {
 	 @PostMapping("/viewEmployee")
 	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){
 		Employee employee= empService.getEmployee(emailDTO.getEmail());
-		
 		return employee;
 	 } 
 	
@@ -153,6 +152,27 @@ public class Admin {
 	 public void rejectRequest(@RequestBody AssignRequest assignRequest) {
 	empService.rejectThisRequest(assignRequest.getReqId());
 	 }
+	 
+	 @PostMapping("/updateEmp")
+	    public RedirectView updateEmployee(
+	    	@RequestParam("empId") String empId,
+	        @RequestParam("firstName") String firstName,
+	        @RequestParam("lastName") String lastName,
+	        @RequestParam("email") String email,
+	        @RequestParam("address") String address,
+	        @RequestParam("phone") String phone,
+	        @RequestParam("gender") String gender,
+	        @RequestParam("role") String role,
+	        @RequestParam("dob") String dob,
+	        @RequestParam("skills")Set<String> skills
+	    )
+	 {
+		 System.out.println("in the admin");
+	     Set<Skill> st=skillService.getSkillSet(skills);
+	   empService.updateEmp(empId,firstName,lastName,email,address,phone,gender,role,dob,st);
+	        return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
+	    }
+	 
 	
 }
 	    

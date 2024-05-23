@@ -24,7 +24,5 @@ public interface EmployeeDao  extends JpaRepository<Employee, Integer>{
     @Transactional
     @Query(value = "DELETE FROM emp_skill WHERE emp_id = :empId", nativeQuery = true)
     void deleteEmpSkillsByEmployeeId(int empId);
-    
-    
-    
+  
 }

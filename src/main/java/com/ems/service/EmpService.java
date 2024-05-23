@@ -183,4 +183,42 @@ public class EmpService {
 				requestDao.save(request);
 			}
 		}
+		
+		@Transactional
+		public void updateEmp(String empId,String firstName,String lastName,String email,String address,String phone,
+				String gender,String role,String dob,Set<Skill> st) {
+			Optional<Employee> optionalEmployee=empDao.findEmployeeByempId(Integer.parseInt(empId));
+			if(optionalEmployee.isEmpty())throw new NullPointerException();
+			Employee employee=optionalEmployee.get();
+			employee.setFirstName(firstName);
+			employee.setLastName(lastName);
+			employee.setEmail(email);
+			employee.setAddress(address);
+			employee.setGender(gender);
+			employee.setHaveSkills(st);
+			employee.setDob(dob);
+			employee.setPhone(phone);
+			employee.setRole(role);
+			empDao.save(employee);
+		}
+		
+		@Transactional
+		public void updateSkill(String empId,Set<Skill> st) {
+			Optional<Employee> optionalEmployee=empDao.findEmployeeByempId(Integer.parseInt(empId));
+			if(optionalEmployee.isEmpty())throw new NullPointerException();
+			Employee employee=optionalEmployee.get();
+			employee.setHaveSkills(st);
+			empDao.save(employee);		
+		}
+		
+		@Transactional
+		public void changePassword(String email,String upass) {
+			Optional<Employee> optionalEmployee=empDao.findEmployeeByEmail(email);
+			if(optionalEmployee.isEmpty())throw new NullPointerException();
+			Employee employee=optionalEmployee.get();
+			System.out.println(upass);
+			employee.setPassword(upass);
+			System.out.println(upass);
+			empDao.save(employee);
+		}
 }
