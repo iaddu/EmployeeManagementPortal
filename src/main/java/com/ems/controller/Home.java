@@ -32,7 +32,5 @@ public class Home {
 		System.out.println("hello");
 		return "redirect:/homefiles/home.html";
   }*/
-    
-    
 
 }

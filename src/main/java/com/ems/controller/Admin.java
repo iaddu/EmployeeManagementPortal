@@ -45,7 +45,6 @@ public class Admin {
     @Autowired
     private ProjectService projectService;
    
-    
 	@Autowired
 	private SkillService skillService;
 	
@@ -70,7 +69,6 @@ public class Admin {
 	        @RequestParam("dob") String dob,
 	        @RequestParam("skills")Set<String> skills
 	    )
-	    
 	 {
 		 String password=empService.createPassword();
 	     Set<Skill> st=skillService.getSkillSet(skills);
@@ -150,6 +148,7 @@ public class Admin {
 	 public void unassignRequest(@RequestBody AssignRequest assignRequest) {
 	empService.unassignThisRequest(assignRequest.getReqId(),assignRequest.getEmpId());
 	 }
+	 
 	 @PostMapping("/rejectRequest")
 	 public void rejectRequest(@RequestBody AssignRequest assignRequest) {
 	empService.rejectThisRequest(assignRequest.getReqId());

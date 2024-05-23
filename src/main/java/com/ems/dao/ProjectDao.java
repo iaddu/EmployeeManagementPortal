@@ -11,4 +11,5 @@ import com.ems.model.Project;
 @Repository
 public interface ProjectDao extends JpaRepository<Project, Integer>{
 	Optional<Project> findProjectByproId(int proId);
+	Project findProjectByproName(String proName);
 }

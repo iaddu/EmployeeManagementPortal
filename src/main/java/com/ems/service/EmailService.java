@@ -13,8 +13,6 @@ public class EmailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	 
-	
 	public void sendMail(String from,String to,String text)  {
 		try {
 		MimeMessage message=javaMailSender.createMimeMessage();
@@ -22,6 +20,7 @@ public class EmailService {
 		helper.setFrom(from);
 		helper.setTo(to);
 		helper.setText(text);
+		System.out.println(text);
 		javaMailSender.send(message);
 		}
 		catch(Exception e) {}

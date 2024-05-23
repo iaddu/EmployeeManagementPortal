@@ -70,6 +70,23 @@ public class EmpService {
 		Employee emp=empDao.getByEmail(email);
 		empDao.deleteEmpSkillsByEmployeeId(emp.getEmpId());
 		empDao.delete(emp);
+		//proect 
+		//manager?
+		if(emp.getRole().equals("MANAGER")) {
+		Set<Project> haveProject=emp.getHaveProject();
+		for(Project pro:haveProject) {
+			//Project proInDb=projectDao.findProjectByproName(pro.getProName());
+			//proInDb.setHaveManager(null);
+			//projectDao.save(proInDb);
+			pro.setHaveManager(null);
+		}
+		List<Employee> employeeList=empDao.findAll();
+		for(Employee employee:employeeList) {
+			if(employee.getManager()!=null && employee.getManager().intValue()==emp.getEmpId())
+				employee.setManager(null);
+				employee.setAssignedProject(null);
+		}
+		}
 		System.out.println("deleted success");
 	}
 	
@@ -109,7 +126,6 @@ public class EmpService {
 	}
 	
 	//handling assigning  request by manager for an employee
-	
 	public void assignThisRequest(String requestId,String employeeId,String manId,String projectId) {
 		int empId=Integer.parseInt(employeeId);
 		int managerId=Integer.parseInt(manId);
@@ -119,7 +135,8 @@ public class EmpService {
 		Optional<Project> optionalProject=projectDao.findProjectByproId(proId);
 		Optional<Employee> optionalManager=empDao.findEmployeeByempId(managerId);
 		Optional<Request> optionalRequest=requestDao.findRequestByreqId(reqId);
-		if((optionalEmployee.isEmpty() || optionalManager.isEmpty())|| (optionalProject.isEmpty()||optionalRequest.isEmpty())) {
+		if((optionalEmployee.isEmpty() || optionalManager.isEmpty())
+				|| (optionalProject.isEmpty()||optionalRequest.isEmpty())) {
 			throw new NoSuchElementException("element missing");
 		}
 		else {
@@ -134,7 +151,6 @@ public class EmpService {
 			empDao.save(employee);
 				}
 	}
-	
 	//handling un-assigning  request by manager for an employee
 		public void unassignThisRequest(String requestId,String employeeId) {
 			int empId=Integer.parseInt(employeeId);
@@ -154,7 +170,6 @@ public class EmpService {
 				empDao.save(employee);
 					}
 		}
-		
 		//handling to reject request
 		public void rejectThisRequest(String requestId) {
 			int reqId=Integer.parseInt(requestId);
