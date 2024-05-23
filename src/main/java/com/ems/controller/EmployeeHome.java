@@ -74,13 +74,11 @@ public class EmployeeHome {
 		empService.updateSkill(empId,st);
 	 }
 	 
+	 
 	 @PostMapping("/changePassword")
 	 public void changePassword(@RequestParam("upass") String upass) {
 		 String email = authUtils.getLoggedInUserEmail();
-		 System.out.println(email);
-		 System.out.println(upass);
 		String encodedpassword= passwordEncoder.encode(upass);
-		System.out.print(encodedpassword);
 		empService.changePassword(email,encodedpassword);	
 	 }
 }

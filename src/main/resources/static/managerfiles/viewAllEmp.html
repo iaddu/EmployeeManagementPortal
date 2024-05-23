@@ -5,15 +5,21 @@
         body, html {
             height: 100%;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .filter-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
         }
         table {
             width: 80%;
             border-collapse: collapse;
-            margin: 20px auto;
         }
         th, td {
             border: 1px solid #ddd;
@@ -30,13 +36,21 @@
     </style>
 </head>
 <body>
-	Enter Skill<input type="text" placeholder="Search" id="myInput">
-	<br><br>
-    <div>
+    <div class="container">
+        <div class="filter-container">
+            <input type="text" placeholder="Enter Skill" id="myInput">
+            <label for="filterOption">Filter:</label>
+            <select id="filterOption">
+                <option value="all">All</option>
+                <option value="assigned">Assigned</option>
+                <option value="unassigned">Unassigned</option>
+            </select>
+            <button id="filterButton">Apply Filter</button>
+        </div>
         <table id="employeeTable">
             <thead>
                 <tr>
-                	<th>ID</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Address</th>
@@ -53,28 +67,44 @@
             </tbody>
         </table>
     </div>
-       <!-- Include jQuery library -->
+    <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script type="text/javascript">
-   $(document).ready(function(){
-	   $("#myInput").on("keyup",function(){
-		   //alert("hii");
-		    var value=$(this).val().toLowerCase();
-		    $("#myTable tr").filter(function(){
-              var skillsColumn = $(this).find('td:nth-child(9)').text().toLowerCase();
-              $(this).toggle(skillsColumn.indexOf(value) > -1);
-		    });
-	   });
-   });
-   </script>
-   
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function(){
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function(){
+                    var skillsColumn = $(this).find('td:nth-child(9)').text().toLowerCase();
+                    $(this).toggle(skillsColumn.indexOf(value) > -1);
+                });
+            });
+
+            $("#filterButton").on("click", function() {
+                var selectedOption = $("#filterOption").val();
+                if (selectedOption === 'assigned') {
+                    $("#myTable tr").filter(function() {
+                        var projectsColumn = $(this).find('td:nth-child(10)').text().toLowerCase();
+                        $(this).toggle(projectsColumn !== 'No Project Assigned');
+                    });
+                } else if (selectedOption === 'unassigned') {
+                    $("#myTable tr").filter(function() {
+                        var projectsColumn = $(this).find('td:nth-child(10)').text().toLowerCase();
+                        $(this).toggle(projectsColumn === 'No Project Assigned');
+                    });
+                } else {
+                    $("#myTable tr").show();
+                }
+            });
+        });
+    </script>
+
     <script>
         fetch("/manager/getAllEmployee")
         .then(response => response.json())
         .then(data => {
             console.log(data); // Log the entire response to verify structure
 
-          const employeeTableBody = document.querySelector('#employeeTable tbody');
+            const employeeTableBody = document.querySelector('#employeeTable tbody');
             
             data.forEach(employee => {
                 // Iterate over the skills and create a comma-separated string
@@ -90,22 +120,23 @@
                 }
                 
                 let projects="";
-        		if(employee.assignedProject!=null){
-        			projects=employee.assignedProject.proName;
-        		}
-        		if(employee.haveProject && employee.haveProject.length>0){
-        			 employee.haveProject.forEach(project=>{
-        				 projects+=project.proName+", ";
-        			 })
-        			 projects=projects.slice(0,-2);
-        		}
-        		if(projects==""){
-        			projects="No Project Assigned";
-        		}
+                if(employee.assignedProject != null) {
+                    projects = employee.assignedProject.proName;
+                }
+                if(employee.haveProject && employee.haveProject.length > 0) {
+                    employee.haveProject.forEach(project => {
+                        projects += project.proName + ", ";
+                    });
+                    projects = projects.slice(0, -2);
+                }
+                if(projects === "") {
+                    projects = "No Project Assigned";
+                }
+
                 // Create a new row and cells for each employee
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                	<td>${employee.empId}</td>
+                    <td>${employee.empId}</td>
                     <td>${employee.firstName} ${employee.lastName}</td>
                     <td>${employee.email}</td>
                     <td>${employee.address}</td>
