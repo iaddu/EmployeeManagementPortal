@@ -78,21 +78,26 @@
                     $(this).toggle(skillsColumn.indexOf(value) > -1);
                 });
             });
-
+            
             $("#filterButton").on("click", function() {
                 var selectedOption = $("#filterOption").val();
                 if (selectedOption === 'assigned') {
+                	//console.log("inside assigned");
                     $("#myTable tr").filter(function() {
                         var projectsColumn = $(this).find('td:nth-child(10)').text().toLowerCase();
-                        $(this).toggle(projectsColumn !== 'No Project Assigned');
+                       // console.log(projectsColumn);
+                        $(this).toggle(projectsColumn != 'na');
                     });
                 } else if (selectedOption === 'unassigned') {
+                	//console.log("unassigned");
                     $("#myTable tr").filter(function() {
                         var projectsColumn = $(this).find('td:nth-child(10)').text().toLowerCase();
-                        $(this).toggle(projectsColumn === 'No Project Assigned');
+                        $(this).toggle(projectsColumn == 'na');
                     });
+                    
                 } else {
-                    $("#myTable tr").show();
+                	//console.log("all");
+                   $("#myTable tr").show();
                 }
             });
         });
@@ -130,7 +135,7 @@
                     projects = projects.slice(0, -2);
                 }
                 if(projects === "") {
-                    projects = "No Project Assigned";
+                    projects = "NA";
                 }
 
                 // Create a new row and cells for each employee

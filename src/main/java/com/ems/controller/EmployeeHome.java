@@ -51,13 +51,14 @@ public class EmployeeHome {
 	 } 
 	
 	 @GetMapping("/viewEmployee")
-	 public Employee getEmployee(){
+	 public EmployeeResponse getEmployee(){
 		 String email = authUtils.getLoggedInUserEmail();
 		 System.out.println(email);
 		 Employee employee=null;
 		 if(email!=null)
 		 employee= empService.getEmployee(email);
-	   	return employee;
+		 String managerName=empService.getManagerName(employee.getManager());
+	   	return new EmployeeResponse(employee,managerName);
 	 } 
 	
 	 @GetMapping("/getAllProject")
@@ -73,7 +74,6 @@ public class EmployeeHome {
 		Set<Skill> st=skillService.getSkillSet(skills);
 		empService.updateSkill(empId,st);
 	 }
-	 
 	 
 	 @PostMapping("/changePassword")
 	 public void changePassword(@RequestParam("upass") String upass) {

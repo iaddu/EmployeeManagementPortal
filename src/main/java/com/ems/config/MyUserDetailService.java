@@ -21,7 +21,7 @@ public class MyUserDetailService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       
+    	
     	Optional<com.ems.model.User> user = userDao.findUserByEmail(username);
         if (user.isPresent()) {
             com.ems.model.User userObj = user.get(); // Explicitly defining the type

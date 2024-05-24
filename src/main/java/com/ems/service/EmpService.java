@@ -221,4 +221,12 @@ public class EmpService {
 			System.out.println(upass);
 			empDao.save(employee);
 		}
+		
+		public String getManagerName(Integer empId) {
+			if(empId==null)return "NA";
+			Optional<Employee> optionalEmployee=empDao.findEmployeeByempId(empId);
+			Employee employee=optionalEmployee.get();
+			String name=employee.getFirstName()+" "+employee.getLastName();
+			return name;
+		}
 }
