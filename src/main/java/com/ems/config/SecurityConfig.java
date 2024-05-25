@@ -43,14 +43,16 @@ public class SecurityConfig {
 	    return httpSecurity
 	        .csrf(csrf->csrf.disable())
 	        .authorizeHttpRequests(auth -> auth
-	    .requestMatchers("/home","/home/**").permitAll()
+	    .requestMatchers("/home","/homefiles/**").permitAll()
 	      .requestMatchers("/homefiles/**","/adminmanager/**").permitAll()
 	 	   .requestMatchers("/admin/**","/adminfiles/**").hasRole("ADMIN")
 	        .requestMatchers("/manager/**","/managerfiles/**").hasRole("MANAGER")
 	 	  .requestMatchers("/emp/**","/employeefiles/**").hasRole("EMPLOYEE")
 	      .anyRequest().authenticated())
 	        .formLogin(form -> form
+	        		.loginPage("/login") // Custom login page URL
 	                .successHandler(authenticationSuccessHandler()) // Use the custom success handler
+	              .failureUrl("/login?error=true")
 	                .permitAll())
 	        .logout(logout -> logout
 	                .logoutUrl("/logout") // Logout endpoint
