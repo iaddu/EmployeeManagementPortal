@@ -23,7 +23,6 @@ import com.ems.service.SkillService;
 @RestController
 @RequestMapping("/emp")
 public class EmployeeHome {
-	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -53,7 +52,6 @@ public class EmployeeHome {
 	 @GetMapping("/viewEmployee")
 	 public EmployeeResponse getEmployee(){
 		 String email = authUtils.getLoggedInUserEmail();
-		 System.out.println(email);
 		 Employee employee=null;
 		 if(email!=null)
 		 employee= empService.getEmployee(email);

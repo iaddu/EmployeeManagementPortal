@@ -1,5 +1,6 @@
 package com.ems.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -104,6 +105,23 @@ public class EmpService {
 		return allEmployee;
 	}
 	
+	public List<Employee> getAllEmployeeOnly(){
+		List<Employee> allEmployee=empDao.findAll();
+		List<Employee> allEmployeeOnly=new ArrayList<>();
+		for(Employee employee:allEmployee) {
+			if(employee.getRole().toLowerCase().equals("employee"))allEmployeeOnly.add(employee);
+		}
+		return allEmployeeOnly;
+	}
+	
+	public List<Employee> getAllManagerOnly(){
+		List<Employee> allEmployee=empDao.findAll();
+		List<Employee> allEmployeeOnly=new ArrayList<>();
+		for(Employee employee:allEmployee) {
+			if(employee.getRole().toLowerCase().equals("manager"))allEmployeeOnly.add(employee);
+		}
+		return allEmployeeOnly;
+	}
 	public Employee getEmployee(String email) {
 		return empDao.getByEmail(email);
 	}

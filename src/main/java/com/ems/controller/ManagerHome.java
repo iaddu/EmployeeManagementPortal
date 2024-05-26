@@ -42,13 +42,20 @@ public class ManagerHome {
 	 public List<Employee> getAllEmployee(){
 		 
 		List<Employee> allEmployeeList= empService.getAllEmployee();
-		System.out.print(allEmployeeList);
+		//System.out.print(allEmployeeList);
 		return allEmployeeList;
 	 } 
+	 
+	 @GetMapping("/getAllEmployeeOnly")
+	 public List<Employee> getAllEmployeeOnly() {
+		 List<Employee> allEmployeeList=empService.getAllEmployeeOnly();
+		 //System.out.println(allEmployeeList);
+		 return allEmployeeList;
+	 }
+	 
 	 @PostMapping("/viewEmployee")
 	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){
 		Employee employee= empService.getEmployee(emailDTO.getEmail());
-		
 		return employee;
 	 } 
 	 @PostMapping("/requestAdmin")
@@ -66,4 +73,5 @@ public class ManagerHome {
 		empService.changePassword(email,encodedpassword);	
 	 }
 	 
+	
 }

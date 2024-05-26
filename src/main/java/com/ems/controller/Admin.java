@@ -109,6 +109,13 @@ public class Admin {
 		return allEmployeeList;
 	 } 
 	 
+	 @GetMapping("/getAllManagerOnly")
+	 public List<Employee> getAllEmployeeOnly() {
+		 List<Employee> allManagerList=empService.getAllManagerOnly();
+		 //System.out.println(allEmployeeList);
+		 return allManagerList;
+	 }
+	 
 	 @GetMapping("/getAllProject")
 	 public List<Project> getAllProject(){
 		List<Project> allProjectList= projectService.getAllProject();

@@ -34,7 +34,7 @@
         <table id="employeeTable">
             <thead>
                 <tr>
-                	<th>ID</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Address</th>
@@ -52,7 +52,7 @@
         </table>
     </div>
     <script>
-        fetch("/admin/getAllEmployee")
+        fetch("/admin/getAllManagerOnly")
         .then(response => response.json())
         .then(data => {
             console.log(data); // Log the entire response to verify structure
@@ -73,22 +73,22 @@
                 }
                 
                 let projects="";
-        		if(employee.assignedProject!=null){
-        			projects=employee.assignedProject.proName;
-        		}
-        		if(employee.haveProject && employee.haveProject.length>0){
-        			 employee.haveProject.forEach(project=>{
-        				 projects+=project.proName+", ";
-        			 })
-        			 projects=projects.slice(0,-2);
-        		}
-        		if(projects==""){
-        			projects="No Project Assigned";
-        		}
+                if(employee.assignedProject!=null){
+                    projects=employee.assignedProject.proName;
+                }
+                if(employee.haveProject && employee.haveProject.length>0){
+                     employee.haveProject.forEach(project=>{
+                         projects+=project.proName+", ";
+                     })
+                     projects=projects.slice(0,-2);
+                }
+                if(projects==""){
+                    projects="No Project Assigned";
+                }
                 // Create a new row and cells for each employee
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                	<td>${employee.empId}</td>
+                    <td>${employee.empId}</td>
                     <td>${employee.firstName} ${employee.lastName}</td>
                     <td>${employee.email}</td>
                     <td>${employee.address}</td>

@@ -50,7 +50,8 @@ form {
 fetch('/emp/viewEmployee')
     .then(response => response.json()) // Convert response to JSON
     .then(data => {
-        const employee = data;
+        const employee = data.employee;
+        console.log(employee);
         document.getElementById('emp-id').value = employee.empId;
         document.getElementById('employee-name').innerText = `${employee.firstName} ${employee.lastName}`;
         document.getElementById('employee-email').innerText = `Email: ${employee.email}`;
