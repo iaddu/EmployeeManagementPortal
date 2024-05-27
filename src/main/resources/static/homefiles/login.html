@@ -20,26 +20,24 @@
             }
         }
     </script>
+   <link rel="stylesheet" href="homefiles/login.css">
 </head>
 <body onload="displayMessages()">
-    <h1>Please Log In</h1>
     
-    <!-- Display error message if error parameter is present in URL -->
-    <div id="error-message" style="color: red; display: none;">
-        Invalid username and password.
-    </div>
-    <!-- Display logout message if logout parameter is present in URL -->
     <div id="logout-message" style="color: green; display: none;">
         You have been logged out.
     </div>
+    <div class="contain">
     <form action="/login" method="post">
-        <div>
-            <input type="text" name="username" placeholder="Username" required />
-        </div>
-        <div>
-            <input type="password" name="password" placeholder="Password" required />
-        </div>
-        <input type="submit" value="Log in" />
+    <div id="error-message" style="color: red; display: none;font-size: 20px;">
+        Invalid Username Or Password!
+    </div>
+      	  <h1>Login</h1>
+           <input type="text" class="inp1" name="username" placeholder="Enter Username "  /> 
+           <input type="password" class="inp2" name="password" placeholder="Enter Password" />
+           <p>Forgot Password</p>
+        	<button>Login</button>
     </form>
+    </div>
 </body>
 </html>

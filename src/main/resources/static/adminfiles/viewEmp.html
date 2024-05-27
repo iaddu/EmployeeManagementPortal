@@ -1,77 +1,159 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
-body, html {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Employee</title>
+    <style>
+        body, html {
             height: 100%;
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            background-color: grey;
         }
-form {
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form {
             width: 300px; /* Adjust as needed */
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-shadow: 0 0 10px black;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        input[type="text"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button[type="submit"]:nth-of-type(2) {
+            background-color: #f44336;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        #employee {
+            margin-top: 20px;
+            width: 80%;
+            max-width: 800px;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
         }
-</style>
+        #employee p {
+            margin: 10px 0;
+        }
+        #error-message {
+            color: red;
+            font-weight: bold;
+            display: none;
+            position: absolute;
+            top: -25px;
+            width: 100%;
+            text-align: center;
+        }
+        
+    </style>
 </head>
 <body>
-<div>
-<form  >
-Enter email:
-<input type="text" placeholder="Enter email" name="email" id="email">
-<button type="submit" onclick="event.preventDefault();showEmp()">Search</button>
-<button type="submit" formaction="adminHome.html">Back</button>
-</form>
-</div>
-<div id="employee"></div>
-<script>
-function showEmp(){
-	const email=document.getElementById('email').value;
-	const data={
-			email:email
-	};
-	fetch('/admin/viewEmployee',{
-		method:'POST',
-		headers:{
-			'Content-Type':'application/json'
-		},
-		body:JSON.stringify(data)
-	})
-	.then(response=>response.json()) //response converting to object
-	.then(data=>{ 
-		const parentDiv=document.getElementById("employee");
-		const employee=data;
-		let skills = "";
-		if (employee.haveSkills && employee.haveSkills.length > 0) {
-	    employee.haveSkills.forEach(skill => {
-	        skills += skill.skillName + ", ";
-	    });
-	    // Remove the trailing comma and space
-	    skills = skills.slice(0, -2);
-		}
-		else {
-	    skills = "No skills available";
-		}
-		
-		let projects="No Project Assigned";
-		if(employee.assignedProject!=null){
-			projects=employee.assignedProject.proName;
-		}	
-		parentDiv.innerHTML = `
-            <h2>${employee.firstName} ${employee.lastName}</h2>
-            <p>Email: ${employee.email}</p>
-            <p>Address: ${employee.address}</p>
-            <p>Phone: ${employee.phone}</p>
-            <p>Gender: ${employee.gender}</p>
-            <p>Role: ${employee.role}</p>
-            <p>Date of Birth: ${employee.dob}</p>
-            <p>Skills:${skills}</p>
-            <p>Projects:${projects}</p>
-        `;
-	}).catch(error => console.error('Error fetching unassigned employees:', error));
-};
-</script>
+    <div class="container">
+        <form>
+            <div id="error-message">No user found</div>
+            <label for="email">Enter email:</label>
+            <input type="text" placeholder="Enter email" name="email" id="email">
+            <button type="submit" onclick="event.preventDefault(); showEmp()">Search</button>
+            <button type="button" onclick="window.location.href='adminHome.html'">Back</button>
+        </form>
+        <div id="employee" class="last"></div>
+    </div>
+    <script>
+        async function showEmp() {
+            const email = document.getElementById('email').value;
+            const data = { email: email };
+            try {
+                const response = await fetch('/admin/viewEmployee', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const employee = await response.json();
+
+                const parentDiv = document.getElementById("employee");
+                const errorMessage = document.getElementById("error-message");
+
+                if (!employee) {
+                    errorMessage.style.display = 'block';
+                    parentDiv.innerHTML = '';
+                } else {
+                    errorMessage.style.display = 'none';
+                    let skills = "";
+                    if (employee.haveSkills && employee.haveSkills.length > 0) {
+                        employee.haveSkills.forEach(skill => {
+                            skills += skill.skillName + ", ";
+                        });
+                        skills = skills.slice(0, -2);
+                    } else {
+                        skills = "No skills available";
+                    }
+
+                    let projects = "No Project Assigned";
+                    if (employee.assignedProject != null) {
+                        projects = employee.assignedProject.proName;
+                    }
+
+                    parentDiv.innerHTML = `
+                        <h2>${employee.firstName} ${employee.lastName}</h2>
+                        <p>Email: ${employee.email}</p>
+                        <p>Address: ${employee.address}</p>
+                        <p>Phone: ${employee.phone}</p>
+                        <p>Gender: ${employee.gender}</p>
+                        <p>Role: ${employee.role}</p>
+                        <p>Date of Birth: ${employee.dob}</p>
+                        <p>Skills: ${skills}</p>
+                        <p>Projects: ${projects}</p>
+                    `;
+                }
+            } catch (error) {
+               // console.error('No Such Employee Found!!:', error);
+                const errorMessage = document.getElementById("error-message");
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'No Such Employee Found!!:';
+                const parentDiv = document.getElementById("employee");
+                parentDiv.innerHTML = '';
+            }
+        }
+    </script>
 </body>
 </html>

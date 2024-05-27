@@ -80,6 +80,7 @@ public class Employee {
 	
 	public Employee() {
     }
+	
     public Employee(String firstName, String lastName, String email, String address, String phone,
 			String gender, String role,String password,String dob,Set<Skill> skillSet) {
 		super();
@@ -95,7 +96,7 @@ public class Employee {
 		this.haveSkills=skillSet;
 	}
 	// Getters and Setters for each field
-    
+  
     public String getFirstName() {
         return firstName;
     }

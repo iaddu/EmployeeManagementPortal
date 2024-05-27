@@ -38,7 +38,6 @@ public class Project {
 	@JoinColumn(name = "managerId")
 	@JsonBackReference
 	private Employee haveManager;
-	
 	public Project() {
 		super();
 		// TODO Auto-generated constructor stub

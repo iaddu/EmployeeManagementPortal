@@ -4,13 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Employee</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: grey;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form {
+            width: 300px; /* Adjust as needed */
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-shadow: 0 0 10px black;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        input[type="text"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button[type="button"] {
+            background-color: #f44336;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        #message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #message.success {
+            color: green;
+        }
+        #message.error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <h2>Delete Employee</h2>
-    <form action="/admin/deleteEmp" method="post">
-        <label for="email">Employee Email/Username:</label><br>
-        <input type="text" id="email" name="email"><br><br>
-        <button type="submit">Delete</button>
-    </form>
+    <div class="container">
+        <h2>Delete Employee</h2>
+        <form>
+            <label for="email">Email</label><br>
+            <input type="text" id="email" name="email"><br><br>
+            <button type="submit" onclick="event.preventDefault(); deleteEmp()">Delete</button>
+            <button type="button" onclick="window.location.href='adminHome.html'">Back</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <script>
+    async function deleteEmp() {
+        const email = document.getElementById('email').value;
+        const data = { email: email };
+        const messageDiv = document.getElementById('message');
+        
+        try {
+            // Send delete request
+            const response = await fetch('/admin/deleteEmp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Read response text
+            const text = await response.text();
+
+            // Check if the response is empty or null
+            if (!text || text.trim() === '') {
+                messageDiv.innerHTML = "No Employee Found!";
+                messageDiv.className = 'error';
+            } else {
+                // If the response is not empty, it means an employee was found and deleted
+                messageDiv.innerHTML = "Delete Successful";
+                messageDiv.className = 'success';
+            }
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            messageDiv.innerHTML = "Error occurred while deleting the employee!";
+            messageDiv.className = 'error';
+        }
+    }
+    </script>
 </body>
 </html>

@@ -66,32 +66,38 @@ public class EmpService {
 	}
 	
 	@Transactional
-	public void deleteEmp(String email) {
-		
-		Employee emp=empDao.getByEmail(email);
+	public Employee deleteEmp(String email) {
+		System.out.println(1);
+		Optional<Employee> optionalEmployee = empDao.findEmployeeByEmail(email);
+		if(optionalEmployee.isEmpty())return null;
+		System.out.println(2);
+
+		Employee emp=optionalEmployee.get();
 		empDao.deleteEmpSkillsByEmployeeId(emp.getEmpId());
-		empDao.delete(emp);
-		//proect 
-		//manager?
+		System.out.println(3);
+
 		if(emp.getRole().equals("MANAGER")) {
 		Set<Project> haveProject=emp.getHaveProject();
 		for(Project pro:haveProject) {
-			//Project proInDb=projectDao.findProjectByproName(pro.getProName());
-			//proInDb.setHaveManager(null);
-			//projectDao.save(proInDb);
 			pro.setHaveManager(null);
 		}
+		System.out.println(4);
+
 		List<Employee> employeeList=empDao.findAll();
 		for(Employee employee:employeeList) {
 			if(employee.getManager()!=null && employee.getManager().intValue()==emp.getEmpId())
 				employee.setManager(null);
 				employee.setAssignedProject(null);
 		}
+		System.out.println(5);
+
 		}
-		System.out.println("deleted success");
+		System.out.println(6);
+
+		empDao.delete(emp);
+		System.out.println(7);
+		return emp;
 	}
-	
-	
 	public List<Employee> getUnassignedEmplyee(){
 		List<Employee> allEmployee=empDao.findAll();
 		for(Employee emp:allEmployee) {
@@ -123,7 +129,9 @@ public class EmpService {
 		return allEmployeeOnly;
 	}
 	public Employee getEmployee(String email) {
-		return empDao.getByEmail(email);
+		Optional<Employee> optionalEmployee = empDao.findEmployeeByEmail(email);
+		if(optionalEmployee.isEmpty())return null;
+		return optionalEmployee.get();
 	}
 	
 	//assigning a manager to project
@@ -142,7 +150,6 @@ public class EmpService {
             throw new RuntimeException("either employee not found or project not found" );
         }
 	}
-	
 	//handling assigning  request by manager for an employee
 	public void assignThisRequest(String requestId,String employeeId,String manId,String projectId) {
 		int empId=Integer.parseInt(employeeId);

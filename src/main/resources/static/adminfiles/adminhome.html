@@ -4,25 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Home</title>
+ 	<link rel="stylesheet" href="/adminfiles/adminhome.css">
 </head>
 <body>
-    <h1>Welcome Admin!</h1>
-    <div>
-        <h2>Options:</h2>
-        <button onclick="window.location.href='addEmp.html'">Add Employee</button>
-        <button onclick="window.location.href='searchEmp.html'">Update Employee</button>
-        <button onclick="window.location.href='/adminmanager/allRequest.html'">All Request</button>
-        <button onclick="window.location.href='deleteEmp.html'">Delete Employee</button>
-        <button onclick="window.location.href='viewAllProject.html'">View All  Projects</button>
-        <button onclick="window.location.href='viewAllEmp.html'">View All Employees</button>
+    <h1>Welcome!</h1>
+        <div class="button-container">
+        <button onclick="window.location.href='viewAllProject.html'">View Projects</button>
+        <button onclick="window.location.href='viewAllEmp.html'">View Employees</button>
 		<button onclick="window.location.href='viewEmp.html'">View Employee</button>
 		<button onclick="window.location.href='viewProject.html'">View Project</button>
-        <button>Add Manager</button>
-        <button>View Managers</button>
+        <button onclick="window.location.href='addEmp.html'">Add Employee</button>
+        <button onclick="window.location.href='searchEmp.html'">Update Employee</button>
+        <button onclick="window.location.href='deleteEmp.html'">Delete Employee</button>
+        <button onclick="window.location.href='/adminmanager/allRequest.html'">Requests</button>
         <button onclick="window.location.href='addProject.html'">Add Project</button>
-        <button>Remove Project from Employee</button>
-        <button>Logout</button>
         <button onclick="window.location.href='assignManager.html'">Assign Manager to project</button>
+<button onclick="window.location.href='http://localhost:8080/logout'">Logout</button>
     </div>
 </body>
 </html>

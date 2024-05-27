@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,9 +88,12 @@ public class Admin {
 	    }
 	 
 	 @PostMapping("/deleteEmp")
-	 public RedirectView deleteEmp(@RequestParam("email") String email) {
-		 	empService.deleteEmp(email);
-	        return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
+	 public Employee deleteEmp(@RequestBody EmailDTO emailDTO) {
+		 	System.out.println(1);
+		 	System.out.println(emailDTO.getEmail());
+		 	Employee emp=empService.deleteEmp(emailDTO.getEmail());
+		 	System.out.println(emp);
+		 	return emp;
 	 }
 	 
 	 @PostMapping("/addProject")
@@ -122,6 +127,7 @@ public class Admin {
 		return allProjectList;
 	 } 
 	 
+	 //single employee
 	 @PostMapping("/viewEmployee")
 	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){
 		Employee employee= empService.getEmployee(emailDTO.getEmail());
@@ -135,8 +141,13 @@ public class Admin {
 	 } 
 	 
 	 @PostMapping("/assignManager")
-	 public void assignManager(@RequestBody AssignManagerRequest assignManagerRequest) {
-		 empService.assignManager(assignManagerRequest.getManagerId(), assignManagerRequest.getProId());
+	 public ResponseEntity<String> assignManager(@RequestBody AssignManagerRequest assignManagerRequest) {
+	     try {
+	         empService.assignManager(assignManagerRequest.getManagerId(), assignManagerRequest.getProId());
+	         return ResponseEntity.ok("Manager assigned successfully!");
+	     } catch (RuntimeException e) {
+	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error assigning manager: " + e.getMessage());
+	     }
 	 }
 	 
 	 @GetMapping("/getAllRequest")
@@ -179,7 +190,5 @@ public class Admin {
 	   empService.updateEmp(empId,firstName,lastName,email,address,phone,gender,role,dob,st);
 	        return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
 	    }
-	 
-	
 }
 	    
