@@ -22,6 +22,8 @@ import com.ems.model.Skill;
 
 @Service
 public class EmpService {
+	
+
 	@Autowired
 	private EmployeeDao empDao;
 	
@@ -33,6 +35,10 @@ public class EmpService {
 	
 	@Autowired
 	private RequestDao requestDao;
+	public EmpService() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	@Transactional
 	public void createEmp(Employee emp) {
