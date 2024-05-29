@@ -1,49 +1,99 @@
+<!DOCTYPE html>
 <html>
 <head>
-<style>
-form{
-display: inline-block;
-}
-</style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            display: inline-block;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .vertical-group {
+            margin-bottom: 10px;
+        }
+
+        .horizontal-radio-group label {
+            margin-right: 10px;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-<form>
-Employee Id <input type="text" placeholder="employee id" name="empId" id="empId">
-<br>
-Project Id <input type="text" placeholder="project id" name="proId" id="proId">
-<br>
- <div class="vertical-group">
-                <div class="horizontal-radio-group">
-                    <label>To:</label>
-                    <label><input type="radio" name="to" value="assign" required> Assign</label>
-                    <label><input type="radio" name="to" value="unassign" required> Unassign</label>
-                </div>
-</div>
-<br>
-<button type="submit" onclick="event.preventDefault();request()">Request</button>
-</form>
-<script>
-function request(){
-	const empId=document.getElementById('empId').value;
-	const proId=document.getElementById('proId').value;
-    const to = document.querySelector('input[name="to"]:checked').value;
-	const data={
-			empId:empId,
-			proId:proId,
-			to:to
-	};
-	fetch('/manager/requestAdmin',{
-		method:'POST',
-		headers:{
-			'Content-Type':'application/json'
-		},
-		body:JSON.stringify(data)
-	})
-	.then(response=>response.json()) //response converting to object
-	.then(data=>{ 
-		console.log(data);
-	}).catch(error => console.error('Error fetching unassigned employees:', error));
-}
-</script>
+    <form>
+        Employee Id <input type="text" placeholder="Employee ID" name="empId" id="empId"><br>
+        Project Id <input type="text" placeholder="Project ID" name="proId" id="proId"><br>
+        <div class="vertical-group">
+            <div class="horizontal-radio-group">
+                <label>To:</label>
+                <label><input type="radio" name="to" value="assign" required> Assign</label>
+                <label><input type="radio" name="to" value="unassign" required> Unassign</label>
+            </div>
+        </div>
+        <button type="submit" onclick="event.preventDefault(); request()">Request</button>
+        <button type="button" onclick="window.location.href = '/managerfiles/managerhome.html'">Back</button>
+    </form>
+
+    <script>
+        function request() {
+            const empId = document.getElementById('empId').value;
+            const proId = document.getElementById('proId').value;
+            const to = document.querySelector('input[name="to"]:checked').value;
+            const data = {
+                empId: empId,
+                proId: proId,
+                to: to
+            };
+            fetch('/manager/requestAdmin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => console.error('Error fetching unassigned employees:', error));
+        }
+    </script>
 </body>
 </html>

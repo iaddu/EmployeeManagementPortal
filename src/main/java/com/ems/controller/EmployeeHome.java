@@ -75,6 +75,7 @@ public class EmployeeHome {
 	 
 	 @PostMapping("/changePassword")
 	 public void changePassword(@RequestParam("upass") String upass) {
+		 System.out.println(upass);
 		 String email = authUtils.getLoggedInUserEmail();
 		String encodedpassword= passwordEncoder.encode(upass);
 		empService.changePassword(email,encodedpassword);	

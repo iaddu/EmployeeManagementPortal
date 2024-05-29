@@ -14,9 +14,11 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
+import com.ems.model.Project;
 import com.ems.model.Request;
 import com.ems.service.AuthUtils;
 import com.ems.service.EmpService;
+import com.ems.service.ProjectService;
 import com.ems.service.RequestService;
 
 @RestController
@@ -30,6 +32,9 @@ public class ManagerHome {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private ProjectService projectService;
 	
 	@Autowired
 	private RequestService requestService;
@@ -52,6 +57,12 @@ public class ManagerHome {
 		 //System.out.println(allEmployeeList);
 		 return allEmployeeList;
 	 }
+	 
+	 @GetMapping("/getAllProject")
+	 public List<Project> getAllProject(){
+		List<Project> allProjectList= projectService.getAllProject();
+		return allProjectList;
+	 } 
 	 
 	 @PostMapping("/viewEmployee")
 	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){

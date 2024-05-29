@@ -30,7 +30,7 @@ import com.ems.model.Project;
 import com.ems.model.Request;
 import com.ems.model.Skill;
 
-public class TestService {	
+public class TestEmpService {	
     @InjectMocks
     private EmpService empService;
     

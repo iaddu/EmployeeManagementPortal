@@ -1,29 +1,129 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 20px; /* Add padding for space */
+            display: flex;
+            flex-direction: column; /* Align elements vertically */
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%; /* Occupy full width of the container */
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        th, td {
+            min-width: 80px; /* Set a minimum width for columns */
+        }
+        .back-button {
+            margin-top: auto; /* Push button to the bottom */
+            align-self: center; /* Center the button horizontally */
+            padding: 10px 20px; /* Add padding for better visibility */
+            background-color: #4CAF50; /* Green background color */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Add border radius */
+            cursor: pointer; /* Add cursor pointer on hover */
+            font-size: 16px; /* Increase font size */
+        }
+        .back-button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
 </head>
 <body>
-<div id="employeeList"></div>
-<script>
-let promise=fetch("/emp/getAllEmployee")
-promise.then(response => response.json())
-.then(data=>{
-    const employeeListDiv = document.getElementById('employeeList');
-    // Iterate over each employee and create HTML elements to display their information
-    data.forEach(employee => {
-        const employeeDiv = document.createElement('div');
-        employeeDiv.innerHTML = `
-            <h2>${employee.firstName} ${employee.lastName}</h2>
-            <p>Email: ${employee.email}</p>
-            <p>Address: ${employee.address}</p>
-            <p>Phone: ${employee.phone}</p>
-            <p>Gender: ${employee.gender}</p>
-            <p>Role: ${employee.role}</p>
-            <p>Date of Birth: ${employee.dob}</p>
-        `;
-        employeeListDiv.appendChild(employeeDiv);
-});  
-    })
-.catch(error => console.error('Error fetching unassigned employees:', error));
-</script>
+	<h1>Employees List</h1>
+    <div>
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Role</th>
+                    <th>Date of Birth</th>
+                    <th>Skills</th>
+                    <th>Projects</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic content will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        fetch("/emp/getAllEmployee")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Log the entire response to verify structure
+
+            const employeeTableBody = document.querySelector('#employeeTable tbody');
+            
+            data.forEach(employee => {
+                // Iterate over the skills and create a comma-separated string
+                let skills = "";
+                if (employee.haveSkills && employee.haveSkills.length > 0) {
+                    employee.haveSkills.forEach(skill => {
+                        skills += skill.skillName + ", ";
+                    });
+                    // Remove the trailing comma and space
+                    skills = skills.slice(0, -2);
+                } else {
+                    skills = "No skills available";
+                }
+                
+                let projects="";
+                if(employee.assignedProject!=null){
+                    projects=employee.assignedProject.proName;
+                }
+                if(employee.haveProject && employee.haveProject.length>0){
+                     employee.haveProject.forEach(project=>{
+                         projects+=project.proName+", ";
+                     })
+                     projects=projects.slice(0,-2);
+                }
+                if(projects==""){
+                    projects="No Project Assigned";
+                }
+                // Create a new row and cells for each employee
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${employee.empId}</td>
+                    <td>${employee.firstName} ${employee.lastName}</td>
+                    <td>${employee.email}</td>
+                    <td>${employee.address}</td>
+                    <td>${employee.phone}</td>
+                    <td>${employee.gender}</td>
+                    <td>${employee.role}</td>
+                    <td>${employee.dob}</td>
+                    <td>${skills}</td>
+                    <td>${projects}</td>
+                `;
+                employeeTableBody.appendChild(row);
+            });
+
+            // Add back button below the table
+            const backButton = document.createElement('button');
+            backButton.textContent = 'Back';
+            backButton.className = 'back-button';
+            backButton.onclick = () => window.location.href = 'employeeHome.html';
+            document.body.appendChild(backButton);
+        })
+        .catch(error => console.error('Error fetching unassigned employees:', error));
+    </script>
 </body>
 </html>
