@@ -18,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 import com.ems.dao.ProjectDao;
 import com.ems.model.Project;
 
-public class TestProjectService {
+public class ProjectServiceTest {
 	
 	@InjectMocks
 	private ProjectService projectService;

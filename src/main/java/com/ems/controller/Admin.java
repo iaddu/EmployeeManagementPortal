@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -87,7 +88,7 @@ public class Admin {
 	        return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
 	    }
 	 
-	 @PostMapping("/deleteEmp")
+	 @DeleteMapping("/deleteEmp")
 	 public Employee deleteEmp(@RequestBody EmailDTO emailDTO) {
 		 	System.out.println(1);
 		 	System.out.println(emailDTO.getEmail());
@@ -187,8 +188,8 @@ public class Admin {
 	 {
 		 System.out.println("in the admin");
 	     Set<Skill> st=skillService.getSkillSet(skills);
-	   empService.updateEmp(empId,firstName,lastName,email,address,phone,gender,role,dob,st);
-	        return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
+	     empService.updateEmp(empId,firstName,lastName,email,address,phone,gender,role,dob,st);
+	     return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
 	    }
 }
 	    

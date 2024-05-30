@@ -17,7 +17,7 @@ import org.mockito.MockitoAnnotations;
 import com.ems.dao.SkillDao;
 import com.ems.model.Skill;
 
-public class TestSkillService {
+public class SkillServiceTest {
 	 
 	@InjectMocks
 	private SkillService skillService;

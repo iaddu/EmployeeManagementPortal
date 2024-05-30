@@ -17,7 +17,7 @@ import org.mockito.MockitoAnnotations;
 import com.ems.dao.RequestDao;
 import com.ems.model.Request;
 
-public class TestRequestService {
+public class RequestServiceTest {
 	 
 	@InjectMocks
 	private RequestService requestService;
