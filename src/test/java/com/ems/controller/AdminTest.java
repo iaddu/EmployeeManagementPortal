@@ -93,16 +93,7 @@ public class AdminTest {
     
 
     @Autowired
-    private ObjectMapper objectMapper; // Used for object serialization/deserialization
-    
-    /*
-      @GetMapping("/home")
-	public RedirectView adminHome() {
-		return new RedirectView("/adminfiles/adminhome.html");
-	}
-
-	
-     */
+    private ObjectMapper objectMapper;  
     
     @Test
     public void testAdminHome() throws Exception{
@@ -148,16 +139,13 @@ public class AdminTest {
      
     @Test
     public void testGetUnassignedEmployee() throws Exception {
-        // Create a list of unassigned employees
-        List<Employee> unassignedEmployeeList = new ArrayList<>();
+         List<Employee> unassignedEmployeeList = new ArrayList<>();
         when(employee.getRole()).thenReturn("employee");
         unassignedEmployeeList.add(employee);
 
-        // Mock the service to return the list
-        when(employeeService.getUnassignedEmplyee()).thenReturn(unassignedEmployeeList);
+         when(employeeService.getUnassignedEmplyee()).thenReturn(unassignedEmployeeList);
 
-        // Perform GET request and verify the response
-        mockMvc.perform(get("/admin/getUnassignedEmployee"))
+         mockMvc.perform(get("/admin/getUnassignedEmployee"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].role").value("employee"));
     }
