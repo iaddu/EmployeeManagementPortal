@@ -147,9 +147,12 @@ public class EmpService {
 		int proId=Integer.parseInt(projectId);
 		Optional<Employee> optionalEmployee = empDao.findEmployeeByempId(empId);
 		Optional<Project> optionalProject=projectDao.findProjectByproId(proId);
-        if (optionalEmployee.isPresent() && optionalProject.isPresent()) {
+        if (optionalEmployee.isPresent() && optionalProject.isPresent() ) {
             Employee employee = optionalEmployee.get();
             Project project=optionalProject.get();
+            if(employee.getRole().toLowerCase().equals("employee")) {
+                throw new RuntimeException("either employee not found or project not found" );
+            }
             project.setHaveManager(employee);
             projectDao.save(project);
         } else {
@@ -166,11 +169,13 @@ public class EmpService {
 		Optional<Project> optionalProject=projectDao.findProjectByproId(proId);
 		Optional<Employee> optionalManager=empDao.findEmployeeByempId(managerId);
 		Optional<Request> optionalRequest=requestDao.findRequestByreqId(reqId);
+	
 		if((optionalEmployee.isEmpty() || optionalManager.isEmpty())
 				|| (optionalProject.isEmpty()||optionalRequest.isEmpty())) {
 			throw new NoSuchElementException("element missing");
 		}
 		else {
+			
 			Employee employee=optionalEmployee.get();
 			Project project=optionalProject.get();
 			Employee manager=optionalManager.get();
@@ -260,4 +265,14 @@ public class EmpService {
 			String name=employee.getFirstName()+" "+employee.getLastName();
 			return name;
 		}
+		
+		public List<Employee> myEmployees(int managerId){
+			List<Employee> allEmployees=empDao.findAll();
+			List<Employee> employeeList=new ArrayList<>();
+			for(Employee emp:allEmployees) {
+				if(emp.getManager()!=null && emp.getManager()==managerId)employeeList.add(emp);
+			}
+			return employeeList;
+		}
 }
+

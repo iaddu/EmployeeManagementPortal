@@ -13,17 +13,23 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
+            position: relative; /* Make the position of the logout button relative to the body */
         }
 
-        h1 {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .container {
+        .header {
             display: flex;
-            flex-direction: column;
-            height: 100%;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .header h1, .header h2 {
+            margin: 0;
+            font-size: 2em; /* Ensure both headings have the same size */
+        }
+
+        .header h1 {
+            margin-right: 10px;
         }
 
         .button-container {
@@ -51,17 +57,63 @@
         .button-container button:hover {
             background-color: darkmagenta;
         }
+
+        .logout-button, .myprofile-button {
+            position: absolute;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button {
+            top: 20px;
+            right: 20px;
+            background-color: red;
+        }
+
+        .logout-button:hover {
+            background-color: darkred;
+        }
+
+        .myprofile-button {
+            top: 20px;
+            left: 20px;
+        }
+
+        .myprofile-button:hover {
+            background-color: darkblue;
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome Employee!</h1>
+    <button class="myprofile-button" onclick="window.location.href='viewEmp.html'">My Profile</button>
+    <button class="logout-button" onclick="window.location.href='http://localhost:8080/logout'">Logout</button>
+    <div class="header">
+        <h1>Welcome</h1>
+        <h2 id="loggedUserName"></h2>
+        <h1>!</h1>
+    </div>
     <div class="button-container">
         <button onclick="window.location.href='viewAllEmp.html'">View All Employees</button>
         <button onclick="window.location.href='changePassword.html'">Change Password</button>    
         <button onclick="window.location.href='updateSkill.html'">Update Skill</button>    
         <button onclick="window.location.href='viewAllProject.html'">View All Projects</button>
-        <button>View My Project</button>
-        <button onclick="window.location.href='http://localhost:8080/logout'">Logout</button>
     </div>
+    
+    <script>
+    fetch('/emp/viewEmployee')
+    .then(response => response.json())
+    .then(data => { 
+        const nameElement = document.getElementById("loggedUserName");
+        const employee = data.employee;
+        nameElement.textContent = `${employee.firstName} ${employee.lastName}`;
+    })
+    .catch(error => console.error('Error fetching employee data:', error));
+    </script>
 </body>
 </html>

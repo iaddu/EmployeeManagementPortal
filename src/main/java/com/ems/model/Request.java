@@ -80,5 +80,13 @@ public class Request {
 	public void setToStatus(String toStatus) {
 		this.toStatus = toStatus;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Request [reqId=" + reqId + ", managerId=" + managerId + ", empId=" + empId + ", proId=" + proId
+				+ ", reqStatus=" + reqStatus + ", toStatus=" + toStatus + "]";
+	}
+	
 	
 }

@@ -100,7 +100,7 @@ public class Admin {
 	 @PostMapping("/addProject")
 		 public RedirectView addProject(@RequestParam("proName") String proName) {
 			 	projectService.createService(proName);
-			 	return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
+			 	return new RedirectView("/adminfiles/adminhome.html"); 
 		 }
 		 
 	 @GetMapping("/getUnassignedEmployee")
@@ -189,7 +189,8 @@ public class Admin {
 		 System.out.println("in the admin");
 	     Set<Skill> st=skillService.getSkillSet(skills);
 	     empService.updateEmp(empId,firstName,lastName,email,address,phone,gender,role,dob,st);
-	     return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
+	     return new RedirectView("/adminfiles/adminhome.html"); 
 	    }
+	 
 }
 	    

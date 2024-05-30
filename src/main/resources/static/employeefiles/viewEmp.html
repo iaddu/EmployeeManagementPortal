@@ -1,47 +1,71 @@
+<!DOCTYPE html>
 <html>
 <head>
-<style>
-body, html {
+    <style>
+        body, html {
             height: 100%;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: Arial, sans-serif;
         }
-form {
-            width: 300px; /* Adjust as needed */
+        #employee {
+            width: 500px;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 4px solid black;
             border-radius: 5px;
+            text-align: left; /* Center align the content */
+            font-size: 24px;
         }
-</style>
+        #employee h2 {
+            margin-top: 0;
+        }
+        #employee p {
+            margin: 5px 0;
+        }
+        .back-button {
+            display: block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <div id="employee"></div>
 <script>
 fetch('/emp/viewEmployee')
-	.then(response=>response.json()) //response converting to object
-	.then(data=>{ 
-		const parentDiv=document.getElementById("employee");
-		const employee = data.employee;
+    .then(response => response.json())
+    .then(data => { 
+        const parentDiv = document.getElementById("employee");
+        const employee = data.employee;
         const managerName = data.managerName;
-		let skills = "";
-		if (employee.haveSkills && employee.haveSkills.length > 0) {
-	    employee.haveSkills.forEach(skill => {
-	        skills += skill.skillName + ", ";
-	    });
-	    // Remove the trailing comma and space
-	    skills = skills.slice(0, -2);
-		}
-		else {
-	    skills = "No skills available";
-		}
-		
-		let projects="No Project Assigned";
-		if(employee.assignedProject!=null){
-			projects=employee.assignedProject.proName;
-		}	
-		parentDiv.innerHTML = `
+        let skills = "";
+        if (employee.haveSkills && employee.haveSkills.length > 0) {
+            employee.haveSkills.forEach(skill => {
+                skills += skill.skillName + ", ";
+            });
+            // Remove the trailing comma and space
+            skills = skills.slice(0, -2);
+        } else {
+            skills = "No skills available";
+        }
+
+        let projects = "NA";
+        if (employee.assignedProject != null) {
+            projects = employee.assignedProject.proName;
+        }
+        parentDiv.innerHTML = `
             <h2>${employee.firstName} ${employee.lastName}</h2>
             <p>Email: ${employee.email}</p>
             <p>Address: ${employee.address}</p>
@@ -49,13 +73,19 @@ fetch('/emp/viewEmployee')
             <p>Gender: ${employee.gender}</p>
             <p>Role: ${employee.role}</p>
             <p>Date of Birth: ${employee.dob}</p>
-            <p>Skills:${skills}</p>
-            <p>Projects:${projects}</p>
+            <p>Skills: ${skills}</p>
+            <p>Projects: ${projects}</p>
             <p>Manager: ${managerName}</p>
-
+            <a href="#" class="back-button">Back</a>
         `;
-	}).catch(error => console.error('Error fetching unassigned employees:', error));
-;
+        
+        // Add event listener to back button
+        const backButton = parentDiv.querySelector('.back-button');
+        backButton.addEventListener('click', () => {
+            window.history.back();
+        });
+    })
+    .catch(error => console.error('Error fetching employee data:', error));
 </script>
 </body>
 </html>

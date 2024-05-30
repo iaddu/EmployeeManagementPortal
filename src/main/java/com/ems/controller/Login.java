@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Login {
     @GetMapping("/login")
     public String showLoginPage() {
-        return "/homefiles/login.html"; // This should map to your login.html in the templates or static folder
+        return "/homefiles/login.html";  
     }
 }

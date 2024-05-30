@@ -304,6 +304,7 @@ public class AdminTest {
     				.andExpect(status().isOk());
     		verify(employeeService).unassignThisRequest("3", "0");
     	} 
+    	
     	@Test
     	public void testRejectRequest() throws Exception{
     		when(assignRequest.getReqId()).thenReturn("0");
@@ -338,7 +339,5 @@ public class AdminTest {
     	Set<Skill> result=skillService.getSkillSet(skillNames);
     	verify(employeeService).updateEmp("0","adi","patel","adi@123","tower square","2342","male","employee","6.12.1999",
     			result);
-    }
-    
-    	
+    }	
 }

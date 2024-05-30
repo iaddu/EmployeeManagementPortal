@@ -13,6 +13,7 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
+            position: relative; /* Add this to make the position of the buttons relative to the body */
         }
 
         h1 {
@@ -51,17 +52,54 @@
         .button-container button:hover {
             background-color: darkmagenta;
         }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: darkred;
+        }
+
+        .my-profile-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .my-profile-button:hover {
+            background-color: darkblue;
+        }
     </style>
 </head>
 <body>
+    <button class="my-profile-button" onclick="window.location.href='myProfile.html'">My Profile</button>
+    <button class="logout-button" onclick="window.location.href='http://localhost:8080/logout'">Logout</button>
     <h1>Manager Home</h1> 
     <div class="button-container">
         <button onclick="window.location.href='viewAllEmp.html'">View All Employees</button>
         <button onclick="window.location.href='/adminmanager/requestAdmin.html'">Request Employees</button>
         <button onclick="window.location.href='changePassword.html'">Change Password</button>
         <button onclick="window.location.href='viewAllProject.html'">View All Projects</button>
-        <button>View My Project</button>
-	    <button onclick="window.location.href='http://localhost:8080/logout'">Logout</button>
+        <button onclick="window.location.href='myProject.html'">My Projects</button>
     </div>
 </body>
 </html>

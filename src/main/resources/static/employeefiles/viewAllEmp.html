@@ -5,45 +5,45 @@
         body, html {
             height: 100%;
             margin: 0;
-            padding: 20px; /* Add padding for space */
+            padding: 20px;
             display: flex;
-            flex-direction: column; /* Align elements vertically */
+            flex-direction: column;
             font-family: Arial, sans-serif;
         }
         table {
-            width: 100%; /* Occupy full width of the container */
+            width: 100%;
             border-collapse: collapse;
         }
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
-            white-space: nowrap; /* Prevent text wrapping */
+            white-space: nowrap;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: Gainsboro;
         }
         th, td {
-            min-width: 80px; /* Set a minimum width for columns */
+            min-width: 80px;
         }
         .back-button {
-            margin-top: auto; /* Push button to the bottom */
-            align-self: center; /* Center the button horizontally */
-            padding: 10px 20px; /* Add padding for better visibility */
-            background-color: #4CAF50; /* Green background color */
-            color: white; /* White text color */
-            border: none; /* Remove border */
-            border-radius: 5px; /* Add border radius */
-            cursor: pointer; /* Add cursor pointer on hover */
-            font-size: 16px; /* Increase font size */
+            margin-top: auto;
+            align-self: center;
+            padding: 10px 20px;
+            background-color: ForestGreen;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
         .back-button:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: LimeGreen;
         }
     </style>
 </head>
 <body>
-	<h1>Employees List</h1>
+    <h1>Employees List</h1>
     <div>
         <table id="employeeTable">
             <thead>
@@ -61,7 +61,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dynamic content will be inserted here -->
             </tbody>
         </table>
     </div>
@@ -69,37 +68,33 @@
         fetch("/emp/getAllEmployee")
         .then(response => response.json())
         .then(data => {
-            console.log(data); // Log the entire response to verify structure
-
             const employeeTableBody = document.querySelector('#employeeTable tbody');
-            
+
             data.forEach(employee => {
-                // Iterate over the skills and create a comma-separated string
                 let skills = "";
                 if (employee.haveSkills && employee.haveSkills.length > 0) {
                     employee.haveSkills.forEach(skill => {
                         skills += skill.skillName + ", ";
                     });
-                    // Remove the trailing comma and space
                     skills = skills.slice(0, -2);
                 } else {
                     skills = "No skills available";
                 }
                 
-                let projects="";
-                if(employee.assignedProject!=null){
-                    projects=employee.assignedProject.proName;
+                let projects = "";
+                if (employee.assignedProject != null) {
+                    projects = employee.assignedProject.proName;
                 }
-                if(employee.haveProject && employee.haveProject.length>0){
-                     employee.haveProject.forEach(project=>{
-                         projects+=project.proName+", ";
-                     })
-                     projects=projects.slice(0,-2);
+                if (employee.haveProject && employee.haveProject.length > 0) {
+                    employee.haveProject.forEach(project => {
+                        projects += project.proName + ", ";
+                    });
+                    projects = projects.slice(0, -2);
                 }
-                if(projects==""){
-                    projects="No Project Assigned";
+                if (projects == "") {
+                    projects = "No Project Assigned";
                 }
-                // Create a new row and cells for each employee
+
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${employee.empId}</td>
@@ -116,7 +111,6 @@
                 employeeTableBody.appendChild(row);
             });
 
-            // Add back button below the table
             const backButton = document.createElement('button');
             backButton.textContent = 'Back';
             backButton.className = 'back-button';

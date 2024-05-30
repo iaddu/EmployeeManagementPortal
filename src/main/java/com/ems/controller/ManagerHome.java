@@ -1,8 +1,13 @@
 package com.ems.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -79,10 +84,34 @@ public class ManagerHome {
 	 
 	 @PostMapping("/changePassword")
 	 public void changePassword(@RequestParam("upass") String upass) {
-		String email = authUtils.getLoggedInUserEmail();
+ 		String email = authUtils.getLoggedInUserEmail();
 		String encodedpassword= passwordEncoder.encode(upass);
 		empService.changePassword(email,encodedpassword);	
 	 }
 	 
-	
+	 
+	 @GetMapping("/myProfile")
+	 public Employee getEmployee(){
+		 String email = authUtils.getLoggedInUserEmail();
+		 Employee employee=null;
+		 if(email!=null)
+		 employee= empService.getEmployee(email);
+		 System.out.println(employee);
+		 return employee;
+	 } 
+	 
+	 
+	 @GetMapping("/myProject")
+	 public ResponseEntity<Map<Project, Set<Employee>>> myEmployees() {
+	        Map<Project, Set<Employee>> proEmp = new HashMap<>();
+	        String email = authUtils.getLoggedInUserEmail();
+	        Employee employee = empService.getEmployee(email);
+	        Set<Project> myProjects = employee.getHaveProject();
+	        for (Project project : myProjects) {
+	            Set<Employee> empSet = project.getHaveEmployee();
+	            proEmp.put(project, project.getHaveEmployee());
+	        }
+	        System.out.println(proEmp);
+	        return new ResponseEntity<>(proEmp, HttpStatus.OK);
+	    }
 }

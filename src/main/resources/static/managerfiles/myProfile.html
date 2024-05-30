@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Profile</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        #manager {
+            width: 500px;
+            padding: 20px;
+            border: 4px solid black;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 24px;
+        }
+        #manager h2 {
+            margin-top: 0;
+        }
+        #manager p {
+            margin: 5px 0;
+        }
+        .back-button {
+            display: block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .projects-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .projects-list li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="manager"></div>
+    <script>
+        fetch('/manager/myProfile')
+            .then(response => response.json())
+            .then(data => {
+                const parentDiv = document.getElementById("manager");
+                const manager = data;
+
+                let skills = "";
+                if (manager.haveSkills && manager.haveSkills.length > 0) {
+                    manager.haveSkills.forEach(skill => {
+                        skills += skill.skillName + ", ";
+                    });
+                    // Remove the trailing comma and space
+                    skills = skills.slice(0, -2);
+                } else {
+                    skills = "No skills available";
+                }
+
+                let projects = "No projects managed";
+                if (manager.haveProject && manager.haveProject.length > 0) {
+                    projects = "<ul class='projects-list'>";
+                    manager.haveProject.forEach(project => {
+                        projects += `<li>${project.proName}</li>`;
+                    });
+                    projects += "</ul>";
+                }
+
+                parentDiv.innerHTML = `
+                    <h2>${manager.firstName} ${manager.lastName}</h2>
+                    <p>Email: ${manager.email}</p>
+                    <p>Address: ${manager.address}</p>
+                    <p>Phone: ${manager.phone}</p>
+                    <p>Gender: ${manager.gender}</p>
+                    <p>Role: ${manager.role}</p>
+                    <p>Date of Birth: ${manager.dob}</p>
+                    <p>Skills: ${skills}</p>
+                    <p>Projects:</p> ${projects}
+                    <a href="#" class="back-button">Back</a>
+                `;
+                
+                // Add event listener to back button
+                const backButton = parentDiv.querySelector('.back-button');
+                backButton.addEventListener('click', () => {
+                    window.history.back();
+                });
+            })
+            .catch(error => console.error('Error fetching manager data:', error));
+    </script>
+</body>
+</html>
