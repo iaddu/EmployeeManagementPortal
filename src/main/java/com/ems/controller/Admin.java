@@ -57,7 +57,7 @@ public class Admin {
 	
     @GetMapping("/home")
 	public RedirectView adminHome() {
-		return new RedirectView("/adminfiles/adminhome.html");
+		return new RedirectView("/adminfiles/html/adminhome.html");
 	}
     /*
 
@@ -90,7 +90,7 @@ public class Admin {
  			System.out.println("email sended successfully");
 	        emp.setPassword(passwordEncoder.encode(password));
 	        empService.createEmp(emp);
-	        return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
+	        return new RedirectView("/adminfiles/html/adminhome.html"); // Redirect to the admin home page
 	    }*/
 
         @PostMapping("/registerEmp")
@@ -144,7 +144,7 @@ public class Admin {
 	 @PostMapping("/addProject")
 		 public RedirectView addProject(@RequestParam("proName") String proName) {
 			 	projectService.createService(proName);
-			 	return new RedirectView("/adminfiles/adminhome.html"); 
+			 	return new RedirectView("/adminfiles/html/adminhome.html"); 
 		 }
 		 
 	 @GetMapping("/getUnassignedEmployee")
@@ -238,7 +238,7 @@ public class Admin {
 		 System.out.println("in the admin");
 	     Set<Skill> st=skillService.getSkillSet(skills);
 	     empService.updateEmp(empId,firstName,lastName,email,address,phone,gender,role,dob,st);
-	     return new RedirectView("/adminfiles/adminhome.html"); 
+	     return new RedirectView("/adminfiles/html/adminhome.html"); 
 	    }
 	 
 	 
