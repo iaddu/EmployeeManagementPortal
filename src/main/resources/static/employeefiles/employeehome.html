@@ -13,7 +13,7 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            position: relative; /* Make the position of the logout button relative to the body */
+            position: relative;  
         }
 
         .header {
@@ -25,7 +25,7 @@
 
         .header h1, .header h2 {
             margin: 0;
-            font-size: 2em; /* Ensure both headings have the same size */
+            font-size: 2em;  
         }
 
         .header h1 {
@@ -98,13 +98,14 @@
         <h2 id="loggedUserName"></h2>
         <h1>!</h1>
     </div>
+    
     <div class="button-container">
         <button onclick="window.location.href='viewAllEmp.html'">View All Employees</button>
         <button onclick="window.location.href='changePassword.html'">Change Password</button>    
         <button onclick="window.location.href='updateSkill.html'">Update Skill</button>    
         <button onclick="window.location.href='viewAllProject.html'">View All Projects</button>
     </div>
-    
+
     <script>
     fetch('/emp/viewEmployee')
     .then(response => response.json())

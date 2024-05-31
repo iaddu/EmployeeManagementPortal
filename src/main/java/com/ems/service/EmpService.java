@@ -180,6 +180,8 @@ public class EmpService {
 			Project project=optionalProject.get();
 			Employee manager=optionalManager.get();
 			Request request=optionalRequest.get();
+			
+			if(!request.getReqStatus().toLowerCase().equals("pending"))return;
 			employee.setManager(managerId);
 			employee.setAssignedProject(project);
 			request.setReqStatus("Approved");
@@ -199,6 +201,7 @@ public class EmpService {
 			else {
 				Employee employee=optionalEmployee.get();
 				Request request=optionalRequest.get();
+				if(!request.getReqStatus().toLowerCase().equals("pending"))return;
 				employee.setManager(null);
 				employee.setAssignedProject(null);
 				request.setReqStatus("Approved");
@@ -215,6 +218,7 @@ public class EmpService {
 			}
 			else {
 				Request request=optionalRequest.get();
+				if(!request.getReqStatus().toLowerCase().equals("pending"))return;
 				request.setReqStatus("Rejected");
 				requestDao.save(request);
 			}

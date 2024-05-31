@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,6 +59,7 @@ public class Admin {
 	public RedirectView adminHome() {
 		return new RedirectView("/adminfiles/adminhome.html");
 	}
+    /*
 
 	
 	 @PostMapping("/registerEmp")
@@ -77,16 +79,58 @@ public class Admin {
 	     Set<Skill> st=skillService.getSkillSet(skills);
         
 	     Employee emp=new Employee(firstName,lastName,email,address,phone,gender,role,password,dob,st);
- 		 String text="Congratulations you are successfully registered\nUsername: "+email
- 				+"Password: "+password+
- 				"\n";
- 			//emailService.sendMail("iadityapatel1729@gmail.com",email,text);
+	     String text = "Hello! " + firstName + " " + lastName + ",\n\n" +
+	              "Congratulations! You have successfully registered.\n\n" +
+	              "Your account details are as follows:\n" +
+	              "Username: " + email + "\n" +
+	              "Password: " + password + "\n\n" +
+	              "Thank you for joining our team!";
+ 			emailService.sendMail("iadityapatel1729@gmail.com",email,text);
 			emailService.sendMail("iadityapatel1729@gmail.com","adityapatel91221@gmail.com",text);
  			System.out.println("email sended successfully");
 	        emp.setPassword(passwordEncoder.encode(password));
 	        empService.createEmp(emp);
 	        return new RedirectView("/adminfiles/adminhome.html"); // Redirect to the admin home page
-	    }
+	    }*/
+
+        @PostMapping("/registerEmp")
+        public ResponseEntity<String> registerEmployee(
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("email") String email,
+            @RequestParam("address") String address,
+            @RequestParam("phone") String phone,
+            @RequestParam("gender") String gender,
+            @RequestParam("role") String role,
+            @RequestParam("dob") String dob,
+            @RequestParam("skills") Set<String> skills
+        ) {
+            String password = empService.createPassword();
+            Set<Skill> st = skillService.getSkillSet(skills);
+
+            Employee emp = new Employee(firstName, lastName, email, address, phone, gender, role, password, dob, st);
+            String text = "Hello! " + firstName + " " + lastName + ",\n\n" +
+                          "Congratulations! You have successfully registered.\n\n" +
+                          "Your account details are as follows:\n" +
+                          "Username: " + email + "\n" +
+                          "Password: " + password + "\n\n" +
+                          "Thank you for joining our team!";
+            try {
+            	
+                emp.setPassword(passwordEncoder.encode(password));
+                empService.createEmp(emp);
+
+                emailService.sendMail("iadityapatel1729@gmail.com", email, text);
+                emailService.sendMail("iadityapatel1729@gmail.com", "adityapatel91221@gmail.com", text);
+                System.out.println("Email sent successfully");
+
+            } catch (DataIntegrityViolationException e) {
+                return ResponseEntity.badRequest().body("Email already exists. Please use a different email.");
+            }
+
+            return ResponseEntity.ok("Employee registered successfully.");
+        }
+    
 	 
 	 @DeleteMapping("/deleteEmp")
 	 public Employee deleteEmp(@RequestBody EmailDTO emailDTO) {
@@ -128,6 +172,11 @@ public class Admin {
 		return allProjectList;
 	 } 
 	 
+	 /*
+	 @GetMapping("/getAllProjectWithManager"){
+		 
+	 }
+	 */
 	 //single employee
 	 @PostMapping("/viewEmployee")
 	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){
@@ -191,6 +240,9 @@ public class Admin {
 	     empService.updateEmp(empId,firstName,lastName,email,address,phone,gender,role,dob,st);
 	     return new RedirectView("/adminfiles/adminhome.html"); 
 	    }
+	 
+	 
+	 
 	 
 }
 	    
