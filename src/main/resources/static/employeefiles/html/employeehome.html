@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Home</title>
+    <link rel="stylesheet" href="/employeefiles/css/employeehome.css"> 
+    <script src="/employeefiles/js/employeehome.js"defer></script>
+</head>
+<body>
+    <button class="myprofile-button" onclick="window.location.href='viewEmp.html'">My Profile</button>
+    <button class="logout-button" onclick="window.location.href='http://localhost:8080/logout'">Logout</button>
+    <div class="header">
+        <h1>Welcome</h1>
+        <h2 id="loggedUserName"></h2>
+        <h1>!</h1>
+    </div>
+    
+    <div class="button-container">
+        <button onclick="window.location.href='viewAllEmp.html'">View All Employees</button>
+        <button onclick="window.location.href='changePassword.html'">Change Password</button>    
+        <button onclick="window.location.href='updateSkill.html'">Update Skill</button>    
+        <button onclick="window.location.href='viewAllProject.html'">View All Projects</button>
+    </div>
+
+    
+</body>
+</html>

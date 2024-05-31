@@ -1,0 +1,62 @@
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+form {
+    width: 300px; /* Adjust as needed */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#employee-info {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.checkbox-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.checkbox-group label {
+    display: block; /* Display each label on a new line */
+    margin-bottom: 5px; /* Add some spacing between each label */
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from links */
+    display: inline-block;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+#successMessage {
+    display: none;
+    color: green;
+    text-align: center;
+    margin-bottom: 20px;
+}

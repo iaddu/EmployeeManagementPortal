@@ -1,49 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-        }
-        #employee {
-            width: 500px;
-            padding: 20px;
-            border: 4px solid black;
-            border-radius: 5px;
-            text-align: left; /* Center align the content */
-            font-size: 24px;
-        }
-        #employee h2 {
-            margin-top: 0;
-        }
-        #employee p {
-            margin: 5px 0;
-        }
-        .back-button {
-            display: block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-<div id="employee"></div>
-<script>
+
 fetch('/emp/viewEmployee')
     .then(response => response.json())
     .then(data => { 
@@ -86,6 +41,3 @@ fetch('/emp/viewEmployee')
         });
     })
     .catch(error => console.error('Error fetching employee data:', error));
-</script>
-</body>
-</html>

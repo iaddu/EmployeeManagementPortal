@@ -1,70 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            font-family: Arial, sans-serif;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-            white-space: nowrap;
-        }
-        th {
-            background-color: Gainsboro;
-        }
-        th, td {
-            min-width: 80px;
-        }
-        .back-button {
-            margin-top: auto;
-            align-self: center;
-            padding: 10px 20px;
-            background-color: ForestGreen;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .back-button:hover {
-            background-color: LimeGreen;
-        }
-    </style>
-</head>
-<body>
-    <h1>Employees List</h1>
-    <div>
-        <table id="employeeTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Gender</th>
-                    <th>Role</th>
-                    <th>Date of Birth</th>
-                    <th>Skills</th>
-                    <th>Projects</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-    <script>
+
         fetch("/emp/getAllEmployee")
         .then(response => response.json())
         .then(data => {
@@ -118,6 +52,4 @@
             document.body.appendChild(backButton);
         })
         .catch(error => console.error('Error fetching unassigned employees:', error));
-    </script>
-</body>
-</html>
+    

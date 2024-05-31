@@ -40,7 +40,7 @@ public class EmployeeHome {
 	
 	@GetMapping("/home")
 	public RedirectView employeeHome() {
-		return new RedirectView("/employeefiles/employeehome.html");
+		return new RedirectView("/employeefiles/html/employeehome.html");
 	}
 	
 	@GetMapping("/getAllEmployee")

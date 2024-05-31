@@ -1,60 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        #listProject {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-            font-size: 20px;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-size: 25px;
-        }
-        .button-container {
-            text-align: left;
-        }
-        .back-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <h1>Project List</h1>
-    <div id="listProject"></div>
-    <div class="button-container">
-        <a href="employeehome.html" class="back-button">Back</a>
-    </div>
-    <script>
+
         let promise = fetch("/emp/getAllProject");
         promise.then(response => response.json())
         .then(data => { 
@@ -99,6 +43,4 @@
             parentDiv.appendChild(table);
         })
         .catch(error => console.error('Error fetching projects:', error));
-    </script>
-</body>
-</html>
+    

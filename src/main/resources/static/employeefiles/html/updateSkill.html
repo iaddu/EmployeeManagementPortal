@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/employeefiles/css/updateSkill.css">
+<script src="/employeefiles/js/updateSkill.js"defer></script>
+</head>
+<body>
+<div id="employee-form-container">
+    <div id="employee-info">
+        <h2 id="employee-name"></h2>
+        <p id="employee-email"></p>
+    </div>
+    <div id="successMessage">Skills updated successfully!</div>
+    <form id="update-skills-form" action="/emp/updateSkill" method="post">
+        <input type="hidden" id="emp-id" name="empId">
+        <div class="form-group checkbox-group">
+            <label for="skills">Skills:</label>
+            <label><input type="checkbox" name="skills" value="C"> C</label>
+            <label><input type="checkbox" name="skills" value="JAVA"> JAVA</label>
+            <label><input type="checkbox" name="skills" value="ML"> ML</label>
+            <label><input type="checkbox" name="skills" value="AI"> AI</label>
+            <label><input type="checkbox" name="skills" value="Spring"> Spring</label>
+            <label><input type="checkbox" name="skills" value="MERN"> MERN</label>
+            <label><input type="checkbox" name="skills" value="BlockChain"> BlockChain</label>
+            <label><input type="checkbox" name="skills" value="Servlet"> Servlet</label>
+            <label><input type="checkbox" name="skills" value="Server Design"> Server Design</label>
+            <label><input type="checkbox" name="skills" value="Web Developer"> Web Developer</label>
+            <label><input type="checkbox" name="skills" value="App Developer"> App Developer</label>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="button">Update Skills</button>
+            <a href="/employeefiles/html/employeehome.html" class="button">Back</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
