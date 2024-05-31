@@ -1,4 +1,4 @@
-package com.ems.controller;
+package com.ems.dto;
 
 public class RequestDTO {
 	private int empId;

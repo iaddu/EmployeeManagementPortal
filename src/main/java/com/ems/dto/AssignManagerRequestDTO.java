@@ -1,6 +1,6 @@
-package com.ems.controller;
+package com.ems.dto;
 
-public class AssignManagerRequest {
+public class AssignManagerRequestDTO {
 	    private String managerId;
 	    private String proId;
 		public String getManagerId() {

@@ -1,59 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manager Profile</title>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-        }
-        #manager {
-            width: 500px;
-            padding: 20px;
-            border: 4px solid black;
-            border-radius: 5px;
-            text-align: left;
-            font-size: 24px;
-        }
-        #manager h2 {
-            margin-top: 0;
-        }
-        #manager p {
-            margin: 5px 0;
-        }
-        .back-button {
-            display: block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
-        }
-        .projects-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .projects-list li {
-            margin: 5px 0;
-        }
-    </style>
-</head>
-<body>
-    <div id="manager"></div>
-    <script>
+
         fetch('/manager/myProfile')
             .then(response => response.json())
             .then(data => {
@@ -100,6 +45,4 @@
                 });
             })
             .catch(error => console.error('Error fetching manager data:', error));
-    </script>
-</body>
-</html>
+    

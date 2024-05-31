@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ems.dto.AssignManagerRequestDTO;
+import com.ems.dto.AssignRequestDTO;
 import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
@@ -191,7 +193,7 @@ public class Admin {
 	 } 
 	 
 	 @PostMapping("/assignManager")
-	 public ResponseEntity<String> assignManager(@RequestBody AssignManagerRequest assignManagerRequest) {
+	 public ResponseEntity<String> assignManager(@RequestBody AssignManagerRequestDTO assignManagerRequest) {
 	     try {
 	         empService.assignManager(assignManagerRequest.getManagerId(), assignManagerRequest.getProId());
 	         return ResponseEntity.ok("Manager assigned successfully!");
@@ -207,17 +209,17 @@ public class Admin {
 	 } 
 		
 	 @PostMapping("/assignRequest")
-	 public void assignRequest(@RequestBody AssignRequest assignRequest) {
+	 public void assignRequest(@RequestBody AssignRequestDTO assignRequest) {
 	empService.assignThisRequest(assignRequest.getReqId(),assignRequest.getEmpId(), assignRequest.getManagerId(), assignRequest.getProId());
 	 }
 	 
 	 @PostMapping("/unassignRequest")
-	 public void unassignRequest(@RequestBody AssignRequest assignRequest) {
+	 public void unassignRequest(@RequestBody AssignRequestDTO assignRequest) {
 	empService.unassignThisRequest(assignRequest.getReqId(),assignRequest.getEmpId());
 	 }
 	 
 	 @PostMapping("/rejectRequest")
-	 public void rejectRequest(@RequestBody AssignRequest assignRequest) {
+	 public void rejectRequest(@RequestBody AssignRequestDTO assignRequest) {
 	empService.rejectThisRequest(assignRequest.getReqId());
 	 }
 	 

@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manager Home</title>
-    <style>
+ 
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -88,18 +82,4 @@
         .my-profile-button:hover {
             background-color: darkblue;
         }
-    </style>
-</head>
-<body>
-    <button class="my-profile-button" onclick="window.location.href='myProfile.html'">My Profile</button>
-    <button class="logout-button" onclick="window.location.href='http://localhost:8080/logout'">Logout</button>
-    <h1>Manager Home</h1> 
-    <div class="button-container">
-        <button onclick="window.location.href='viewAllEmp.html'">View All Employees</button>
-        <button onclick="window.location.href='/adminmanager/requestAdmin.html'">Request Employees</button>
-        <button onclick="window.location.href='changePassword.html'">Change Password</button>
-        <button onclick="window.location.href='viewAllProject.html'">View All Projects</button>
-        <button onclick="window.location.href='myProject.html'">My Projects</button>
-    </div>
-</body>
-</html>
+    

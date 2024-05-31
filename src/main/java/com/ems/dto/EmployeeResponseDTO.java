@@ -1,12 +1,12 @@
-package com.ems.controller;
+package com.ems.dto;
 
 import com.ems.model.Employee;
 
-public class EmployeeResponse {
+public class EmployeeResponseDTO {
 	private Employee employee;
 	private String managerName;
 	
-	public EmployeeResponse(Employee employee, String managerName) {
+	public EmployeeResponseDTO(Employee employee, String managerName) {
 		super();
 		this.employee = employee;
 		this.managerName = managerName;

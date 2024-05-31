@@ -1,0 +1,40 @@
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 20px;  
+            display: flex;
+            flex-direction: column;  
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%; 
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap; 
+        }
+        th {
+            background-color: Gainsboro;
+        }
+        th, td {
+            min-width: 80px; 
+        }
+        .back-button {
+            margin-top: auto;  
+            align-self: center; 
+            padding: 10px 20px; 
+            background-color: ForestGreen; 
+            color: white;  
+            border: none;  
+            border-radius: 5px;  
+            cursor: pointer;  
+            font-size: 16px;  
+        }
+        .back-button:hover {
+            background-color: LimeGreen;  
+        }
+    

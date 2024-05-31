@@ -1,13 +1,13 @@
-package com.ems.controller;
+package com.ems.dto;
 
-public class AssignRequest {
+public class AssignRequestDTO {
 	private String reqId;
 	private String proId;
 	private String managerId;
 	private String empId;
 	
 	
-	public AssignRequest(String reqId,String proId, String managerId, String empId) {
+	public AssignRequestDTO(String reqId,String proId, String managerId, String empId) {
 		super();
 		this.proId = proId;
 		this.managerId = managerId;

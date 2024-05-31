@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ems.dto.EmployeeResponseDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
 import com.ems.model.Skill;
@@ -50,13 +51,13 @@ public class EmployeeHome {
 	 } 
 	
 	 @GetMapping("/viewEmployee")
-	 public EmployeeResponse getEmployee(){
+	 public EmployeeResponseDTO getEmployee(){
 		 String email = authUtils.getLoggedInUserEmail();
 		 Employee employee=null;
 		 if(email!=null)
 		 employee= empService.getEmployee(email);
 		 String managerName=empService.getManagerName(employee.getManager());
-	   	return new EmployeeResponse(employee,managerName);
+	   	return new EmployeeResponseDTO(employee,managerName);
 	 } 
 	
 	 @GetMapping("/getAllProject")

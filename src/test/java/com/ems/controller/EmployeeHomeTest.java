@@ -25,6 +25,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ems.dto.AssignManagerRequestDTO;
+import com.ems.dto.AssignRequestDTO;
 import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
@@ -70,7 +72,7 @@ public class EmployeeHomeTest {
 
     
     @Mock
-    private AssignManagerRequest assignManagerRequest;
+    private AssignManagerRequestDTO assignManagerRequest;
     
     
     @Mock
@@ -92,7 +94,7 @@ public class EmployeeHomeTest {
     private ProjectDTO projectDto;
     
     @Mock
-    private AssignRequest assignRequest;
+    private AssignRequestDTO assignRequest;
    
     @Autowired
     private ObjectMapper objectMapper; // Used for object serialization/deserialization

@@ -21,6 +21,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.ems.dto.AssignManagerRequestDTO;
+import com.ems.dto.AssignRequestDTO;
+import com.ems.dto.RequestDTO;
 import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
@@ -64,7 +67,7 @@ public class ManagerHomeTest {
 		private AuthUtils authUtils;
 	    
 	    @Mock
-	    private AssignManagerRequest assignManagerRequest;
+	    private AssignManagerRequestDTO assignManagerRequest;
 	    
 	    
 	    @Mock
@@ -89,7 +92,7 @@ public class ManagerHomeTest {
 	    private RequestDTO requestDto;
 	    
 	    @Mock
-	    private AssignRequest assignRequest;
+	    private AssignRequestDTO assignRequest;
 	   
 	    @Autowired
 	    private ObjectMapper objectMapper;  

@@ -27,6 +27,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ems.dto.AssignManagerRequestDTO;
+import com.ems.dto.AssignRequestDTO;
 import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
@@ -67,7 +69,7 @@ public class AdminTest {
     private EmailService emailService;
     
     @Mock
-    private AssignManagerRequest assignManagerRequest;
+    private AssignManagerRequestDTO assignManagerRequest;
     
     
     @Mock
@@ -89,7 +91,7 @@ public class AdminTest {
     private ProjectDTO projectDto;
     
     @Mock
-    private AssignRequest assignRequest;
+    private AssignRequestDTO assignRequest;
     
 
     @Autowired

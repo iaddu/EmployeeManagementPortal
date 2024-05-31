@@ -1,8 +1,7 @@
 package com.ems.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ems.dto.ProjectEmployeeDTO;
+import com.ems.dto.RequestDTO;
 import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
@@ -45,7 +46,7 @@ public class ManagerHome {
 	private RequestService requestService;
 	@GetMapping("/home")
 	public RedirectView managerHome() {
-		return new RedirectView("/managerfiles/managerHome.html");
+		return new RedirectView("/managerfiles/html/managerHome.html");
 	}
 
 	 @GetMapping("/getAllEmployee")
@@ -74,12 +75,14 @@ public class ManagerHome {
 		Employee employee= empService.getEmployee(emailDTO.getEmail());
 		return employee;
 	 } 
+	 
 	 @PostMapping("/requestAdmin")
-	 public void requestAdmin(@RequestBody RequestDTO requestDTO) {
-		 String email = authUtils.getLoggedInUserEmail();
-		 Employee manager=empService.getEmployee(email);
-		 Request request=new Request(manager.getEmpId(),requestDTO.getEmpId(), requestDTO.getProId(), "pending",requestDTO.getTo());
-		 requestService.createRequest(request);
+	 public ResponseEntity<Void> requestAdmin(@RequestBody RequestDTO requestDTO) {
+	     String email = authUtils.getLoggedInUserEmail();
+	     Employee manager = empService.getEmployee(email);
+	     Request request = new Request(manager.getEmpId(), requestDTO.getEmpId(), requestDTO.getProId(), "pending", requestDTO.getTo());
+	     requestService.createRequest(request);
+	     return ResponseEntity.ok().build();
 	 }
 	 
 	 @PostMapping("/changePassword")
@@ -102,16 +105,19 @@ public class ManagerHome {
 	 
 	 
 	 @GetMapping("/myProject")
-	 public ResponseEntity<Map<Project, Set<Employee>>> myEmployees() {
-	        Map<Project, Set<Employee>> proEmp = new HashMap<>();
-	        String email = authUtils.getLoggedInUserEmail();
-	        Employee employee = empService.getEmployee(email);
-	        Set<Project> myProjects = employee.getHaveProject();
-	        for (Project project : myProjects) {
-	            Set<Employee> empSet = project.getHaveEmployee();
-	            proEmp.put(project, project.getHaveEmployee());
-	        }
-	        System.out.println(proEmp);
-	        return new ResponseEntity<>(proEmp, HttpStatus.OK);
-	    }
+	 public ResponseEntity<List<ProjectEmployeeDTO>> myEmployees() {
+	     String email = authUtils.getLoggedInUserEmail();
+	     Employee employee = empService.getEmployee(email);
+	     Set<Project> myProjects = employee.getHaveProject();
+	     
+	     List<ProjectEmployeeDTO> projectEmployeeDTOs = new ArrayList<>();
+	     
+	     for (Project project : myProjects) {
+	         Set<Employee> empSet = project.getHaveEmployee();
+	         ProjectEmployeeDTO projectEmployeeDTO = new ProjectEmployeeDTO(project, empSet);
+	         projectEmployeeDTOs.add(projectEmployeeDTO);
+	     }
+	     System.out.println(projectEmployeeDTOs);
+	     return new ResponseEntity<>(projectEmployeeDTOs, HttpStatus.OK);
+	 }
 }
