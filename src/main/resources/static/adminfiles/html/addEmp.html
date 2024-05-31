@@ -4,93 +4,12 @@
     <meta charset="UTF-8">
     <title>Employee Registration</title>
     <link rel="stylesheet" href="/adminfiles/css/addEmp.css">
-    <script>
-        async function validateForm(event) {
-            event.preventDefault();
-
-            const form = event.target;
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            const response = await fetch('/admin/registerEmp', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(data)
-            });
-
-            const message = await response.text();
-
-            if (response.ok) {
-                alert('Employee registered successfully.');
-                window.location.href = '/adminfiles/html/adminhome.html';
-            } else {
-                document.getElementById('error-message').innerText = message;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('form').addEventListener('submit', validateForm);
-        });
-
-        function validateEmail() {
-            const emailField = document.getElementById("email");
-            const email = emailField.value;
-            const validDomains = ["@nucleusteq.com", "@gmail.com"];
-            const isValid = validDomains.some(domain => email.endsWith(domain));
-
-            if (!isValid) {
-                alert("Email should end with @nucleusteq.com or @gmail.com");
-                emailField.focus();
-                return false;
-            }
-
-            return true;
-        }
-
-        function validatePhoneNumber() {
-            const phoneField = document.getElementById("phone");
-            const phone = phoneField.value;
-            const isValid = /^\d{10}$/.test(phone);
-
-            if (!isValid) {
-                alert("Phone number should be exactly 10 digits");
-                phoneField.focus();
-                return false;
-            }
-
-            return true;
-        }
-
-        function validateName(name) {
-            return /^[a-zA-Z]+$/.test(name);
-        }
-
-        function validateNames() {
-            const firstNameField = document.getElementById("first-name");
-            const lastNameField = document.getElementById("last-name");
-            const firstName = firstNameField.value;
-            const lastName = lastNameField.value;
-
-            if (!validateName(firstName)) {
-                alert("First name should contain only letters");
-                firstNameField.focus();
-                return false;
-            }
-
-            if (!validateName(lastName)) {
-                alert("Last name should contain only letters");
-                lastNameField.focus();
-                return false;
-            }
-
-            return true;
-        }
-    </script>
+   	<script src="/adminfiles/js/addEmp.js" defer></script>
 </head>
 <body>
     <div class="form-container">
         <h2 style="color: black; font-weight: bold;">REGISTRATION</h2>
-        <form>
+        <form onsubmit="validateForm(event)">
             <div class="form-group">
                 <label for="first-name">First Name:</label>
                 <input type="text" id="first-name" name="firstName" required>
