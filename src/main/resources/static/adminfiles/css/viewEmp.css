@@ -6,7 +6,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: grey;
+            background-color: olive;
+        }
+        label{
+        color:white;
+        font-size:20px;
         }
         .container {
             display: flex;
@@ -14,12 +18,12 @@
             align-items: center;
         }
         form {
-            width: 300px; /* Adjust as needed */
+            width: 300px; 
             padding: 20px;
             border: 1px solid black;
             border-radius: 5px;
             box-shadow: 0 0 10px black;
-            background-color: #f9f9f9;
+            background-color: saddlebrown;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -54,13 +58,15 @@
             width: 80%;
             max-width: 800px;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid olive;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
+            background-color: olive;
+            
         }
         #employee p {
             margin: 10px 0;
+            font-size:18px;
         }
         #error-message {
             color: red;
@@ -70,6 +76,7 @@
             top: -25px;
             width: 100%;
             text-align: center;
+            font-size:25px;
         }
         
     

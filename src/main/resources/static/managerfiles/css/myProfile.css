@@ -6,6 +6,7 @@
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
+            background-color: olive;
         }
         #manager {
             width: 500px;
@@ -27,14 +28,16 @@
             margin-top: 20px;
             font-size: 18px;
             color: #fff;
-            background-color: #007bff;
+            background-color:green;
             border: none;
             border-radius: 5px;
             text-decoration: none;
             cursor: pointer;
+            width:45%;
+            text-align: center;
         }
         .back-button:hover {
-            background-color: #0056b3;
+            background-color: grey;
         }
         .projects-list {
             list-style-type: none;

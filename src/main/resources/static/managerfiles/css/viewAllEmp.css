@@ -1,0 +1,35 @@
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: tan;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .filter-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid olive;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap; 
+            
+        }
+        th {
+            background-color: olive;
+        }
+        th, td {
+            min-width: 80px; 
+        }
+    

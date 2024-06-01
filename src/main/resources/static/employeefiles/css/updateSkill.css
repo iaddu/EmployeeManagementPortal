@@ -7,20 +7,23 @@ body, html {
     align-items: center;
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
+    background-color: olive;
 }
 
 form {
-    width: 300px; /* Adjust as needed */
+    width: 300px; 
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #fff;
+    background-color:slategrey;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 #employee-info {
     margin-bottom: 20px;
     text-align: center;
+    font-size: 20px;
+    color:white;
 }
 
 .checkbox-group {

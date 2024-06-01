@@ -6,12 +6,17 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: grey;
+            background-color:olive;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        
+        label{
+        color:white;
+        font-size:18px;
         }
         form {
             width: 300px; /* Adjust as needed */
@@ -19,7 +24,7 @@
             border: 1px solid black;
             border-radius: 5px;
             box-shadow: 0 0 10px black;
-            background-color: #f9f9f9;
+            background-color: saddlebrown;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -40,11 +45,11 @@
             margin-bottom: 10px;
         }
         button[type="submit"] {
-            background-color: #4CAF50;
+            background-color: red;
             color: white;
         }
         button[type="button"] {
-            background-color: #f44336;
+            background-color: green;
         }
         button:hover {
             opacity: 0.8;
@@ -58,5 +63,6 @@
         }
         #message.error {
             color: red;
+            font-size:25px;
         }
     

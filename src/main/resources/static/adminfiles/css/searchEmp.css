@@ -6,7 +6,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: grey;
+            background-color:olive;
         }
         .container {
             display: flex;
@@ -19,10 +19,14 @@
             border: 1px solid black;
             border-radius: 5px;
             box-shadow: 0 0 10px black;
-            background-color: #f9f9f9;
+            background-color: saddlebrown;
             display: flex;
             flex-direction: column;
             position: relative;
+        }
+        label{
+        font-size:20px;
+        color:white;
         }
         input[type="text"], input[type="email"], input[type="date"] {
             margin-bottom: 15px;
@@ -67,12 +71,17 @@
             background-color: #fff;
             font-size: 18px; /* Increased font size */
         }
+        #employee-form{
+        font-size:18px;
+        background-color: olive;
+        border:1px solid olive;
+        }
         .form-container h2 {
-            font-size: 24px; /* Increased font size for headings */
+            font-size: 20px; 
         }
         .form-container p {
             margin: 10px 0;
-            font-size: 20px; /* Increased font size for paragraphs */
+            font-size: 18px;
         }
         #error-message {
             color: red;

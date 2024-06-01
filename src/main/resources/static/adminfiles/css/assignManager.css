@@ -5,18 +5,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0; /* Background color */
+            background-color: olive; 
         }
         form {
             width: 300px;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #fff; /* Form background color */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
+            background-color: #fff; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         input[type="text"] {
-            width: calc(100% - 12px); /* Adjust width */
+            width: calc(100% - 12px);
             margin-bottom: 10px;
             padding: 8px;
             border: 1px solid #ccc;
@@ -28,13 +28,13 @@
             padding: 10px;
             border: none;
             border-radius: 4px;
-            background-color: #007bff; /* Button background color */
+            background-color: green;  
             color: #fff;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         button[type="submit"]:hover {
-            background-color: #0056b3; /* Hover background color */
+            background-color:navy;
         }
         button[type="submit"]:not(:last-child) {
             margin-bottom: 5px;

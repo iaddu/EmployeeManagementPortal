@@ -7,11 +7,13 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
+            background-color:olive; 
         }
 
         h1 {
             margin: 20px 0;
             text-align: center;
+            color:white;
         }
 
         .container {

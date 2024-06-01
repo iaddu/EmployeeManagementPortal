@@ -8,6 +8,7 @@
             flex-direction: column;
             box-sizing: border-box;
             position: relative;  
+            background-color: olive;
         }
 
         .header {
@@ -19,7 +20,8 @@
 
         .header h1, .header h2 {
             margin: 0;
-            font-size: 2em;  
+            font-size: 2em; 
+            color:white; 
         }
 
         .header h1 {
