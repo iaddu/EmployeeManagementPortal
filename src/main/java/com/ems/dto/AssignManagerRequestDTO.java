@@ -14,8 +14,5 @@ public class AssignManagerRequestDTO {
 		}
 		public void setProId(String proId) {
 			this.proId = proId;
-		}
-
-	    // Getters and setters
-	
+		}	
 }

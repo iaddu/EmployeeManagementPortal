@@ -1,4 +1,4 @@
-package com.ems.model;
+package com.ems.dto;
 
 public class ProjectDTO {
 	private String proId;
@@ -10,7 +10,5 @@ public class ProjectDTO {
 	public void setProId(String proId) {
 		this.proId = proId;
 	}
-
-    
 
 }

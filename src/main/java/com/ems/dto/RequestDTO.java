@@ -4,6 +4,7 @@ public class RequestDTO {
 	private int empId;
 	private int proId;
 	private String to;
+	
 	public int getEmpId() {
 		return empId;
 	}

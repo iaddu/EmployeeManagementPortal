@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ems.dto.EmailDTO;
 import com.ems.dto.ProjectEmployeeDTO;
 import com.ems.dto.RequestDTO;
-import com.ems.model.EmailDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
 import com.ems.model.Request;

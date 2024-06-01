@@ -29,10 +29,10 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.ems.dto.AssignManagerRequestDTO;
 import com.ems.dto.AssignRequestDTO;
-import com.ems.model.EmailDTO;
+import com.ems.dto.EmailDTO;
+import com.ems.dto.ProjectDTO;
 import com.ems.model.Employee;
 import com.ems.model.Project;
-import com.ems.model.ProjectDTO;
 import com.ems.model.Request;
 import com.ems.model.Skill;
 import com.ems.service.EmailService;
