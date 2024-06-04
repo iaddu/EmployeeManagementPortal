@@ -6,21 +6,25 @@
             display: flex;
             flex-direction: column;
             font-family: Arial, sans-serif;
-            background-color: olive;
+             background-image: url('/images/viewAllProject.jpg');  
+    background-size: cover;
+    background-position: center;
+ 	background-repeat: no-repeat;	
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            background-color: slategrey;
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+			border: 1px solid olive;
+             padding: 8px;
             text-align: left;
             white-space: nowrap;
             
         }
         th {
-            background-color:slategrey;
+            background-color:olive;
         }
         th, td {
             min-width: 80px;
@@ -29,7 +33,7 @@
             margin-top: auto;
             align-self: center;
             padding: 10px 20px;
-            background-color: ForestGreen;
+            background-color:olive;
             color: white;
             border: none;
             border-radius: 5px;

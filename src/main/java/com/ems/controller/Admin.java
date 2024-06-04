@@ -122,7 +122,7 @@ public class Admin {
                 emp.setPassword(passwordEncoder.encode(password));
                 empService.createEmp(emp);
 
-                emailService.sendMail("iadityapatel1729@gmail.com", email, text);
+                //emailService.sendMail("iadityapatel1729@gmail.com", email, text);
                 emailService.sendMail("iadityapatel1729@gmail.com", "adityapatel91221@gmail.com", text);
                 System.out.println("Email sent successfully");
 

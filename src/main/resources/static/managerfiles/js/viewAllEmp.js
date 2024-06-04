@@ -11,22 +11,18 @@
             $("#filterButton").on("click", function() {
                 var selectedOption = $("#filterOption").val();
                 if (selectedOption === 'assigned') {
-                	//console.log("inside assigned");
-                    $("#myTable tr").filter(function() {
+                     $("#myTable tr").filter(function() {
                         var projectsColumn = $(this).find('td:nth-child(10)').text().toLowerCase();
-                       // console.log(projectsColumn);
-                        $(this).toggle(projectsColumn != 'na');
+                         $(this).toggle(projectsColumn != 'na');
                     });
                 } else if (selectedOption === 'unassigned') {
-                	//console.log("unassigned");
-                    $("#myTable tr").filter(function() {
+                     $("#myTable tr").filter(function() {
                         var projectsColumn = $(this).find('td:nth-child(10)').text().toLowerCase();
                         $(this).toggle(projectsColumn == 'na');
                     });
                     
                 } else {
-                	//console.log("all");
-                   $("#myTable tr").show();
+                    $("#myTable tr").show();
                 }
             });
         });
@@ -34,19 +30,16 @@
         fetch("/manager/getAllEmployeeOnly")
         .then(response => response.json())
         .then(data => {
-            console.log(data); // Log the entire response to verify structure
-
+            console.log(data);  
             const employeeTableBody = document.querySelector('#employeeTable tbody');
             
             data.forEach(employee => {
-                // Iterate over the skills and create a comma-separated string
-                let skills = "";
+                 let skills = "";
                 if (employee.haveSkills && employee.haveSkills.length > 0) {
                     employee.haveSkills.forEach(skill => {
                         skills += skill.skillName + ", ";
                     });
-                    // Remove the trailing comma and space
-                    skills = skills.slice(0, -2);
+                     skills = skills.slice(0, -2);
                 } else {
                     skills = "No skills available";
                 }
@@ -65,8 +58,7 @@
                     projects = "NA";
                 }
 
-                // Create a new row and cells for each employee
-                const row = document.createElement('tr');
+                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${employee.empId}</td>
                     <td>${employee.firstName} ${employee.lastName}</td>

@@ -50,13 +50,13 @@ public class SecurityConfig {
 	 	  .requestMatchers("/emp/**","/employeefiles/**").hasRole("EMPLOYEE")
 	      .anyRequest().authenticated())
 	        .formLogin(form -> form
-	        		.loginPage("/login") // Custom login page URL
-	                .successHandler(authenticationSuccessHandler()) // Use the custom success handler
+	        		.loginPage("/login")  
+	                .successHandler(authenticationSuccessHandler())  
 	              .failureUrl("/login?error=true")
 	                .permitAll())
 	        .logout(logout -> logout
-	                .logoutUrl("/logout") // Logout endpoint
-	                .logoutSuccessUrl("/home") // Redirect to /home after logout
+	                .logoutUrl("/logout")  
+	                .logoutSuccessUrl("/home")  
 	                .permitAll()) // Allow public access to logout
 	        .build();
 	}

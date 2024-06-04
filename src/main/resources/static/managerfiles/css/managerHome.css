@@ -8,7 +8,10 @@
             flex-direction: column;
             box-sizing: border-box;
             position: relative;  
-            background-color: olive;
+              background-image: url('/images/managerhome.jpg');  
+    background-size: cover;
+    background-position: center;
+ 	background-repeat: no-repeat;
         }
 
         h1 {

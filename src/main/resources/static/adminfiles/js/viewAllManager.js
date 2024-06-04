@@ -2,19 +2,16 @@
         fetch("/admin/getAllManagerOnly")
         .then(response => response.json())
         .then(data => {
-            console.log(data); // Log the entire response to verify structure
-
+ 
             const employeeTableBody = document.querySelector('#employeeTable tbody');
             
             data.forEach(employee => {
-                // Iterate over the skills and create a comma-separated string
-                let skills = "";
+                 let skills = "";
                 if (employee.haveSkills && employee.haveSkills.length > 0) {
                     employee.haveSkills.forEach(skill => {
                         skills += skill.skillName + ", ";
                     });
-                    // Remove the trailing comma and space
-                    skills = skills.slice(0, -2);
+                     skills = skills.slice(0, -2);
                 } else {
                     skills = "No skills available";
                 }
@@ -32,8 +29,7 @@
                 if(projects==""){
                     projects="No Project Assigned";
                 }
-                // Create a new row and cells for each employee
-                const row = document.createElement('tr');
+                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${employee.empId}</td>
                     <td>${employee.firstName} ${employee.lastName}</td>
@@ -49,8 +45,7 @@
                 employeeTableBody.appendChild(row);
             });
 
-            // Add back button below the table
-            const backButton = document.createElement('button');
+             const backButton = document.createElement('button');
             backButton.textContent = 'Back';
             backButton.className = 'back-button';
             backButton.onclick = () => window.location.href = 'adminHome.html';

@@ -62,8 +62,7 @@ public class EmpServiceTest {
     
     @AfterEach
     void tearDown() throws Exception {
-        // No need to close anything if using MockitoAnnotations.openMocks
-    }
+     }
     
     @Test
     public void testRegisterEmployee() {
@@ -158,11 +157,9 @@ public class EmpServiceTest {
         employeeList.add(employee);
         when(empDao.findAll()).thenReturn(employeeList);
     	
-    	//Employee employee=empService.getEmployee(email);
-    	Employee deletedEmployee=empService.deleteEmp(email);
+     	Employee deletedEmployee=empService.deleteEmp(email);
     	
-    	 // Assertions to check the returned employee
-        assertThat(deletedEmployee).isNotNull();
+         assertThat(deletedEmployee).isNotNull();
         assertThat(deletedEmployee.getEmail()).isEqualTo(email);
         
     	 

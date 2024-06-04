@@ -1,11 +1,14 @@
 
-        body, html {
+        body {
             height: 100%;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: olive; 
+            background-image: url('/images/deleteEmp.jpg');  
+    background-size: cover;
+    background-position: center;
+ 	background-repeat: no-repeat;
         }
         form {
             width: 300px;
@@ -14,6 +17,9 @@
             border-radius: 5px;
             background-color: #fff; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: slategrey; 
+			margin-top: 10%;
+            
         }
         input[type="text"] {
             width: calc(100% - 12px);

@@ -1,13 +1,11 @@
  
         async function validateForm(event) {
             event.preventDefault();
-            // Validate form fields
-            if (!validateEmail() || !validatePhoneNumber() || !validateNames()) {
-                return; // If any validation fails, return early
+             if (!validateEmail() || !validatePhoneNumber() || !validateNames()) {
+                return; 
             }
 
-            // If all validations pass, proceed with form submission
-            const form = event.target;
+             const form = event.target;
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 

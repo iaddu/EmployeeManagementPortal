@@ -4,11 +4,9 @@
         .then(data => { 
             const parentDiv = document.getElementById("listProject");
             
-            // Create the table
-            const table = document.createElement("table");
+             const table = document.createElement("table");
             
-            // Create the table header
-            const thead = document.createElement("thead");
+             const thead = document.createElement("thead");
             const headerRow = document.createElement("tr");
             
             const thId = document.createElement("th");
@@ -22,8 +20,7 @@
             thead.appendChild(headerRow);
             table.appendChild(thead);
             
-            // Create the table body
-            const tbody = document.createElement("tbody");
+             const tbody = document.createElement("tbody");
             
             data.forEach(project => {
                 const row = document.createElement("tr");

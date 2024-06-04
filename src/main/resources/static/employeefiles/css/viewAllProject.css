@@ -3,7 +3,10 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color:olive;
+              background-image: url('/images/viewAllProject.jpg');  
+    background-size: cover;
+    background-position: center;
+ 	background-repeat: no-repeat;
         }
         #listProject {
             width: 100%;
@@ -12,6 +15,8 @@
         table {
             width: 100%;
             border-collapse: collapse;
+                        background-color: olive;
+            
         }
         th, td {
             padding: 10px;

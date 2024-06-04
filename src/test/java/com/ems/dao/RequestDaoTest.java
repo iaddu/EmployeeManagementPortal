@@ -13,8 +13,7 @@ import org.mockito.MockitoAnnotations;
 import com.ems.model.Request;
 
 public class RequestDaoTest {
-	//Optional<Request> findRequestByreqId(int reqId);
-	
+ 	
 	@Mock
 	private RequestDao requestDao;
 	

@@ -1,12 +1,15 @@
 
-        body, html {
+        body {
             height: 100%;
             margin: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color:olive;
+            background-image: url('/images/deleteEmp.jpg');  
+    background-size: cover;
+    background-position: center;
+ 	background-repeat: no-repeat;
         }
         .container {
             display: flex;
@@ -19,15 +22,16 @@
         font-size:18px;
         }
         form {
-            width: 300px; /* Adjust as needed */
+            width: 300px;  
             padding: 20px;
             border: 1px solid black;
             border-radius: 5px;
             box-shadow: 0 0 10px black;
-            background-color: saddlebrown;
+            background-color:slategrey;
             display: flex;
             flex-direction: column;
             position: relative;
+            margin-top: 45%;
         }
         input[type="text"] {
             margin-bottom: 15px;

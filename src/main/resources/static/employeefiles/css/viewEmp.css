@@ -1,20 +1,26 @@
 
-        body, html {
+        body{
             height: 100%;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
-            background-color: olive;
+            background-image: url('/images/myProfile.jpg');  
+    background-size: cover;
+    background-position: center;
+ 	background-repeat: no-repeat;
         }
         #employee {
             width: 500px;
             padding: 20px;
             border: 4px solid black;
             border-radius: 5px;
-            text-align: left; /* Center align the content */
+            text-align: left;  
             font-size: 24px;
+            background-color: slategrey;
+            margin-top: 10%;
+            
         }
         #employee h2 {
             margin-top: 0;
@@ -36,6 +42,6 @@
             width:45%;
         }
         .back-button:hover {
-            background-color: #0056b3;
+            background-color: blue;
         }
     

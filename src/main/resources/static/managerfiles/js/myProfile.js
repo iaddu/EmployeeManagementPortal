@@ -10,8 +10,7 @@
                     manager.haveSkills.forEach(skill => {
                         skills += skill.skillName + ", ";
                     });
-                    // Remove the trailing comma and space
-                    skills = skills.slice(0, -2);
+                     skills = skills.slice(0, -2);
                 } else {
                     skills = "No skills available";
                 }
@@ -38,8 +37,7 @@
                     <a href="#" class="back-button">Back</a>
                 `;
                 
-                // Add event listener to back button
-                const backButton = parentDiv.querySelector('.back-button');
+                 const backButton = parentDiv.querySelector('.back-button');
                 backButton.addEventListener('click', () => {
                     window.history.back();
                 });

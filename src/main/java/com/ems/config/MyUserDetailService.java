@@ -24,7 +24,7 @@ public class MyUserDetailService implements UserDetailsService {
     	
     	Optional<com.ems.model.User> user = userDao.findUserByEmail(username);
         if (user.isPresent()) {
-            com.ems.model.User userObj = user.get(); // Explicitly defining the type
+            com.ems.model.User userObj = user.get(); 
             return User.builder()
                     .username(userObj.getEmail())
                     .password(userObj.getPassword())
@@ -32,13 +32,11 @@ public class MyUserDetailService implements UserDetailsService {
                     .build();
         } 
         
-     // If user is not found in User table, search in Employee table
-        Optional<com.ems.model.Employee> employee = employeeDao.findEmployeeByEmail(username);
+         Optional<com.ems.model.Employee> employee = employeeDao.findEmployeeByEmail(username);
         if (employee.isPresent()) {
             com.ems.model.Employee employeeObj = employee.get();
-            // Construct UserDetails object for Employee
-            System.out.println("hii emp");
-            return User.builder() // Use Employee.builder() instead of User.builder()
+             System.out.println("hii emp");
+            return User.builder()  
                     .username(employeeObj.getEmail())
                     .password(employeeObj.getPassword())
                     .roles(employeeObj.getRole())

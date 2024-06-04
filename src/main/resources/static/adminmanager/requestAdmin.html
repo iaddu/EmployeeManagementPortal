@@ -6,11 +6,14 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color:olive;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+             background-image: url('/images/requestEmp.jpg');  
+    background-size: cover;
+    background-position: center;
+ 	background-repeat: no-repeat;
             
         }
 
@@ -95,7 +98,7 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.text(); // or response.json() if you expect a JSON response
+                return response.text();  
             })
             .then(data => {
                 console.log('Request submitted successfully:', data);

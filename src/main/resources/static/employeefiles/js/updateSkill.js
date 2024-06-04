@@ -1,6 +1,6 @@
 
 fetch('/emp/viewEmployee')
-    .then(response => response.json()) // Convert response to JSON
+    .then(response => response.json())  
     .then(data => {
         const employee = data.employee;
         console.log(employee);
@@ -8,8 +8,7 @@ fetch('/emp/viewEmployee')
         document.getElementById('employee-name').innerText = `${employee.firstName} ${employee.lastName}`;
         document.getElementById('employee-email').innerText = `Email: ${employee.email}`;
  
-        // Pre-check the skills
-        if (employee.haveSkills && employee.haveSkills.length > 0) {
+         if (employee.haveSkills && employee.haveSkills.length > 0) {
             employee.haveSkills.forEach(skill => {
                 const skillCheckbox = document.querySelector(`input[name="skills"][value="${skill.skillName}"]`);
                 if (skillCheckbox) {
@@ -23,8 +22,7 @@ fetch('/emp/viewEmployee')
 document.getElementById('update-skills-form').addEventListener('submit', function(event) {
     event.preventDefault();
     
-    // Send the form data via fetch
-    fetch('/emp/updateSkill', {
+     fetch('/emp/updateSkill', {
         method: 'POST',
         body: new FormData(this)
     }).then(response => {

@@ -44,10 +44,9 @@ public class ProjectServiceTest {
         ArgumentCaptor<Project> projectCaptor = ArgumentCaptor.forClass(Project.class);
         verify(projectDao, times(1)).save(projectCaptor.capture());
         
-        // Verify the properties of the captured Project object
-        Project capturedProject = projectCaptor.getValue();
+         Project capturedProject = projectCaptor.getValue();
         assertThat(capturedProject.getProName()).isEqualTo(projectName);
-        assertThat(capturedProject.getProId()).isZero(); // Assuming default value is zero or it is set somewhere else
+        assertThat(capturedProject.getProId()).isZero();  
     }
 	 
 	@Test

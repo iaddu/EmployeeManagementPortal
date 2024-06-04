@@ -53,8 +53,7 @@
                     `;
                 }
             } catch (error) {
-               // console.error('No Such Employee Found!!:', error);
-                const errorMessage = document.getElementById("error-message");
+                 const errorMessage = document.getElementById("error-message");
                 errorMessage.style.display = 'block';
                 errorMessage.textContent = 'No Such Employee Found!!:';
                 const parentDiv = document.getElementById("employee");

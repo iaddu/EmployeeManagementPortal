@@ -1,5 +1,5 @@
 
-body, html {
+body{
     height: 100%;
     margin: 0;
     display: flex;
@@ -7,16 +7,19 @@ body, html {
     align-items: center;
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
-    background-color: olive;
+    background-image: url('/images/changePassword.jpg');  
+    background-size: cover;
+    background-position: center;
+ 	background-repeat: no-repeat;  
 }
 
 form {
     width: 300px; 
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     border-radius: 5px;
     background-color:slategrey;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: black;
 }
 
 #employee-info {
@@ -32,8 +35,8 @@ form {
 }
 
 .checkbox-group label {
-    display: block; /* Display each label on a new line */
-    margin-bottom: 5px; /* Add some spacing between each label */
+    display: block;  
+    margin-bottom: 5px; 
 }
 
 .button-group {
@@ -48,7 +51,7 @@ form {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    text-decoration: none; /* Remove underline from links */
+    text-decoration: none;  
     display: inline-block;
     text-align: center;
 }

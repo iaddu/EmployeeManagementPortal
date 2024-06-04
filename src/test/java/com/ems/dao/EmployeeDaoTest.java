@@ -16,15 +16,7 @@ import org.mockito.MockitoAnnotations;
 import com.ems.model.Employee;
 
 public class EmployeeDaoTest {
-	/*
-	 	public Optional<Employee> findEmployeeByEmail(String email);
-    public void deleteByEmail(String email);
-    public Employee getByEmail(String email);
-    public Optional<Employee> findEmployeeByempId(int empId);
-    @Transactional
-    @Query(value = "DELETE FROM emp_skill WHERE emp_id = :empId", nativeQuery = true)
-    void deleteEmpSkillsByEmployeeId(int empId);
-	 */
+	 
 	
 	@Mock 
 	private EmployeeDao empDao;

@@ -15,12 +15,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        // Get user details from authentication
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        // Get authorities (roles) of the user
-        Collection<? extends SimpleGrantedAuthority> authorities = (Collection<? extends SimpleGrantedAuthority>) userDetails.getAuthorities();
-        // Redirect based on the role
-        if (authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+         Collection<? extends SimpleGrantedAuthority> authorities = (Collection<? extends SimpleGrantedAuthority>) userDetails.getAuthorities();
+         if (authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             response.sendRedirect("/admin/home");
         } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_EMPLOYEE"))) {
             response.sendRedirect("/emp/home");
