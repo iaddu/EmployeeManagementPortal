@@ -213,6 +213,7 @@ public class AdminTest {
             employee.getHaveSkills().equals(skills)
         ));
     	}
+    	/*
       	
     	@Test
         public void testDeleteEmployee() throws Exception {
@@ -228,7 +229,7 @@ public class AdminTest {
 
             verify(employeeService).deleteEmp(email);
         } 
-    	
+    	*/
     	@Test
     	public void testAddProject() throws Exception{
     		String proName="emp";

@@ -21,6 +21,7 @@ import com.ems.dto.AssignManagerRequestDTO;
 import com.ems.dto.AssignRequestDTO;
 import com.ems.dto.EmailDTO;
 import com.ems.dto.ProjectDTO;
+import com.ems.error.ResourceNotFoundException;
 import com.ems.model.Employee;
 import com.ems.model.Project;
 import com.ems.model.Request;
@@ -122,8 +123,8 @@ public class Admin {
                 emp.setPassword(passwordEncoder.encode(password));
                 empService.createEmp(emp);
 
-                //emailService.sendMail("iadityapatel1729@gmail.com", email, text);
-                emailService.sendMail("iadityapatel1729@gmail.com", "adityapatel91221@gmail.com", text);
+                emailService.sendMail("iadityapatel1729@gmail.com", email, text);
+                //emailService.sendMail("iadityapatel1729@gmail.com", "adityapatel91221@gmail.com", text);
                 System.out.println("Email sent successfully");
 
             } catch (DataIntegrityViolationException e) {
@@ -133,15 +134,21 @@ public class Admin {
             return ResponseEntity.ok("Employee registered successfully.");
         }
     
-	 
+	 /*
 	 @DeleteMapping("/deleteEmp")
 	 public Employee deleteEmp(@RequestBody EmailDTO emailDTO) {
 		 	System.out.println(1);
 		 	System.out.println(emailDTO.getEmail());
 		 	Employee emp=empService.deleteEmp(emailDTO.getEmail());
-		 	System.out.println(emp);
-		 	return emp;
-	 }
+ 		 	return emp;
+	 }*/
+        @DeleteMapping("/deleteEmp")
+        public ResponseEntity<String> deleteEmp(@RequestBody EmailDTO emailDTO) {
+            System.out.println(1);
+            System.out.println(emailDTO.getEmail());
+            String responseMessage = empService.deleteEmp(emailDTO.getEmail());
+            return ResponseEntity.ok(responseMessage);
+        }
 	 
 	 @PostMapping("/addProject")
 		 public RedirectView addProject(@RequestParam("proName") String proName) {
@@ -164,8 +171,7 @@ public class Admin {
 	 @GetMapping("/getAllManagerOnly")
 	 public List<Employee> getAllEmployeeOnly() {
 		 List<Employee> allManagerList=empService.getAllManagerOnly();
-		 //System.out.println(allEmployeeList);
-		 return allManagerList;
+ 		 return allManagerList;
 	 }
 	 
 	 @GetMapping("/getAllProject")
@@ -174,11 +180,7 @@ public class Admin {
 		return allProjectList;
 	 } 
 	 
-	 /*
-	 @GetMapping("/getAllProjectWithManager"){
-		 
-	 }
-	 */
+	  
 	 //single employee
 	 @PostMapping("/viewEmployee")
 	 public Employee getEmployee(@RequestBody EmailDTO emailDTO){
@@ -207,22 +209,48 @@ public class Admin {
      List<Request> allRequestList= requestService.getAllRequest();
 		return allRequestList;
 	 } 
+	 /*
 		
 	 @PostMapping("/assignRequest")
 	 public void assignRequest(@RequestBody AssignRequestDTO assignRequest) {
 	empService.assignThisRequest(assignRequest.getReqId(),assignRequest.getEmpId(), assignRequest.getManagerId(), assignRequest.getProId());
 	 }
+	 */
+	 @PostMapping("/assignRequest")
+	    public ResponseEntity<String> assignRequest(@RequestBody AssignRequestDTO assignRequest) {
+	        try {
+	            empService.assignThisRequest(assignRequest.getReqId(), assignRequest.getEmpId(), assignRequest.getManagerId(), assignRequest.getProId());
+	            return ResponseEntity.ok("Request assigned successfully");
+	        } catch (ResourceNotFoundException e) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the request");
+	        }
+	    }
 	 
-	 @PostMapping("/unassignRequest")
-	 public void unassignRequest(@RequestBody AssignRequestDTO assignRequest) {
-	empService.unassignThisRequest(assignRequest.getReqId(),assignRequest.getEmpId());
-	 }
-	 
+	  @PostMapping("/unassignRequest")
+	    public ResponseEntity<String> unassignRequest(@RequestBody AssignRequestDTO assignRequest) {
+	        try {
+	            empService.unassignThisRequest(assignRequest.getReqId(), assignRequest.getEmpId());
+	            return ResponseEntity.ok("Request unassigned successfully");
+	        } catch (ResourceNotFoundException e) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the request");
+	        }
+	    }
+ 
 	 @PostMapping("/rejectRequest")
-	 public void rejectRequest(@RequestBody AssignRequestDTO assignRequest) {
-	empService.rejectThisRequest(assignRequest.getReqId());
-	 }
-	 
+	    public ResponseEntity<String> rejectRequest(@RequestBody AssignRequestDTO assignRequest) {
+	        try {
+	            empService.rejectThisRequest(assignRequest.getReqId());
+	            return ResponseEntity.ok("Request rejected successfully");
+	        } catch (ResourceNotFoundException e) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the request");
+	        }
+	    }
 	 @PostMapping("/updateEmp")
 	    public RedirectView updateEmployee(
 	    	@RequestParam("empId") String empId,

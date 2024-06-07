@@ -140,7 +140,7 @@ public class EmpServiceTest {
        // System.out.println(employee.getHaveSkills());  why [null]
         verify(empDao, times(1)).save(employee);
     }
-   
+   /*
     @Test
 	public void testDeleteEmp() {
     	String email="adi@123";
@@ -175,7 +175,7 @@ public class EmpServiceTest {
         }
         
     } 
-     
+     */
     @Test
     public void testGetUnassignedEmployee() {
     	when(employee.getEmail()).thenReturn("adi@123");

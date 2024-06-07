@@ -1,5 +1,5 @@
 
-    async function deleteEmp() {
+   /* async function deleteEmp() {
         const email = document.getElementById('email').value;
         const data = { email: email };
         const messageDiv = document.getElementById('message');
@@ -32,4 +32,32 @@
             messageDiv.className = 'error';
         }
     }
+    */async function deleteEmp() {
+    const email = document.getElementById('email').value;
+    const data = { email: email };
+    const messageDiv = document.getElementById('message');
     
+    try {
+        const response = await fetch('/admin/deleteEmp', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const message = await response.text();
+        
+        if (response.ok) {
+            messageDiv.innerHTML = message;
+            messageDiv.className = 'success';
+        } else {
+            messageDiv.innerHTML = message;
+            messageDiv.className = 'error';
+        }
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        messageDiv.innerHTML = "Error occurred while deleting the employee!";
+        messageDiv.className = 'error';
+    }
+}

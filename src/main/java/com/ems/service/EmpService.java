@@ -15,6 +15,7 @@ import com.ems.dao.EmployeeDao;
 import com.ems.dao.ProjectDao;
 import com.ems.dao.RequestDao;
 import com.ems.dao.SkillDao;
+import com.ems.error.ResourceNotFoundException;
 import com.ems.model.Employee;
 import com.ems.model.Project;
 import com.ems.model.Request;
@@ -71,38 +72,59 @@ public class EmpService {
 	    empDao.save(emp);
 	}
 	
-	@Transactional
+	/*@Transactional
 	public Employee deleteEmp(String email) {
-		System.out.println(1);
-		Optional<Employee> optionalEmployee = empDao.findEmployeeByEmail(email);
+ 		Optional<Employee> optionalEmployee = empDao.findEmployeeByEmail(email);
 		if(optionalEmployee.isEmpty())return null;
-		System.out.println(2);
-
+ 
 		Employee emp=optionalEmployee.get();
 		empDao.deleteEmpSkillsByEmployeeId(emp.getEmpId());
-		System.out.println(3);
-
+ 
 		if(emp.getRole().equals("MANAGER")) {
 		Set<Project> haveProject=emp.getHaveProject();
 		for(Project pro:haveProject) {
 			pro.setHaveManager(null);
 		}
-		System.out.println(4);
-
+ 
 		List<Employee> employeeList=empDao.findAll();
 		for(Employee employee:employeeList) {
 			if(employee.getManager()!=null && employee.getManager().intValue()==emp.getEmpId())
 				employee.setManager(null);
 				employee.setAssignedProject(null);
 		}
-		System.out.println(5);
-
+ 
 		}
-		System.out.println(6);
-
+ 
 		empDao.delete(emp);
-		System.out.println(7);
-		return emp;
+ 		return emp;
+	}*/
+	@Transactional
+	public String deleteEmp(String email) {
+ 	    Optional<Employee> optionalEmployee = empDao.findEmployeeByEmail(email);
+	    if (optionalEmployee.isEmpty()) {
+	        return "No employee found with email: " + email;
+	    }
+ 
+	    Employee emp = optionalEmployee.get();
+	    empDao.deleteEmpSkillsByEmployeeId(emp.getEmpId());
+ 
+	    if (emp.getRole().equals("MANAGER")) {
+	        Set<Project> haveProject = emp.getHaveProject();
+	        for (Project pro : haveProject) {
+	            pro.setHaveManager(null);
+	        }
+ 
+	        List<Employee> employeeList = empDao.findAll();
+	        for (Employee employee : employeeList) {
+	            if (employee.getManager() != null && employee.getManager().intValue() == emp.getEmpId()) {
+	                employee.setManager(null);
+	                employee.setAssignedProject(null);
+	            }
+	        }
+ 	    }
+ 
+	    empDao.delete(emp);
+ 	    return "Employee deleted successfully.";
 	}
 	public List<Employee> getUnassignedEmplyee(){
 		List<Employee> allEmployee=empDao.findAll();
@@ -170,11 +192,23 @@ public class EmpService {
 		Optional<Employee> optionalManager=empDao.findEmployeeByempId(managerId);
 		Optional<Request> optionalRequest=requestDao.findRequestByreqId(reqId);
 	
-		if((optionalEmployee.isEmpty() || optionalManager.isEmpty())
+		/*if((optionalEmployee.isEmpty() || optionalManager.isEmpty())
 				|| (optionalProject.isEmpty()||optionalRequest.isEmpty())) {
 			throw new NoSuchElementException("element missing");
-		}
-		else {
+		}*/
+		 if (optionalEmployee.isEmpty()) {
+		        throw new ResourceNotFoundException("Employee not found");
+		    }
+		    if (optionalManager.isEmpty()) {
+		        throw new ResourceNotFoundException("Manager not found");
+		    }
+		    if (optionalProject.isEmpty()) {
+		        throw new ResourceNotFoundException("Project not found");
+		    }
+		    if (optionalRequest.isEmpty()) {
+		        throw new ResourceNotFoundException("Request not found");
+		    }
+		 
 			
 			Employee employee=optionalEmployee.get();
 			Project project=optionalProject.get();
@@ -188,40 +222,49 @@ public class EmpService {
 			requestDao.save(request);
 			empDao.save(employee);
 				}
-	}
+	
 	//handling un-assigning  request by manager for an employee
-		public void unassignThisRequest(String requestId,String employeeId) {
-			int empId=Integer.parseInt(employeeId);
-			int reqId=Integer.parseInt(requestId);
-			Optional<Employee> optionalEmployee = empDao.findEmployeeByempId(empId);
-			Optional<Request> optionalRequest=requestDao.findRequestByreqId(reqId);
-			if(optionalEmployee.isEmpty() ||optionalRequest.isEmpty() ) {
-				throw new NoSuchElementException("element missing");
-			}
-			else {
-				Employee employee=optionalEmployee.get();
-				Request request=optionalRequest.get();
-				if(!request.getReqStatus().toLowerCase().equals("pending"))return;
-				employee.setManager(null);
-				employee.setAssignedProject(null);
-				request.setReqStatus("Approved");
-				requestDao.save(request);
-				empDao.save(employee);
-					}
+		public void unassignThisRequest(String requestId, String employeeId) {
+		    int empId = Integer.parseInt(employeeId);
+		    int reqId = Integer.parseInt(requestId);
+		    
+		    Optional<Employee> optionalEmployee = empDao.findEmployeeByempId(empId);
+		    Optional<Request> optionalRequest = requestDao.findRequestByreqId(reqId);
+
+		    if (optionalEmployee.isEmpty()) {
+		        throw new ResourceNotFoundException("Employee not found");
+		    }
+		    if (optionalRequest.isEmpty()) {
+		        throw new ResourceNotFoundException("Request not found");
+		    }
+
+		    Employee employee = optionalEmployee.get();
+		    Request request = optionalRequest.get();
+
+			if(!request.getReqStatus().toLowerCase().equals("pending"))return;
+
+		    employee.setManager(null);
+		    employee.setAssignedProject(null);
+		    request.setReqStatus("Approved");
+
+		    requestDao.save(request);
+		    empDao.save(employee);
 		}
 		//handling to reject request
 		public void rejectThisRequest(String requestId) {
-			int reqId=Integer.parseInt(requestId);
-			Optional<Request> optionalRequest=requestDao.findRequestByreqId(reqId);
-			if(optionalRequest.isEmpty()) {
-				throw new NoSuchElementException("element missing");
-			}
-			else {
-				Request request=optionalRequest.get();
-				if(!request.getReqStatus().toLowerCase().equals("pending"))return;
-				request.setReqStatus("Rejected");
-				requestDao.save(request);
-			}
+		    int reqId = Integer.parseInt(requestId);
+		    
+		    Optional<Request> optionalRequest = requestDao.findRequestByreqId(reqId);
+
+		    if (optionalRequest.isEmpty()) {
+		        throw new ResourceNotFoundException("Request not found");
+		    }
+
+		    Request request = optionalRequest.get();
+ 
+			if(!request.getReqStatus().toLowerCase().equals("pending"))return;
+		    request.setReqStatus("Rejected");
+		    requestDao.save(request);
 		}
 		
 		@Transactional
