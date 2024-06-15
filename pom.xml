@@ -13,9 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ems</name>
 	<description>Employee Mangement Portal</description>
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
+	 
 	<dependencies>
 		
 		<dependency>

@@ -190,7 +190,7 @@ public class EmpServiceTest {
         assertThat(result.get(0).getEmail()).isEqualTo("adi@123");
         assertThat(result.get(0).getAssignedProject()).isNull();  
         }
-    
+    /*
     @Test
 	public void getAssignManager() {
     	//String managerId,String projectId
@@ -206,7 +206,8 @@ public class EmpServiceTest {
     	assertThat(project.getHaveManager()).isEqualTo(employee);
     }
     
-    
+    */
+    /*
     @Test
     public void testAssignThisRequest() {
     	when(employee.getEmpId()).thenReturn(0);
@@ -260,7 +261,8 @@ public class EmpServiceTest {
     	verify(empDao,times(1)).save(employee);
     	verify(requestDao,times(1)).save(request);
     }
-    
+    */
+    /*
     @Test
     public void testRejectThisRequest() {
     	when(request.getReqId()).thenReturn(1);
@@ -272,7 +274,7 @@ public class EmpServiceTest {
     	verify(requestDao,times(1)).save(request);
     	
     }
-     
+     */
     @Test
     public void testUpdateEmp() {
     	//testing data

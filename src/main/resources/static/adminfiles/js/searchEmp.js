@@ -25,7 +25,7 @@
             document.querySelector(`input[name="role"][value="${employee.role}"]`).checked = true;
 
             const skills = document.querySelectorAll('input[name="skills"]');
-            skills.forEach(skill => skill.checked = false); // Reset all checkboxes
+            skills.forEach(skill => skill.checked = false); 
             if (employee.haveSkills && employee.haveSkills.length > 0) {
                 employee.haveSkills.forEach(skill => {
                     const skillCheckbox = document.querySelector(`input[name="skills"][value="${skill.skillName}"]`);

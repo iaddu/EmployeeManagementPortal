@@ -49,11 +49,11 @@
             margin-bottom: 10px;
         }
         button[type="submit"] {
-            background-color: #4CAF50;
+            background-color:green;
             color: white;
         }
         button[type="submit"]:nth-of-type(2) {
-            background-color: #f44336;
+            background-color:red;
         }
         button:hover {
             opacity: 0.8;

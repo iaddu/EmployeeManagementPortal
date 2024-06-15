@@ -75,7 +75,7 @@
         <button type="submit" onclick="event.preventDefault(); request()">Request</button>
         <button type="button" onclick="window.location.href = '/managerfiles/html/managerhome.html'">Back</button>
     </form>
-
+<!--  
     <script>
         function request() {
             const empId = document.getElementById('empId').value;
@@ -107,6 +107,40 @@
                 console.error('There was a problem with the fetch operation:', error);
             });
         }
+    </script>
+    -->
+    <script>
+    function request() {
+    const empId = document.getElementById('empId').value;
+    const proId = document.getElementById('proId').value;
+    const to = document.querySelector('input[name="to"]:checked').value;
+    const data = {
+        empId: empId,
+        proId: proId,
+        to: to
+    };
+
+    fetch('/manager/requestAdmin', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();  
+    })
+    .then(data => {
+        console.log('Request submitted successfully:', data);
+        alert('Request submitted successfully');
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
     </script>
 </body>
 </html>

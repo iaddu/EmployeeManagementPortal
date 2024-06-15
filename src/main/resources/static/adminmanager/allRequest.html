@@ -5,42 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Request Data</title>
 <style>
-	body{
-	background-image: url('/images/viewAllProject.jpg');  
-    background-size: cover;
-    background-position: center;
- 	background-repeat: no-repeat;	}
+    body {
+        background-image: url('/images/viewAllProject.jpg');  
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
     table {
         border-collapse: collapse;
         width: 100%;
         background-color: slategrey;
     }
-
     th, td {
         border: 1px solid black;
         text-align: left;
         padding: 4px;
         font-size:20px;
         color:white;
-        
-        
     }
-
     th {
         background-color: olive;
     }
     .button-column {
         width: 100px;
     }
-
     .button {
         padding: 4px;
         font-size:20px;
         background-color:olive;
     }
     .button:hover {
-	background-color:green;
-}
+        background-color:green;
+    }
 </style>
 </head>
 <body>
@@ -59,7 +55,7 @@
         </tr>
     </thead>
     <tbody id="requestTableBody">
-     </tbody>
+    </tbody>
 </table>
 
 <script>
@@ -84,15 +80,13 @@
         })
         .catch(error => console.error('Error fetching data:', error));
 
-    function handleAccept(reqId,managerId, empId, proId, toStatus) {
+    function handleAccept(reqId, managerId, empId, proId, toStatus) {
         if (toStatus === 'assign') {
-            acceptAssign(reqId,proId, managerId, empId);
+            acceptAssign(reqId, proId, managerId, empId);
         } else if (toStatus === 'unassign') {
-            acceptUnassign(reqId,proId, managerId, empId);
+            acceptUnassign(reqId, proId, managerId, empId);
         }
     }
-
-    
 
     function handleReject(reqId) {
         const requestData = { reqId: reqId };
@@ -104,14 +98,13 @@
             },
             body: JSON.stringify(requestData)
         })
-        .then(response => response.text())
-        .then(message => {
+        .then(response => response.text().then(message => {
             if (response.ok) {
                 alert(message);
             } else {
                 alert(`Error: ${message}`);
             }
-        })
+        }))
         .catch(error => console.error('Error in POST request:', error));
     }
 
@@ -125,18 +118,15 @@
             },
             body: JSON.stringify(requestData)
         })
-        .then(response => response.text())
-        .then(message => {
+        .then(response => response.text().then(message => {
             if (response.ok) {
                 alert(message);
             } else {
                 alert(`Error: ${message}`);
             }
-        })
+        }))
         .catch(error => console.error('Error in POST request:', error));
     }
-
- 
 
     function acceptUnassign(reqId, proId, managerId, empId) {
         const requestData = { reqId: reqId, proId: proId, managerId: managerId, empId: empId };
@@ -148,14 +138,13 @@
             },
             body: JSON.stringify(requestData)
         })
-        .then(response => response.text())
-        .then(message => {
+        .then(response => response.text().then(message => {
             if (response.ok) {
                 alert(message);
             } else {
                 alert(`Error: ${message}`);
             }
-        })
+        }))
         .catch(error => console.error('Error in POST request:', error));
     }
 </script>

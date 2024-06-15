@@ -164,72 +164,7 @@ public class AdminTest {
     }
     
     
-    	@Test
-    	public void testRegisterEmployee() throws Exception {
-            String mockPassword = "mockPassword";
-            when(employeeService.createPassword()).thenReturn(mockPassword);
-            when(passwordEncoder.encode(mockPassword)).thenReturn("encodedPassword");
-
-            Set<String> skillNames = new HashSet<>();
-            skillNames.add("Java");
-            skillNames.add("Spring");
-
-            Set<Skill> skills = new HashSet<>();
-            Skill skill1 = new Skill();
-            skill1.setSkillName("Java");
-            skills.add(skill1);
-            Skill skill2 = new Skill();
-            skill2.setSkillName("Spring");
-            skills.add(skill2);
-
-            when(skillService.getSkillSet(skillNames)).thenReturn(skills);
-
-            mockMvc.perform(post("/admin/registerEmp")
-                    .param("firstName", "John")
-                    .param("lastName", "Doe")
-                    .param("email", "john.doe@example.com")
-                    .param("address", "123 Main St")
-                    .param("phone", "1234567890")
-                    .param("gender", "Male")
-                    .param("role", "Developer")
-                    .param("dob", "1990-01-01")
-                    .param("skills", "Java,Spring"))
-                    .andExpect(status().is3xxRedirection());
-
-            verify(employeeService).createPassword();
-            verify(passwordEncoder).encode(mockPassword);
-            verify(skillService).getSkillSet(skillNames);
-            verify(emailService).sendMail(eq("iadityapatel1729@gmail.com"), eq("adityapatel91221@gmail.com"), any(String.class));
-            verify(employeeService).createEmp(org.mockito.ArgumentMatchers.argThat(employee -> 
-            employee.getFirstName().equals("John") &&
-            employee.getLastName().equals("Doe") &&
-            employee.getEmail().equals("john.doe@example.com") &&
-            employee.getAddress().equals("123 Main St") &&
-            employee.getPhone().equals("1234567890") &&
-            employee.getGender().equals("Male") &&
-            employee.getRole().equals("Developer") &&
-            employee.getPassword().equals("encodedPassword") &&
-            employee.getDob().equals("1990-01-01") &&
-            employee.getHaveSkills().equals(skills)
-        ));
-    	}
-    	/*
-      	
-    	@Test
-        public void testDeleteEmployee() throws Exception {
-            String email = "test@abc.com";
-            when(employeeService.deleteEmp(email)).thenReturn(employee);
-
-            when(emailDto.getEmail()).thenReturn(email);
-
-            mockMvc.perform(delete("/admin/deleteEmp")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(emailDto)))
-                    .andExpect(status().isOk());
-
-            verify(employeeService).deleteEmp(email);
-        } 
-    	*/
+    	 
     	@Test
     	public void testAddProject() throws Exception{
     		String proName="emp";

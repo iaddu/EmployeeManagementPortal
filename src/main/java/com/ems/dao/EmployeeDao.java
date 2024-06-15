@@ -15,12 +15,7 @@ public interface EmployeeDao  extends JpaRepository<Employee, Integer>{
     public void deleteByEmail(String email);
     public Employee getByEmail(String email);
     public Optional<Employee> findEmployeeByempId(int empId);
-    @Modifying
-    /*The @Modifying annotation in Spring Data JPA is used to indicate
-     *  that a method modifies the database state. By default, 
-     *  Spring Data JPA assumes that methods annotated with @Query 
-     *  only read data from the database, not modify it
-     */
+    @Modifying 
     @Transactional
     @Query(value = "DELETE FROM emp_skill WHERE emp_id = :empId", nativeQuery = true)
     void deleteEmpSkillsByEmployeeId(int empId);

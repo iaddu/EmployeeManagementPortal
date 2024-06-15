@@ -11,7 +11,7 @@ public class AuthUtils {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            return userDetails.getUsername(); // This will be the email in your case
+            return userDetails.getUsername();
         }
         return null;
     }
